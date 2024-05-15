@@ -8,6 +8,11 @@ function App() {
       <>
          <header className='py-2 font-medium bg-primary-foreground'>
             <div className='container flex items-center gap-x-5'>
+               <img
+                  src='https://media-cdn-v2.laodong.vn/laodong/1.0.3.32/images/logo/ldo_red.png'
+                  alt='logo'
+                  className='w-[225px] h-14 object-cover'
+               />
                <ModeToggle />
                <NavLink to={'/'} className={({ isActive }) => (isActive ? 'text-blue-500' : '')}>
                   Home
