@@ -119,6 +119,6 @@ body::-webkit-scrollbar-track {
 
 /* Tạo màu cho thanh cuộn */
 body::-webkit-scrollbar-thumb {
-   background-color: #7367f0;
+   background-color: #ed1c24;
    border-radius: 5px;
 }
