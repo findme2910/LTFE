@@ -1,5 +1,5 @@
 import { ModeToggle } from '@/components/mode-toggle'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 export default function Header() {
    return (
@@ -50,12 +50,12 @@ export default function Header() {
                      className='w-[82px] h-7 object-cover'
                   />
                </Link>
-               {/* <NavLink to={'/'} className={({ isActive }) => (isActive ? 'text-blue-500' : '')}>
-                     Home
-                  </NavLink>
-                  <NavLink to={'/about'} className={({ isActive }) => (isActive ? 'text-blue-500' : '')}>
-                     About
-                  </NavLink> */}
+               <NavLink to={'/'} className={({ isActive }) => (isActive ? 'text-blue-500' : '')}>
+                  Home
+               </NavLink>
+               <NavLink to={'/about'} className={({ isActive }) => (isActive ? 'text-blue-500' : '')}>
+                  About
+               </NavLink>
             </div>
          </div>
          <div className='border-t-2 border-t-primaryColor text-sm'>
