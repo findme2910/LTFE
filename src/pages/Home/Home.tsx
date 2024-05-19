@@ -2,7 +2,7 @@ export default function Home() {
    return (
       <div>
          <div className='flex items-end gap-x-2'>
-            <h2 className='text-primaryColor font-bold text-2xl whitespace-nowrap'>Xã hội</h2>
+            <h2 className='text-primaryColor font-bold text-2xl whitespace-nowrap'>Thời sự</h2>
             <div className='w-full h-[1px] -translate-y-1 bg-primaryColor'></div>
          </div>
          <div className='mt-4 flex items-start gap-x-4'>
