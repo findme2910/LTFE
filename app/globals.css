@@ -74,7 +74,9 @@
       @apply bg-background text-foreground;
    }
 }
-
+* {
+   font-weight: 400;
+}
 .container {
    max-width: 1248px;
    width: 100%;
@@ -119,6 +121,6 @@ body::-webkit-scrollbar-track {
 
 /* Tạo màu cho thanh cuộn */
 body::-webkit-scrollbar-thumb {
-   background-color: #ed1c24;
+   background-color: #0098d1;
    border-radius: 5px;
 }

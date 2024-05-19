@@ -4,18 +4,22 @@ export default function Footer() {
          <div className='container mx-auto px-4 py-8'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
                <div>
-                  <img
-                     src='https://media-cdn-v2.laodong.vn/laodong/1.0.3.32/images/logo/ldo_red.png'
-                     alt='logo'
-                     className='w-[225px] h-14 object-cover'
-                  />
+                  <img src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg' alt='logo' />
+                  <ul className='mt-4'>
+                     <li>Hotline</li>
+                     <li className='text-primaryColor'>0906 645 777</li>
+                     <li>Liên hệ quảng cáo</li>
+                     <li className='text-primaryColor'>0908 780 404</li>
+                  </ul>
                </div>
                <div>
-                  <h3 className=' text-lg font-semibold mb-4'>Liên Hệ</h3>
+                  <h3 className=' text-lg font-semibold mb-4'>Biên tập</h3>
                   <ul>
-                     <li className='mb-2'>Tòa soạn: (+84 24) 38252441 - 35330305</li>
-                     <li className='mb-2'>Email: toasoan@laodong.com.vn</li>
-                     <li className='mb-2'>Đường dây nóng: 096 8383388 * Bạn đọc: (+84 24) 35335235</li>
+                     <li>Tổng biên tập: Nguyễn Ngọc Toàn</li>
+                     <li>Phó tổng biên tập: Hải Thành</li>
+                     <li>Phó tổng biên tập: Lâm Hiếu Dũng</li>
+                     <li>Phó tổng biên tập: Trần Việt Hưng</li>
+                     <li>Tổng thư ký tòa soạn: Đức Trung</li>
                   </ul>
                </div>
                <div>
@@ -39,7 +43,7 @@ export default function Footer() {
                   </ul>
                </div>
             </div>
-            <div className='mt-8 text-center text-sm'>© 2024 Báo Lao Động. All rights reserved.</div>
+            <div className='mt-8 text-center text-sm'>© 2024 Báo Thanh Niên. All rights reserved.</div>
          </div>
       </footer>
    )
