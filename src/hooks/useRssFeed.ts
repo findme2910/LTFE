@@ -13,7 +13,7 @@ export const useRssFeed = (url: string) => {
    useEffect(() => {
       const fetchRSS = async () => {
          try {
-            const response = await fetch('https://cors-anywhere.herokuapp.com/https://thanhnien.vn/rss/' + url)
+            const response = await fetch('https://cors-anywhere.herokuapp.com/https://thanhnien.vn/rss/' + url + '.rss')
             const text = await response.text()
             const parser = new DOMParser()
             const xml = parser.parseFromString(text, 'text/xml')
