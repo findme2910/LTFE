@@ -3,6 +3,7 @@ import Header from '@/components/Header'
 import About from '@/pages/About/About'
 import Home from '@/pages/Home/Home'
 import { Route, Routes } from 'react-router-dom'
+import Login from '@/pages/Login/Login.tsx'
 
 function App() {
    return (
@@ -12,9 +13,10 @@ function App() {
             <Routes>
                <Route path={'/'} element={<Home />} />
                <Route path={'/about'} element={<About />} />
+               <Route path={'/login'} element={<Login />} />
             </Routes>
          </main>
-         <Footer />
+         <Footer/>
          <button
             onClick={() =>
                window.scrollTo({

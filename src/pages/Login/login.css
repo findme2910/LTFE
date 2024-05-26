@@ -1,0 +1,145 @@
+* {
+    box-sizing: border-box;
+    font-weight: 400;
+}
+.login {
+    margin-top: 8px;
+    margin-bottom: 127px;
+}
+.container {
+    width: 1150px !important;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.login .form-login {
+    width: 402px;
+    margin: auto;
+}
+.login .form-login .tabs-login {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0 10px 0;
+    border-bottom: 2px solid #ebebeb;
+    position: relative;
+}
+.login .form-login .tabs-login .tabs-login-item {
+    width: 201px;
+    text-align: center;
+}
+.login .form-login a {
+    font-family: Merriweather;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #292929;
+}
+.login .form-login .login-network .login-by-account {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    position: relative;
+}
+.login .form-login .login-network .login-by-account .login-by-subtext {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #454545;
+}
+.login .form-login .login-network .login-social-network {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.login .form-login .login-network .login-social-network .link-network {
+    background: #f6f6f6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    width: 123.33px;
+    height: 40px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #292929;
+}
+.login-or {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    position: relative;
+}
+.login-cnt .login-form-1 .email-name {
+    width: 100%;
+    display: block;
+}
+.login-cnt .login-form-1 input {
+    margin-top: 8px;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px 8px;
+}
+.login .form-login .login-cnt .login-form-1 .forget-password {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: right;
+    color: #8b8b8b;
+    padding-top: 16px;
+    display: block;
+}
+.login .form-login .login-cnt .login-form-1 .login-password .view {
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.login .form-login .login-cnt .login-form-1 .btn-login {
+    margin-top: 16px;
+    background: #0098d1;
+    border-radius: 4px;
+    padding: 9px;
+    text-align: center;
+}
+.login .form-login .login-cnt .login-form-1 .btn-login .link-btn {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+}
+.login .form-login .login-cnt .btn-apple {
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 9px;
+    margin-top: 8px;
+    text-align: center;
+}
+.login .form-login .login-cnt .btn-apple .link-network {
+    display: flex;
+    width: auto;
+    max-width: 260px;
+    margin: auto;
+}
+.login .form-login .login-cnt .btn-apple .link-network img {
+     width: 16px;
+     margin-right: 10px;
+}
