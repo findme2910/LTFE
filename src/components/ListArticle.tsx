@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
+import Loading from '@/components/Loading'
 const itemsPerPage = 16
 export const ListArticle = ({ url }: { url: string }) => {
    const rssData: RSS[] = useRssFeed(url)
@@ -40,6 +41,7 @@ export const ListArticle = ({ url }: { url: string }) => {
       }
    }
 
+   if (!currentItems || currentItems.length === 0) return <Loading />
    return (
       <div>
          <div className='grid grid-cols-2 gap-5'>
