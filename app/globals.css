@@ -116,7 +116,7 @@ body::-webkit-scrollbar {
 
 /* Tạo màu nền cho thanh cuộn */
 body::-webkit-scrollbar-track {
-   background-color: #666;
+   background-color: #aaa;
 }
 
 /* Tạo màu cho thanh cuộn */

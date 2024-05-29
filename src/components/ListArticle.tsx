@@ -5,8 +5,8 @@ import ReactPaginate from 'react-paginate'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 const itemsPerPage = 16
-export const ListArticle = () => {
-   const rssData: RSS[] = useRssFeed('kinh-te')
+export const ListArticle = ({ url }: { url: string }) => {
+   const rssData: RSS[] = useRssFeed(url)
    const [currentItems, setCurrentItems] = useState<RSS[]>([])
    const [currentPage, setCurrentPage] = useState<number>(1)
    const [openPaginate, setOpenPaginate] = useState<boolean>(false)
