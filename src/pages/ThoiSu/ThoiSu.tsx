@@ -1,9 +1,9 @@
 import { ListArticle } from '@/components/ListArticle'
 
-export default function Home() {
+export default function ThoiSu() {
    return (
       <>
-         <ListArticle url='home' />
+         <ListArticle url='thoi-su' />
       </>
    )
 }

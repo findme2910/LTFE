@@ -1,6 +1,6 @@
 import { ModeToggle } from '@/components/mode-toggle'
 import { Input } from '@/components/ui/input'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 const menu1 = [
    {
       title: 'PODCAST',
@@ -83,6 +83,141 @@ const menu1 = [
       url: '/'
    }
 ]
+const menu = [
+   {
+      title: 'Thời sự',
+      url: '/thoi-su'
+   },
+   {
+      title: 'Chào ngày mới',
+      url: '/chao-ngay-moi'
+   },
+   {
+      title: 'Thế giới',
+      url: '/the-gioi'
+   },
+   {
+      title: 'Kinh tế',
+      url: '/kinh-te'
+   },
+   {
+      title: 'Đời sống',
+      url: '/doi-song'
+   },
+   {
+      title: 'Sức khỏe',
+      url: '/suc-khoe'
+   },
+   {
+      title: 'Giới trẻ',
+      url: '/gioi-tre'
+   },
+   {
+      title: 'Tiêu dùng thông minh',
+      url: '/tieu-dung-thong-minh'
+   },
+   {
+      title: 'Giáo dục',
+      url: '/giao-duc'
+   },
+   {
+      title: 'Du lịch',
+      url: '/du-lich'
+   },
+   {
+      title: 'Văn hóa',
+      url: '/van-hoa'
+   },
+   {
+      title: 'Giải trí',
+      url: '/giai-tri'
+   },
+   {
+      title: 'Thể thao',
+      url: '/the-thao'
+   },
+   {
+      title: 'Công nghệ - Game',
+      url: '/cong-nghe-game'
+   },
+   {
+      title: 'Xe',
+      url: '/xe'
+   },
+   {
+      title: 'Thời trang trẻ',
+      url: '/thoi-trang-tre'
+   },
+   {
+      title: 'Bạn đọc',
+      url: '/ban-doc'
+   },
+   {
+      title: 'Rao vặt',
+      url: '/rao-vat'
+   },
+   {
+      title: 'Video',
+      url: '/video'
+   },
+   {
+      title: 'Diễn đàn',
+      url: '/dien-dan'
+   },
+   {
+      title: 'Podcast',
+      url: '/podcast'
+   },
+   {
+      title: 'Nhật ký Tết Việt',
+      url: '/nhat-ky-tet-viet'
+   },
+   {
+      title: 'Magazine',
+      url: '/magazine'
+   },
+   {
+      title: 'Cùng con đi tiếp cuộc đời',
+      url: '/cung-con-di-tiep-cuoc-doi'
+   },
+   {
+      title: 'Bạn cần biết',
+      url: '/ban-can-biet'
+   },
+   {
+      title: 'Cải chính',
+      url: '/cai-chinh'
+   },
+   {
+      title: 'Blog phóng viên',
+      url: '/blog-phong-vien'
+   },
+   {
+      title: 'Tôi viết',
+      url: '/toi-viet'
+   },
+   {
+      title: 'Việc làm',
+      url: '/viec-lam'
+   },
+   {
+      title: 'TNO',
+      url: '/tno'
+   },
+   {
+      title: 'Tin 24h',
+      url: '/tin-24h'
+   },
+   {
+      title: 'Tin thị trường',
+      url: '/thi-truong'
+   },
+   {
+      title: 'Tin nhanh 360',
+      url: '/tin-nhanh-360'
+   }
+]
+
 export default function Header() {
    return (
       <header className='pt-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0'>
@@ -130,7 +265,7 @@ export default function Header() {
             </div>
          </div>
          <div className='border-t border-t-gray-300'></div>
-         <div className='flex items-center gap-x-2 container py-2'>
+         <div className='flex items-center flex-wrap gap-x-2 container py-2'>
             <Link to={'/'}>
                <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -142,13 +277,17 @@ export default function Header() {
                   <path d='m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z' />
                </svg>
             </Link>
-            {Array(10)
-               .fill(0)
-               .map((_, index) => (
-                  <Link key={index} to={'/'} className='font-medium hover:text-primaryColor transition-all'>
-                     Thời sự
-                  </Link>
-               ))}
+            {menu.map((item) => (
+               <NavLink
+                  className={({ isActive }) =>
+                     isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
+                  }
+                  key={item.url}
+                  to={item.url}
+               >
+                  {item.title}
+               </NavLink>
+            ))}
          </div>
       </header>
    )
