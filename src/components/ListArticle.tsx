@@ -48,7 +48,11 @@ export const ListArticle = ({ url }: { url: string }) => {
             {currentItems.length > 0 &&
                currentItems.map((item, index) => (
                   <article className='flex flex-col gap-y-3' key={index}>
-                     <Link className='block aspect-video overflow-hidden rounded-sm' to={item.link} title={item.title}>
+                     <Link
+                        className='block aspect-video overflow-hidden rounded-sm'
+                        to={`/detail/${item.link.split('/')[3]}`}
+                        title={item.title}
+                     >
                         <img
                            className='w-full h-full object-cover hover:scale-110 transition-all'
                            src={item.image}
@@ -57,7 +61,7 @@ export const ListArticle = ({ url }: { url: string }) => {
                         />
                      </Link>
                      <Link
-                        to={item.link}
+                        to={`/detail/${item.link.split('/')[3]}`}
                         className='hover:text-primaryColor transition-all line-clamp-2 h-14'
                         title={item.title}
                      >

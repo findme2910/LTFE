@@ -1,50 +1,44 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import cheerio from 'cheerio'
-import { BeatLoader } from 'react-spinners'
+import LoadingDetail from '@/components/LoadingDetail'
 
-export const Article: React.FC<{ url: string }> = (props) => {
-   const [contents, setContents] = useState<{ selector: string; html: string }[]>([])
-   const [loading, setLoading] = useState<boolean>(true)
-
-   const selectors = ['.box-social', '.article']
+export const Article = ({ url }: { url: string }) => {
+   const [contents, setContents] = useState<unknown>()
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await axios.get(props.url)
+            const response = await axios.get(url)
             const html = response.data
             const $ = cheerio.load(html)
 
-            const newContents = selectors.map((selector) => ({
-               selector,
-               html: $(selector).html() || ''
-            }))
+            // Lấy nội dung của các class cụ thể
+            const detailSapoContent = $('.detail-sapo').html() || ''
+            const detailCmainContent = $('.detail-cmain').html() || ''
+            const detailRelatedContent = $('.detail__related').html() || ''
 
-            setContents(newContents)
+            // Kết hợp nội dung của các class này lại
+            const combinedContent = `
+          <div class="detail-sapo">${detailSapoContent}</div>
+          <div class="detail-cmain">${detailCmainContent}</div>
+          <div class="detail__related">${detailRelatedContent}</div>
+        `
+
+            // Cập nhật state với nội dung đã chọn
+            setContents(combinedContent)
          } catch (error) {
             console.error('Error fetching data:', error)
-         } finally {
-            setLoading(false)
          }
       }
 
       fetchData()
-   }, [])
-
-   if (loading) {
-      return <BeatLoader />
-   }
-
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [url])
+   if (!contents) return <LoadingDetail />
    return (
-      <>
-         {contents.map(({ selector, html }) => (
-            <div
-               key={selector}
-               className={selector.replace('.', '') + ' sticky-top'}
-               dangerouslySetInnerHTML={{ __html: html }}
-            />
-         ))}
-      </>
+      <div className='max-w-4xl mx-auto'>
+         <div dangerouslySetInnerHTML={{ __html: contents }} />
+      </div>
    )
 }
