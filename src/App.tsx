@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import Detail from '@/pages/Detail/Detail'
 import Home from '@/pages/Home/Home'
 import ThoiSu from '@/pages/ThoiSu/ThoiSu'
 import { Route, Routes } from 'react-router-dom'
@@ -12,6 +13,7 @@ function App() {
             <Routes>
                <Route path={'/'} element={<Home />} />
                <Route path={'/thoi-su'} element={<ThoiSu />} />
+               <Route path={'/detail/:slug'} element={<Detail />} />
             </Routes>
          </main>
          <Footer />
