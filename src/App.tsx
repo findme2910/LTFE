@@ -1,19 +1,23 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import About from '@/pages/About/About'
+import Detail from '@/pages/Detail/Detail'
 import Home from '@/pages/Home/Home'
+import ThoiSu from '@/pages/ThoiSu/ThoiSu'
 import { Route, Routes } from 'react-router-dom'
 import Login from '@/pages/Login/Login.tsx'
+import History from '@/pages/History/History.tsx'
 
 function App() {
    return (
       <>
          <Header />
-         <main className='container py-5 min-h-screen mt-[119px]'>
+         <main className='container py-5 min-h-screen mt-[170px]'>
             <Routes>
                <Route path={'/'} element={<Home />} />
-               <Route path={'/about'} element={<About />} />
                <Route path={'/login'} element={<Login />} />
+               <Route path={'/thoi-su'} element={<ThoiSu />} />
+               <Route path={'/detail/:slug'} element={<Detail />} />
+               <Route path={'/history'} element={<History />} />
             </Routes>
          </main>
          <Footer/>
