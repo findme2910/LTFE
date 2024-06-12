@@ -251,6 +251,7 @@ export default function Header() {
                   <Input type='text' placeholder='Tìm kiếm...' className='outline-none border-none p-0' />
                </div>
             </div>
+            <Link to="/contact">Liên hệ</Link>
             <div className='flex items-center gap-x-5'>
                <ModeToggle />
                <img src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg' alt='' />

@@ -1,19 +1,24 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import TopHeader from '@/components/TopHeader'
 import Detail from '@/pages/Detail/Detail'
 import Home from '@/pages/Home/Home'
 import ThoiSu from '@/pages/ThoiSu/ThoiSu'
 import { Route, Routes } from 'react-router-dom'
+import Contact from '@/pages/Contact/Contact'
+
 
 function App() {
    return (
       <>
+         <TopHeader />
          <Header />
          <main className='container py-5 min-h-screen mt-[170px]'>
             <Routes>
                <Route path={'/'} element={<Home />} />
                <Route path={'/thoi-su'} element={<ThoiSu />} />
                <Route path={'/detail/:slug'} element={<Detail />} />
+               <Route path='/contact' element={<Contact />} />
             </Routes>
          </main>
          <Footer />
