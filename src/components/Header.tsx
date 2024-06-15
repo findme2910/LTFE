@@ -226,7 +226,7 @@ export default function Header() {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       if (event.key === 'Enter' && query.trim() !== '') {
-         nav(`tim-kiem.htm?keywords=${query}`)
+         nav(`tim-kiem?q=${query}`)
       }
    }
    return (
