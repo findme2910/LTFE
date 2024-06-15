@@ -1,6 +1,7 @@
 import { ModeToggle } from '@/components/mode-toggle'
 import { Input } from '@/components/ui/input'
-import { Link, NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 const menu1 = [
    {
       title: 'PODCAST',
@@ -219,20 +220,19 @@ const menu = [
 ]
 
 export default function Header() {
+   const [query, setQuery] = useState('')
+   const nav = useNavigate()
+   const handleSearch = (event: unknown) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      if (event.key === 'Enter' && query.trim() !== '') {
+         nav(`tim-kiem.htm?keywords=${query}`)
+      }
+   }
    return (
       <header className='pt-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0'>
          <div className='container flex items-center justify-between pb-2'>
             <div className='flex items-center gap-x-5'>
-               <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-10 h-10'
-               >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5' />
-               </svg>
                <div className='flex items-center gap-x-2 border border-gray-300 rounded overflow-hidden'>
                   <svg
                      xmlns='http://www.w3.org/2000/svg'
@@ -248,7 +248,13 @@ export default function Header() {
                         d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
                      />
                   </svg>
-                  <Input type='text' placeholder='Tìm kiếm...' className='outline-none border-none p-0' />
+                  <Input
+                     onChange={(e) => setQuery(e.target.value)}
+                     onKeyDown={handleSearch}
+                     type='text'
+                     placeholder='Tìm kiếm...'
+                     className='outline-none border-none p-0'
+                  />
                </div>
             </div>
             <div className='flex items-center gap-x-5'>

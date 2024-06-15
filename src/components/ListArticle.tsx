@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 import Loading from '@/components/Loading'
+
 const itemsPerPage = 16
 export const ListArticle = ({ url }: { url: string }) => {
    const rssData: RSS[] = useRssFeed(url)
@@ -50,7 +51,9 @@ export const ListArticle = ({ url }: { url: string }) => {
                   <article className='flex flex-col gap-y-3' key={index}>
                      <Link
                         className='block aspect-video overflow-hidden rounded-sm'
-                        to={`/detail/${item.link.split('/')[3]}`}
+                        to={{
+                           pathname: `/detail/${item.link.split('/')[3]}`
+                        }}
                         title={item.title}
                      >
                         <img
