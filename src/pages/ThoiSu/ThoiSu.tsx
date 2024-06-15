@@ -11,7 +11,7 @@ export default function ThoiSu() {
                content='Thời sự hôm nay - Tin tức Việt Nam mới nhất 24 giờ trong ngày. Thời sự biển Đông, bản tin thời sự nóng online trong nước cập nhật mới nhất 24h'
             />
          </Helmet>
-         <ListArticle url='thoi-su' />
+         <ListArticle url='thoi-su' title={'Thời sự'} />
       </>
    )
 }
