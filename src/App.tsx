@@ -2,7 +2,7 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Detail from '@/pages/Detail/Detail'
 import Home from '@/pages/Home/Home'
-import { Search } from '@/pages/Search/Search'
+import NotFound from '@/pages/NotFound/NotFound'
 import ThoiSu from '@/pages/ThoiSu/ThoiSu'
 import { Route, Routes } from 'react-router-dom'
 
@@ -10,12 +10,13 @@ function App() {
    return (
       <>
          <Header />
-         <main className='container py-5 min-h-screen mt-[170px]'>
+         <main className='container py-5 min-h-screen mt-[60px]'>
             <Routes>
                <Route path={'/'} element={<Home />} />
                <Route path={'/thoi-su'} element={<ThoiSu />} />
                <Route path={'/detail/:slug'} element={<Detail />} />
-               <Route path={'/tim-kiem/'} element={<Search />} />
+               <Route path='*' element={<NotFound />} />
+               {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
             </Routes>
          </main>
          <Footer />
