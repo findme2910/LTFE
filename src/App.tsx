@@ -6,6 +6,7 @@ import Home from '@/pages/Home/Home'
 import ThoiSu from '@/pages/ThoiSu/ThoiSu'
 import { Route, Routes } from 'react-router-dom'
 import Contact from '@/pages/Contact/Contact'
+import BanCanBiet from '@/pages/BanCanBiet/BanCanBiet.tsx'
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
                <Route path={'/'} element={<Home />} />
                <Route path={'/thoi-su'} element={<ThoiSu />} />
                <Route path={'/detail/:slug'} element={<Detail />} />
-               <Route path='/contact' element={<Contact />} />
+               <Route path='/lien-he' element={<Contact />} />
+               <Route path='/ban-can-biet' element={<BanCanBiet />} />
             </Routes>
          </main>
          <Footer />

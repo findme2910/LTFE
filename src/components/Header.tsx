@@ -220,7 +220,7 @@ const menu = [
 
 export default function Header() {
    return (
-      <header className='pt-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0'>
+      <header className='pt-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0 mt-[37px]'>
          <div className='container flex items-center justify-between pb-2'>
             <div className='flex items-center gap-x-5'>
                <svg
@@ -251,7 +251,6 @@ export default function Header() {
                   <Input type='text' placeholder='Tìm kiếm...' className='outline-none border-none p-0' />
                </div>
             </div>
-            <Link to="/contact">Liên hệ</Link>
             <div className='flex items-center gap-x-5'>
                <ModeToggle />
                <img src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg' alt='' />
