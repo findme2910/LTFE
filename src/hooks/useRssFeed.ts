@@ -6,7 +6,6 @@ export interface RSS {
    image: string
    pubDate: string
 }
-
 export const useRssFeed = (url: string) => {
    const [rssItems, setRssItems] = useState<RSS[]>([])
 
@@ -42,3 +41,39 @@ export const useRssFeed = (url: string) => {
 
    return rssItems
 }
+// export class RSS1 {
+//    constructor(
+//       public title: string,
+//       public link: string,
+//       public description: string,
+//       public image: string,
+//       public pubDate: string
+//    ) {}
+// }
+
+// export const SearchResults = async (url: string): Promise<RSS[]> => {
+//    try {
+//       const response = await axios.get(url)
+//       const html = response.data
+
+//       const $ = cheerio.load(html)
+//       const items = $('.story')
+//       const amountResultSearch = $('.search-wrapper')
+//       const rssItems: RSS[] = items
+//          .map((_, item) => {
+//             return new RSS1(
+//                $(amountResultSearch).find('.search-wrapper .result').text() || '',
+//                $(item).find('.story__thumb a').attr('title') || '',
+//                $(item).find('.story__thumb a').attr('href') || '',
+//                $(item).find('.story__summary').text() || '',
+//                $(item).find('a img').attr('data-src') || ''
+//             )
+//          })
+//          .get()
+
+//       return rssItems
+//    } catch (error) {
+//       console.error('Error fetching search results:', error)
+//       return []
+//    }
+// }

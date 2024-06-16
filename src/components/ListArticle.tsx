@@ -5,8 +5,9 @@ import ReactPaginate from 'react-paginate'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 import Loading from '@/components/Loading'
+
 const itemsPerPage = 16
-export const ListArticle = ({ url }: { url: string }) => {
+export const ListArticle = ({ url, title }: { url: string; title: string }) => {
    const rssData: RSS[] = useRssFeed(url)
    const [currentItems, setCurrentItems] = useState<RSS[]>([])
    const [currentPage, setCurrentPage] = useState<number>(1)
@@ -23,6 +24,10 @@ export const ListArticle = ({ url }: { url: string }) => {
 
    const handlePageClick = ({ selected }: { selected: number }) => {
       setCurrentPage(selected + 1)
+      window.scrollTo({
+         top: 0,
+         behavior: 'smooth'
+      })
       navigate(`${pathname}?page=${selected + 1}`)
    }
 
@@ -44,13 +49,19 @@ export const ListArticle = ({ url }: { url: string }) => {
    if (!currentItems || currentItems.length === 0) return <Loading />
    return (
       <div>
+         <h1 className='text-3xl font-bold pb-2 mb-6 border-b-2 border-b-primaryColor flex items-center justify-between'>
+            {title}
+            <span className='text-lg translate-y-1'>Trang {currentPage}</span>
+         </h1>
          <div className='grid grid-cols-2 gap-5'>
             {currentItems.length > 0 &&
                currentItems.map((item, index) => (
                   <article className='flex flex-col gap-y-3' key={index}>
                      <Link
                         className='block aspect-video overflow-hidden rounded-sm'
-                        to={`/detail/${item.link.split('/')[3]}`}
+                        to={{
+                           pathname: `/detail/${item.link.split('/')[3]}`
+                        }}
                         title={item.title}
                      >
                         <img
