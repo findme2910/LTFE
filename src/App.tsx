@@ -18,6 +18,11 @@ import ChaoNgayMoi from '@/pages/ChaoNgayMoi/ChaoNgayMoi.tsx'
 import CongNgheGame from '@/pages/CongNghe/CongNghe-Game.tsx'
 import RaoVat from '@/pages/RaoVat/RaoVat.tsx'
 import Xe from '@/pages/Xe/Xe.tsx'
+import GiaiTri from '@/pages/GiaiTri/GiaiTri.tsx'
+import GioiTre from '@/pages/GioiTre/GioiTre.tsx'
+import ThoiTrangTre from '@/pages/ThoiTrangTre/ThoiTrangTre.tsx'
+import TieuDung from '@/pages/TieuDung/TieuDung.tsx'
+import Video from '@/pages/Video/Video.tsx'
 
 
 function App() {
@@ -41,6 +46,11 @@ function App() {
                <Route path='/cong-nghe-game' element={<CongNgheGame />} />
                <Route path='/xe' element={<Xe />} />
                <Route path='/rao-vat' element={<RaoVat />} />
+               <Route path='/giai-tri' element={<GiaiTri />} />
+               <Route path='/gioi-tre' element={<GioiTre />} />
+               <Route path='/thoi-trang-tre' element={<ThoiTrangTre />} />
+               <Route path='/tieu-dung' element={<TieuDung />} />
+               <Route path='/video' element={<Video />} />
                <Route path='/ban-can-biet' element={<BanCanBiet />} />
                <Route path='*' element={<NotFound />} />
                {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
