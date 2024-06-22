@@ -3,21 +3,41 @@ import { Helmet } from 'react-helmet'
 
 export const Navigation = () => {
    return (
-      <nav className="bg-gray-200 p-4">
-         <ul className="flex space-x-4">
-            <li><a href="#weather" className="text-blue-500">Thời tiết</a></li>
-            <li><a href="#exchange-rate">Tỷ giá ngoại tệ</a></li>
-            <li><a href="#gold-price">Giá vàng</a></li>
-            <li><a href="#lottery-results">Kết quả xổ số</a></li>
-            <li><a href="#stock-market">Chứng khoán</a></li>
-            <li><a href="#tv-schedule">Lịch truyền hình</a></li>
-            <li><a href="#movie-schedule">Lịch chiếu phim</a></li>
-            <li><a href="#gas-price">Giá xăng dầu</a></li>
-            <li><a href="#aqi">AQI</a></li>
+      <nav className='bg-gray-200 p-4'>
+         <ul className='flex space-x-4'>
+            <li>
+               <a href='#weather' className='text-primaryColor'>
+                  Thời tiết
+               </a>
+            </li>
+            <li>
+               <a href='#exchange-rate'>Tỷ giá ngoại tệ</a>
+            </li>
+            <li>
+               <a href='#gold-price'>Giá vàng</a>
+            </li>
+            <li>
+               <a href='#lottery-results'>Kết quả xổ số</a>
+            </li>
+            <li>
+               <a href='#stock-market'>Chứng khoán</a>
+            </li>
+            <li>
+               <a href='#tv-schedule'>Lịch truyền hình</a>
+            </li>
+            <li>
+               <a href='#movie-schedule'>Lịch chiếu phim</a>
+            </li>
+            <li>
+               <a href='#gas-price'>Giá xăng dầu</a>
+            </li>
+            <li>
+               <a href='#aqi'>AQI</a>
+            </li>
          </ul>
       </nav>
-   );
-};
+   )
+}
 
 // export const WeatherWidget = () => {
 //    const [weather, setWeather] = useState(null);
@@ -81,17 +101,15 @@ export const Navigation = () => {
 //    );
 // };
 
-
-
-
-
-
 export default function ThoiTrangTre() {
    return (
       <>
          <Helmet>
             <title>Thời trang trẻ - Bộ sưu tập, xu hướng, phong cách giới trẻ</title>
-            <meta name="description" content="Báo thời trang trẻ, xu hướng thời trang mới của giới trẻ hiện đại. Phong cách thời trang đa dạng, phong phú, phù hợp phong cách giới trẻ hiện nay."/>
+            <meta
+               name='description'
+               content='Báo thời trang trẻ, xu hướng thời trang mới của giới trẻ hiện đại. Phong cách thời trang đa dạng, phong phú, phù hợp phong cách giới trẻ hiện nay.'
+            />
          </Helmet>
          <ListArticle url='thoi-trang-tre' title={'Thời Trang Trẻ'} />
       </>

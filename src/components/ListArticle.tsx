@@ -137,7 +137,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                         handlePageClick({ selected: value - 1 })
                         setOpenPaginate(false)
                      }}
-                     className='bg-blue-500 text-white shadow rounded p-2 flex items-center gap-x-2'
+                     className='bg-primaryColor text-white shadow rounded p-2 flex items-center gap-x-2'
                   >
                      <input
                         type='number'
