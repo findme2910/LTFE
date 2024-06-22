@@ -1,5 +1,5 @@
 import { ModeToggle } from '@/components/mode-toggle'
-import { Link, NavLink } from 'react-router-dom'
+import {NavLink } from 'react-router-dom'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 import { useState } from 'react'
@@ -224,13 +224,15 @@ export default function Header() {
    const [openCategory, setOpenCategory] = useState<boolean>(false)
 
    return (
-      <header className='py-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0'>
+
+      <header className='py-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0 mt-[37px]'>
          <div className='flex container items-center justify-between'>
             <img
                src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg'
                alt='logo'
                className='w-28 aspect-[3.5]'
             />
+
             <div className='flex items-center gap-x-5'>
                <NavLink
                   className={({ isActive }) =>

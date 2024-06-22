@@ -1,21 +1,90 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import TopHeader from '@/components/TopHeader'
 import Detail from '@/pages/Detail/Detail'
 import Home from '@/pages/Home/Home'
 import NotFound from '@/pages/NotFound/NotFound'
 import ThoiSu from '@/pages/ThoiSu/ThoiSu'
 import { Route, Routes } from 'react-router-dom'
+import Contact from '@/pages/Contact/Contact'
+import BanCanBiet from '@/pages/BanCanBiet/BanCanBiet.tsx'
+import DoiSong from '@/pages/DoiSong/DoiSong.tsx'
+import DuLich from '@/pages/DuLich/DuLich.tsx'
+import GiaoDuc from '@/pages/GiaoDuc/GiaoDuc.tsx'
+import PodCast from '@/pages/PodCast/PodCast.tsx'
+import SucKhoe from '@/pages/SucKhoe/SucKhoe.tsx'
+import TheThao from '@/pages/TheThao/TheThao.tsx'
+import ChaoNgayMoi from '@/pages/ChaoNgayMoi/ChaoNgayMoi.tsx'
+import CongNgheGame from '@/pages/CongNghe/CongNghe-Game.tsx'
+import RaoVat from '@/pages/RaoVat/RaoVat.tsx'
+import Xe from '@/pages/Xe/Xe.tsx'
+import GiaiTri from '@/pages/GiaiTri/GiaiTri.tsx'
+import GioiTre from '@/pages/GioiTre/GioiTre.tsx'
+import ThoiTrangTre from '@/pages/ThoiTrangTre/ThoiTrangTre.tsx'
+import TieuDung from '@/pages/TieuDung/TieuDung.tsx'
+import Video from '@/pages/Video/Video.tsx'
+import BanDoc from '@/pages/BanDoc/BanDoc.tsx'
+import KinhTe from '@/pages/KinhTe/KinhTe.tsx'
+import Magazine from '@/pages/Magazine/Magazine.tsx'
+import TheGioi from '@/pages/TheGioi/TheGioi.tsx'
+import ThiTruong from '@/pages/ThiTruong/ThiTruong.tsx'
+import Tin24h from '@/pages/Tin24h/Tin24h.tsx'
+import TinNhanh360 from '@/pages/TinNhanh360/TinNhanh360.tsx'
+import VanHoa from '@/pages/VanHoa/VanHoa.tsx'
+import BlogPhongVien from '@/pages/BlogPhongVien/BlogPhongVien.tsx'
+import CaiChinh from '@/pages/CaiChinh/CaiChinh.tsx'
+import CungCon from '@/pages/CungCon/CungCon.tsx'
+import DienDan from '@/pages/DienDan/DienDan.tsx'
+import NhatKyTetViet from '@/pages/NhatKyTetViet/NhatKyTetViet.tsx'
+import TNO from '@/pages/TNO/TNO.tsx'
+import ToiViet from '@/pages/ToiViet/ToiViet.tsx'
+import ViecLam from '@/pages/ViecLam/ViecLam.tsx'
+
 
 function App() {
    return (
       <>
+         <TopHeader />
          <Header />
-         <main className='container py-5 min-h-screen mt-[60px]'>
+         <main className='container py-5 min-h-screen mt-[100px]'>
             <Routes>
                <Route path={'/'} element={<Home />} />
                <Route path={'/thoi-su'} element={<ThoiSu />} />
+               <Route path={'/doi-song'} element={<DoiSong />} />
                <Route path={'/detail/:slug'} element={<Detail />} />
+               <Route path='/lien-he' element={<Contact />} />
+               <Route path='/giao-duc' element={<GiaoDuc />} />
+               <Route path='/du-lich' element={<DuLich />} />
+               <Route path='/podcast' element={<PodCast />} />
+               <Route path='/suc-khoe' element={<SucKhoe />} />
+               <Route path='/the-thao' element={<TheThao />} />
+               <Route path='/chao-ngay-moi' element={<ChaoNgayMoi />} />
+               <Route path='/cong-nghe-game' element={<CongNgheGame />} />
+               <Route path='/xe' element={<Xe />} />
+               <Route path='/rao-vat' element={<RaoVat />} />
+               <Route path='/giai-tri' element={<GiaiTri />} />
+               <Route path='/gioi-tre' element={<GioiTre />} />
+               <Route path='/thoi-trang-tre' element={<ThoiTrangTre />} />
+               <Route path='/tieu-dung-thong-minh' element={<TieuDung />} />
+               <Route path='/video' element={<Video />} />
+               <Route path='/ban-can-biet' element={<BanCanBiet />} />
                <Route path='*' element={<NotFound />} />
+               <Route path='/ban-doc' element={<BanDoc />} />
+               <Route path='/kinh-te' element={<KinhTe />} />
+               <Route path='/magazine' element={<Magazine />} />
+               <Route path='/the-gioi' element={<TheGioi/>} />
+               <Route path='/thi-truong' element={<ThiTruong />} />
+               <Route path='/tin-24h' element={<Tin24h />} />
+               <Route path='/tin-nhanh-360' element={<TinNhanh360 />} />
+               <Route path='/van-hoa' element={<VanHoa />} />
+               <Route path='/blog-phong-vien' element={<BlogPhongVien />} />
+               <Route path='/cai-chinh' element={<CaiChinh />} />
+               <Route path='/cung-con-di-tiep-cuoc-doi' element={<CungCon />} />
+               <Route path='/dien-dan' element={<DienDan />} />
+               <Route path='/nhat-ky-tet-viet' element={<NhatKyTetViet />} />
+               <Route path='/tno' element={<TNO />} />
+               <Route path='/toi-viet' element={<ToiViet />} />
+               <Route path='/viec-lam' element={<ViecLam />} />
                {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
             </Routes>
          </main>
