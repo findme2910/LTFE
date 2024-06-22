@@ -11,6 +11,13 @@ import BanCanBiet from '@/pages/BanCanBiet/BanCanBiet.tsx'
 import DoiSong from '@/pages/DoiSong/DoiSong.tsx'
 import DuLich from '@/pages/DuLich/DuLich.tsx'
 import GiaoDuc from '@/pages/GiaoDuc/GiaoDuc.tsx'
+import PodCast from '@/pages/PodCast/PodCast.tsx'
+import SucKhoe from '@/pages/SucKhoe/SucKhoe.tsx'
+import TheThao from '@/pages/TheThao/TheThao.tsx'
+import ChaoNgayMoi from '@/pages/ChaoNgayMoi/ChaoNgayMoi.tsx'
+import CongNgheGame from '@/pages/CongNghe/CongNghe-Game.tsx'
+import RaoVat from '@/pages/RaoVat/RaoVat.tsx'
+import Xe from '@/pages/Xe/Xe.tsx'
 
 
 function App() {
@@ -27,6 +34,13 @@ function App() {
                <Route path='/lien-he' element={<Contact />} />
                <Route path='/giao-duc' element={<GiaoDuc />} />
                <Route path='/du-lich' element={<DuLich />} />
+               <Route path='/podcast' element={<PodCast />} />
+               <Route path='/suc-khoe' element={<SucKhoe />} />
+               <Route path='/the-thao' element={<TheThao />} />
+               <Route path='/chao-ngay-moi' element={<ChaoNgayMoi />} />
+               <Route path='/cong-nghe-game' element={<CongNgheGame />} />
+               <Route path='/xe' element={<Xe />} />
+               <Route path='/rao-vat' element={<RaoVat />} />
                <Route path='/ban-can-biet' element={<BanCanBiet />} />
                <Route path='*' element={<NotFound />} />
                {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
