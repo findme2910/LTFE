@@ -1,5 +1,5 @@
 import { ModeToggle } from '@/components/mode-toggle'
-import {NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 import { useState } from 'react'
@@ -85,6 +85,7 @@ import { useState } from 'react'
 //       url: '/'
 //    }
 // ]
+
 const menu = [
    {
       title: 'Thời sự',
@@ -222,9 +223,15 @@ const menu = [
 
 export default function Header() {
    const [openCategory, setOpenCategory] = useState<boolean>(false)
+   const [searchQuery, setSearchQuery] = useState<string>('')
+   const navigate = useNavigate()
+
+   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      navigate(`/search?query=${searchQuery}`)
+   }
 
    return (
-
       <header className='py-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0 mt-[37px]'>
          <div className='flex container items-center justify-between'>
             <img
@@ -288,8 +295,21 @@ export default function Header() {
                      </svg>
                   </button>
                </Tippy>
+
+               <form onSubmit={handleSearch} className='flex items-center border rounded'>
+                  <input
+                     type='text'
+                     className='p-2 rounded-l outline-none'
+                     placeholder='Tìm kiếm...'
+                     value={searchQuery}
+                     onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <button type='submit' className='bg-blue-500 p-2 rounded-r text-white'>
+                     Tìm kiếm
+                  </button>
+               </form>
+               <ModeToggle />
             </div>
-            <ModeToggle />
          </div>
       </header>
    )

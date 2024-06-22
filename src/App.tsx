@@ -39,6 +39,7 @@ import NhatKyTetViet from '@/pages/NhatKyTetViet/NhatKyTetViet.tsx'
 import TNO from '@/pages/TNO/TNO.tsx'
 import ToiViet from '@/pages/ToiViet/ToiViet.tsx'
 import ViecLam from '@/pages/ViecLam/ViecLam.tsx'
+import SearchResults from '@/pages/Timkiem/TimKiem.tsx'
 
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
                <Route path='/tno' element={<TNO />} />
                <Route path='/toi-viet' element={<ToiViet />} />
                <Route path='/viec-lam' element={<ViecLam />} />
+               <Route path="/search" element={<SearchResults />} />
                {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
             </Routes>
          </main>
