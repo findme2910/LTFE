@@ -31,6 +31,14 @@ import ThiTruong from '@/pages/ThiTruong/ThiTruong.tsx'
 import Tin24h from '@/pages/Tin24h/Tin24h.tsx'
 import TinNhanh360 from '@/pages/TinNhanh360/TinNhanh360.tsx'
 import VanHoa from '@/pages/VanHoa/VanHoa.tsx'
+import BlogPhongVien from '@/pages/BlogPhongVien/BlogPhongVien.tsx'
+import CaiChinh from '@/pages/CaiChinh/CaiChinh.tsx'
+import CungCon from '@/pages/CungCon/CungCon.tsx'
+import DienDan from '@/pages/DienDan/DienDan.tsx'
+import NhatKyTetViet from '@/pages/NhatKyTetViet/NhatKyTetViet.tsx'
+import TNO from '@/pages/TNO/TNO.tsx'
+import ToiViet from '@/pages/ToiViet/ToiViet.tsx'
+import ViecLam from '@/pages/ViecLam/ViecLam.tsx'
 
 
 function App() {
@@ -57,7 +65,7 @@ function App() {
                <Route path='/giai-tri' element={<GiaiTri />} />
                <Route path='/gioi-tre' element={<GioiTre />} />
                <Route path='/thoi-trang-tre' element={<ThoiTrangTre />} />
-               <Route path='/tieu-dung' element={<TieuDung />} />
+               <Route path='/tieu-dung-thong-minh' element={<TieuDung />} />
                <Route path='/video' element={<Video />} />
                <Route path='/ban-can-biet' element={<BanCanBiet />} />
                <Route path='*' element={<NotFound />} />
@@ -69,6 +77,14 @@ function App() {
                <Route path='/tin-24h' element={<Tin24h />} />
                <Route path='/tin-nhanh-360' element={<TinNhanh360 />} />
                <Route path='/van-hoa' element={<VanHoa />} />
+               <Route path='/blog-phong-vien' element={<BlogPhongVien />} />
+               <Route path='/cai-chinh' element={<CaiChinh />} />
+               <Route path='/cung-con-di-tiep-cuoc-doi' element={<CungCon />} />
+               <Route path='/dien-dan' element={<DienDan />} />
+               <Route path='/nhat-ky-tet-viet' element={<NhatKyTetViet />} />
+               <Route path='/tno' element={<TNO />} />
+               <Route path='/toi-viet' element={<ToiViet />} />
+               <Route path='/viec-lam' element={<ViecLam />} />
                {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
             </Routes>
          </main>
