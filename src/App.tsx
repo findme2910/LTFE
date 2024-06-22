@@ -23,6 +23,14 @@ import GioiTre from '@/pages/GioiTre/GioiTre.tsx'
 import ThoiTrangTre from '@/pages/ThoiTrangTre/ThoiTrangTre.tsx'
 import TieuDung from '@/pages/TieuDung/TieuDung.tsx'
 import Video from '@/pages/Video/Video.tsx'
+import BanDoc from '@/pages/BanDoc/BanDoc.tsx'
+import KinhTe from '@/pages/KinhTe/KinhTe.tsx'
+import Magazine from '@/pages/Magazine/Magazine.tsx'
+import TheGioi from '@/pages/TheGioi/TheGioi.tsx'
+import ThiTruong from '@/pages/ThiTruong/ThiTruong.tsx'
+import Tin24h from '@/pages/Tin24h/Tin24h.tsx'
+import TinNhanh360 from '@/pages/TinNhanh360/TinNhanh360.tsx'
+import VanHoa from '@/pages/VanHoa/VanHoa.tsx'
 
 
 function App() {
@@ -53,6 +61,14 @@ function App() {
                <Route path='/video' element={<Video />} />
                <Route path='/ban-can-biet' element={<BanCanBiet />} />
                <Route path='*' element={<NotFound />} />
+               <Route path='/ban-doc' element={<BanDoc />} />
+               <Route path='/kinh-te' element={<KinhTe />} />
+               <Route path='/magazine' element={<Magazine />} />
+               <Route path='/the-gioi' element={<TheGioi/>} />
+               <Route path='/thi-truong' element={<ThiTruong />} />
+               <Route path='/tin-24h' element={<Tin24h />} />
+               <Route path='/tin-nhanh-360' element={<TinNhanh360 />} />
+               <Route path='/van-hoa' element={<VanHoa />} />
                {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
             </Routes>
          </main>
