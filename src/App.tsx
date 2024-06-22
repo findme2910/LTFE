@@ -8,6 +8,9 @@ import ThoiSu from '@/pages/ThoiSu/ThoiSu'
 import { Route, Routes } from 'react-router-dom'
 import Contact from '@/pages/Contact/Contact'
 import BanCanBiet from '@/pages/BanCanBiet/BanCanBiet.tsx'
+import DoiSong from '@/pages/DoiSong/DoiSong.tsx'
+import DuLich from '@/pages/DuLich/DuLich.tsx'
+import GiaoDuc from '@/pages/GiaoDuc/GiaoDuc.tsx'
 
 
 function App() {
@@ -19,12 +22,14 @@ function App() {
             <Routes>
                <Route path={'/'} element={<Home />} />
                <Route path={'/thoi-su'} element={<ThoiSu />} />
+               <Route path={'/doi-song'} element={<DoiSong />} />
                <Route path={'/detail/:slug'} element={<Detail />} />
                <Route path='/lien-he' element={<Contact />} />
+               <Route path='/giao-duc' element={<GiaoDuc />} />
+               <Route path='/du-lich' element={<DuLich />} />
                <Route path='/ban-can-biet' element={<BanCanBiet />} />
                <Route path='*' element={<NotFound />} />
                {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
-
             </Routes>
          </main>
          <Footer />
