@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 import Loading from '@/components/Loading'
+import DOMPurify from 'dompurify'
 
 const itemsPerPage = 16
 export const ListArticle = ({ url, title }: { url: string; title: string }) => {
@@ -76,7 +77,12 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                         className='hover:text-primaryColor transition-all line-clamp-2 h-14'
                         title={item.title}
                      >
-                        <h2 dangerouslySetInnerHTML={{ __html: item.title }} className='font-bold text-xl'></h2>
+                        <h2
+                           dangerouslySetInnerHTML={{
+                              __html: DOMPurify.sanitize(item.title) //DOMPurify chống tấn công XSS
+                           }}
+                           className='font-bold text-xl'
+                        ></h2>
                      </Link>
                      <span className='text-xs'>{item.pubDate}</span>
                      <p title={item.description} className='line-clamp-3'>

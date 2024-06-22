@@ -219,7 +219,7 @@ export default function Header() {
 
                <form onSubmit={handleSearch} className='flex items-center border rounded'>
                   <Input
-                     type='text'
+                     type='search'
                      className='p-2 rounded-l outline-none border-none'
                      placeholder='Tìm kiếm...'
                      value={searchQuery}
