@@ -3,13 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { RSS, useRssFeedAll } from '@/hooks/useRssFeed.ts';
 
 const RSS_FEED_URLS = [
-   'thoi-su',
-   'the-gioi',
    'kinh-te',
    'doi-song',
    'suc-khoe',
    'giao-duc',
-   // Thêm các URL RSS feed khác nếu cần
+   'thoi-su',
+   'the-gioi',
+   'gioi-tre'
 ];
 
 const SearchResults: React.FC = () => {
@@ -34,13 +34,15 @@ const SearchResults: React.FC = () => {
          <h2 className='text-2xl font-bold mb-4'>Kết quả tìm kiếm cho "{query}"</h2>
          {filteredResults.length > 0 ? (
             filteredResults.map((item) => (
-               <div key={item.link} className='mb-4'>
+               <div key={item.link} className='flex mb-4 items-start'>
                   {item.image && (
-                     <img src={item.image} alt={item.title} className='mb-2 w-full h-auto'/>
+                     <img src={item.image} alt={item.title} className='w-32 h-32 object-cover mr-4'/>
                   )}
-                  <h3 className='text-xl font-semibold'>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <a href={item.link} className='text-blue-500 underline'>Đọc thêm</a>
+                  <div className="flex-grow">
+                     <h3 className='text-xl font-semibold'>{item.title}</h3>
+                     <p>{item.description}</p>
+                     <a href={item.link} className='text-blue-500 underline'>Đọc thêm</a>
+                  </div>
                </div>
             ))
          ) : (
