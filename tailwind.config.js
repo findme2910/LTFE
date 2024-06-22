@@ -13,6 +13,11 @@ module.exports = {
          }
       },
       extend: {
+         margin:{
+            '7':'324px',
+            '13':'300px',
+            '15':'312px',
+            '17':'354px'},
          colors: {
             primaryColor: '#0098D1',
             border: 'hsl(var(--border))',

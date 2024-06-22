@@ -1,7 +1,7 @@
 export default function Contact() {
       return (
          <div>
-               <div className="bg-[#017cc2] text-white ">
+            <div className="bg-[#017cc2] text-white ">
                   <div className="p-4 ml-10">
                         <div className="pt-4">
                            <div>
@@ -61,7 +61,6 @@ export default function Contact() {
                      </div>
                   </div>
                </div>
-
             <div className="py-2 mt-20 ">
                <div className="container mx-auto p-4">
                   <div className="text-sm">
@@ -106,15 +105,15 @@ export default function Contact() {
                               </div>
                            </div>
                         </div>
-                     </div>
-                  <div className="flex flex-wrap gap-10 text-sm">
+                  </div>
+                  <div className="flex flex-wrap text-sm">
                      {/* Đồng Nai Section */}
                      <div className="flex flex-col">
                         <div className="flex items-center">
                            <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">2</span>
                            <p className="ml-2 text-sm font-semibold">Đồng Nai</p>
                         </div>
-                        <div className="mt-2">
+                        <div className="mt-2 ml-4">
                            <p className="font-semibold">Địa chỉ</p>
                            <p>15A Võ Thị Sáu, TP. Biên Hòa</p>
                            <div className="mt-2">
@@ -125,7 +124,7 @@ export default function Contact() {
                            </div>
                         </div>
                      </div>
-                     <div className="border-l-2 border-gray-200  mx-4 ml-16"></div>
+                     <div className="border-l-2 border-gray-200  mx-4 ml-7 "></div>
                      {/* Cần Thơ Section */}
                      <div className="flex flex-col">
                         <div className="flex items-center">
@@ -144,8 +143,146 @@ export default function Contact() {
                         </div>
                      </div>
                   </div>
-                  );
-
+                  <div className="flex flex-wrap text-sm mt-6">
+                     <div className="flex flex-col">
+                        <div className="flex items-center">
+                           <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">4</span>
+                           <p className="ml-2 text-sm font-semibold">Đà lạt</p>
+                        </div>
+                        <div className="mt-2 ml-4">
+                           <p className="font-semibold">Địa chỉ</p>
+                           <p>115 Lê Hồng Phong, P.4, TP.Đà Lạt.</p>
+                           <div className="mt-2">
+                              <p className="font-semibold">Điện thoại</p>
+                              <p>(0263) 3827807 – 0916.704.389</p>
+                              <p className="font-semibold mt-2">Fax</p>
+                              <p>(0263) 3812930</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div className="border-l-2 border-gray-200  mx-4 ml-13 "></div>
+                     <div className="flex flex-col">
+                        <div className="flex items-center">
+                           <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">5</span>
+                           <p className="ml-2 text-sm font-semibold">Nha Trang</p>
+                        </div>
+                        <div className="mt-2">
+                           <p className="font-semibold">Địa chỉ</p>
+                           <p>120 Thống Nhất, P.Vạn Thắng, TP. Nha Trang</p>
+                           <div className="mt-2">
+                              <p className="font-semibold">Điện thoại</p>
+                              <p>(0258) 3819306 – 0979.375.588</p>
+                              <p className="font-semibold mt-2">Fax</p>
+                              <p>(0258) 3819307</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="flex flex-wrap text-sm mt-6">
+                     <div className="flex flex-col">
+                        <div className="flex items-center">
+                           <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">6</span>
+                           <p className="ml-2 text-sm font-semibold">Hà Nội</p>
+                        </div>
+                        <div className="mt-2 ml-4">
+                           <p className="font-semibold">Địa chỉ</p>
+                           <p>218 Tây Sơn , Q.Đống Đa, Hà Nội</p>
+                           <div className="mt-2">
+                              <p className="font-semibold">Điện thoại</p>
+                              <p>(024) 38.570.981 – 0904.266.866</p>
+                              <p className="font-semibold mt-2">Fax</p>
+                              <p>(024) 38570948</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div className="border-l-2 border-gray-200  mx-4 ml-15 "></div>
+                     <div className="flex flex-col">
+                        <div className="flex items-center">
+                           <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">7</span>
+                           <p className="ml-2 text-sm font-semibold">Hải Phòng</p>
+                        </div>
+                        <div className="mt-2">
+                           <p className="font-semibold">Địa chỉ</p>
+                           <p>107 Máy Tơ - Q. Ngô Quyền - TP. Hải Phòng</p>
+                           <div className="mt-2">
+                              <p className="font-semibold">Điện thoại</p>
+                              <p>(0225) 3822038</p>
+                              <p className="font-semibold mt-2">Fax</p>
+                              <p>(0225) 3822038</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="flex flex-wrap text-sm mt-6">
+                     <div className="flex flex-col">
+                        <div className="flex items-center">
+                           <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">8</span>
+                           <p className="ml-2 text-sm font-semibold">Thanh Hóa</p>
+                        </div>
+                        <div className="mt-2 ml-4">
+                           <p className="font-semibold">Địa chỉ</p>
+                           <p>1 Nhà Thờ, TP. Thanh Hóa</p>
+                           <div className="mt-2">
+                              <p className="font-semibold">Điện thoại</p>
+                              <p>(0237) 3855748</p>
+                              <p className="font-semibold mt-2">Fax</p>
+                              <p>(0237) 3855748</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div className="border-l-2 border-gray-200  mx-4 ml-17 "></div>
+                     <div className="flex flex-col">
+                        <div className="flex items-center">
+                           <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">9</span>
+                           <p className="ml-2 text-sm font-semibold">Đà Nẵng</p>
+                        </div>
+                        <div className="mt-2">
+                           <p className="font-semibold">Địa chỉ</p>
+                           <p>144 Bạch Đằng, TP. Đà Nẵng</p>
+                           <div className="mt-2">
+                              <p className="font-semibold">Điện thoại</p>
+                              <p>(0236) 3824231 – 0903.551.999</p>
+                              <p className="font-semibold mt-2">Fax</p>
+                              <p>(0236) 3871345</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="flex flex-wrap text-sm mt-6">
+                     <div className="flex flex-col">
+                        <div className="flex items-center">
+                           <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">10</span>
+                           <p className="ml-2 text-sm font-semibold">Bình Định</p>
+                        </div>
+                        <div className="mt-2 ml-4">
+                           <p className="font-semibold">Địa chỉ</p>
+                           <p>133 Lê Lợi, TP.Quy Nhơn</p>
+                           <div className="mt-2">
+                              <p className="font-semibold">Điện thoại</p>
+                              <p>(0256) 3824142 – 0905.459.589</p>
+                              <p className="font-semibold mt-2">Fax</p>
+                              <p>(0256) 3815559</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div className="border-l-2 border-gray-200  mx-4 ml-7 "></div>
+                     <div className="flex flex-col">
+                        <div className="flex items-center">
+                           <span className="flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold">11</span>
+                           <p className="ml-2 text-sm font-semibold">Đặt báo gửi đi nước ngoài: Công ty XUNHASABA</p>
+                        </div>
+                        <div className="mt-2">
+                           <p className="font-semibold">Email</p>
+                           <p>export@xunhasaba-hcmc.com.vn</p>
+                           <div className="mt-2">
+                              <p className="font-semibold">Điện thoại</p>
+                              <p>(84.28) 38241320 - 38292900</p>
+                              <p className="font-semibold mt-2">Fax</p>
+                              <p>(84.28) 38241321</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
