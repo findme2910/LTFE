@@ -40,6 +40,8 @@ import TNO from '@/pages/TNO/TNO.tsx'
 import ToiViet from '@/pages/ToiViet/ToiViet.tsx'
 import ViecLam from '@/pages/ViecLam/ViecLam.tsx'
 import SearchResults from '@/pages/Timkiem/TimKiem.tsx'
+import TienIch from '@/pages/TienIch/TienIch.tsx'
+
 
 
 function App() {
@@ -54,6 +56,7 @@ function App() {
                <Route path={'/doi-song'} element={<DoiSong />} />
                <Route path={'/detail/:slug'} element={<Detail />} />
                <Route path='/lien-he' element={<Contact />} />
+               <Route path='/tien-ich' element={<TienIch />} />
                <Route path='/giao-duc' element={<GiaoDuc />} />
                <Route path='/du-lich' element={<DuLich />} />
                <Route path='/podcast' element={<PodCast />} />
@@ -87,7 +90,6 @@ function App() {
                <Route path='/toi-viet' element={<ToiViet />} />
                <Route path='/viec-lam' element={<ViecLam />} />
                <Route path="/search" element={<SearchResults />} />
-               {/* <Route path={'/tim-kiem/'} element={<Search />} /> */}
             </Routes>
          </main>
          <Footer />
