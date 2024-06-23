@@ -8,7 +8,7 @@ interface GoldPrice {
 const GoldPrices: React.FC = () => {
    const [goldPrices, setGoldPrices] = useState<GoldPrice[]>([]);
    const API_KEY = 'eFsXzfAZcssapWMohQYh';
-   const API_URL = `https://www.quandl.com/api/v3/datasets/LBMA/GOLD/data.json?api_key=${API_KEY}`;
+   const API_URL = `https://cors-anywhere.herokuapp.com/https://www.quandl.com/api/v3/datasets/LBMA/GOLD/data.json?api_key=${API_KEY}`;
 
    useEffect(() => {
       const fetchGoldPrices = async () => {
@@ -16,7 +16,7 @@ const GoldPrices: React.FC = () => {
             const response = await fetch(API_URL);
             const data = await response.json();
             if (data && data.dataset_data && data.dataset_data.data) {
-               const prices: GoldPrice[] = data.dataset_data.data.slice(0, 10).map((item: never) => ({
+               const prices: GoldPrice[] = data.dataset_data.data.slice(0, 10).map((item: [string, number]) => ({
                   date: item[0],
                   price: item[1]
                }));
@@ -30,7 +30,7 @@ const GoldPrices: React.FC = () => {
       };
 
       fetchGoldPrices();
-   }, []);
+   }, [API_URL]);
 
    return (
       <div id="gold-price" className="my-8">
