@@ -143,3 +143,67 @@
      width: 16px;
      margin-right: 10px;
 }
+
+.login-cnt .login-form-2 .email-name {
+    width: 100%;
+    display: block;
+}
+.login-cnt .login-form-2 input {
+    margin-top: 8px;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px 8px;
+}
+.login .form-login .login-cnt .login-form-2 .forget-password {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: right;
+    color: #8b8b8b;
+    padding-top: 16px;
+    display: block;
+}
+.login .form-login .login-cnt .login-form-2 .login-password .view {
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.login .form-login .login-cnt .login-form-2 .btn-login {
+    margin-top: 16px;
+    background: #0098d1;
+    border-radius: 4px;
+    padding: 9px;
+    text-align: center;
+}
+.login .form-login .login-cnt .login-form-2 .btn-login .link-btn {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+}
+.regula {
+    display: flex; /* Sử dụng flexbox để căn chỉnh */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    font-family: Inter; /* Sử dụng font chữ Inter */
+    font-size: 13px; /* Cỡ chữ */
+    color: #8b8b8b; /* Màu chữ xám nhạt */
+}
+
+.regula .forget-password {
+    margin-left: 5px; /* Khoảng cách giữa văn bản và liên kết */
+    text-decoration: underline; /* Gạch chân cho liên kết */
+    color: #007bff; /* Màu của liên kết */
+    margin-bottom: 16px;
+}
+
+
+
+

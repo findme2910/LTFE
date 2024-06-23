@@ -6,7 +6,7 @@ export default function Login(){
          <div className='container'>
             <form action="" className='form-login ng-scope ng-pristine ng-valid'>
                <ul className="tabs-login">
-                  <li className="tabs-login-item active">
+                  <li className="tabs-login-item">
                      <a href="#menu_1" className="tabs-link" data-ng-click="message = ''">Đăng nhập</a>
                   </li>
                   <li className="tabs-login-item">
@@ -70,8 +70,8 @@ export default function Login(){
                         <input type="password" className="input-password ng-pristine ng-valid"
                                data-ng-model="loginData.password" placeholder="Nhập mật khẩu" />
                         <a href="#" tabIndex={-1} className="view">
-                           <svg className="icon-view eye-show" >
-                              <use xlinkHref="#eye-show" ></use>
+                           <svg className="icon-view eye-show">
+                              <use xlinkHref="#eye-show"></use>
                            </svg>
                         </a>
                      </div>
@@ -79,21 +79,64 @@ export default function Login(){
                      <div className="btn-login" data-ng-click="login()">
                         <a href="#" className="link-btn">Đăng nhập</a>
                      </div>
-                        <div className="login-or">
-                        <p className="test-or">Hoặc</p>
+                     {/*   <div className="login-or">*/}
+                     {/*   <p className="test-or">Hoặc</p>*/}
+                     {/*</div>*/}
+                     {/*<div className="btn-apple">*/}
+                     {/*   <a href="#" className="link-network"*/}
+                     {/*      data-ng-click="authExternalProvider('Apple')">*/}
+                     {/*      <img src="https://my.thanhnien.vn/image/app_ico.svg" alt="" className="icon-network-2" /> Đăng nhập bằng tài khoản*/}
+                     {/*      Apple*/}
+                     {/*   </a>*/}
+                     {/*</div>*/}
+                  </div>
+                  <div id="menu_2" className="login-form-2">
+                     <div className="login-email">
+                        <label htmlFor="" className="email-name">Email</label>
+                        <input type="text" className="input-email ng-pristine ng-valid" data-ng-model="loginData.email"
+                               placeholder="Nhập email" />
                      </div>
-                     <div className="btn-apple">
-                        <a href="#" className="link-network"
-                           data-ng-click="authExternalProvider('Apple')">
-                           <img src="https://my.thanhnien.vn/image/app_ico.svg" alt="" className="icon-network-2" /> Đăng nhập bằng tài khoản
-                           Apple
+                     <div className="login-name">
+                        <label htmlFor="" className="email-name">Email</label>
+                        <input type="text" className="input-email ng-pristine ng-valid" data-ng-model="loginData.email"
+                               placeholder="Nhập tên" />
+                     </div>
+                     <div className="login-password">
+                        <label htmlFor="" className="email-name">Mật khẩu</label>
+                        <input type="password" className="input-password ng-pristine ng-valid"
+                               data-ng-model="loginData.password" placeholder="Nhập mật khẩu" />
+                        <a href="#" tabIndex={-1} className="view">
+                           <svg className="icon-view eye-show">
+                              <use xlinkHref="#eye-show"></use>
+                           </svg>
                         </a>
+                     </div>
+                     <div className="login-password">
+                        <label htmlFor="" className="email-name">Xác nhận mật khẩu</label>
+                        <input type="password" className="input-password ng-pristine ng-valid"
+                               data-ng-model="registration.confirmPassword" placeholder="Nhập mật khẩu" />
+                        <a href="#" className="view">
+                           <svg className="icon-view eye-show">
+                              {/*<use xlink:href="#eye-show" tabIndex="-1"></use>*/}
+                           </svg>
+                        </a>
+                     </div>
+                     <p className="regula">
+                        Khi bấm đăng ký tài khoản bạn đã đồng ý với
+                        <a href="https://thanhnien.vn/stories/chinh-sach-bao-mat" target="_blank" className="forget-password">quy định</a>
+                        của tòa soạn
+                     </p>
+                     <div className="btn-login" data-ng-click="login()">
+                        <a href="#" className="link-btn">Đăng ký tài khoản</a>
                      </div>
                   </div>
                </div>
+
             </form>
          </div>
       </div>
    </div>
    )
 }
+
+
