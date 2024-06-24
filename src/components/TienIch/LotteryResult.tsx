@@ -83,8 +83,8 @@ const LotteryResults: React.FC = () => {
          <table className="w-full text-left table-auto border-collapse">
             <thead>
             <tr>
-               <th className="px-4 py-2 border">Tên giải</th>
-               <th className="px-4 py-2 border">Số trúng thưởng</th>
+               <th className="px-4 py-2 border font-bold">Tên giải</th>
+               <th className="px-4 py-2 border font-bold">Số trúng thưởng</th>
             </tr>
             </thead>
             <tbody>
