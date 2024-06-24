@@ -78,7 +78,7 @@ function App() {
                <Route path='/ban-doc' element={<BanDoc />} />
                <Route path='/kinh-te' element={<KinhTe />} />
                <Route path='/magazine' element={<Magazine />} />
-               <Route path='/the-gioi' element={<TheGioi/>} />
+               <Route path='/the-gioi' element={<TheGioi />} />
                <Route path='/thi-truong' element={<ThiTruong />} />
                <Route path='/tin-24h' element={<Tin24h />} />
                <Route path='/tin-nhanh-360' element={<TinNhanh360 />} />
@@ -91,7 +91,7 @@ function App() {
                <Route path='/tno' element={<TNO />} />
                <Route path='/toi-viet' element={<ToiViet />} />
                <Route path='/viec-lam' element={<ViecLam />} />
-               <Route path="/search" element={<SearchResults />} />
+               <Route path='/search' element={<SearchResults />} />
             </Routes>
          </main>
          <Footer />

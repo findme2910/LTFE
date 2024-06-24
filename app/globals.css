@@ -110,17 +110,17 @@ html {
 }
 
 /* Tạo thanh cuộn */
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
    width: 10px;
 }
 
 /* Tạo màu nền cho thanh cuộn */
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
    background-color: #aaa;
 }
 
 /* Tạo màu cho thanh cuộn */
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
    background-color: #0098d1;
    border-radius: 5px;
 }
