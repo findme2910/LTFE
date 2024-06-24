@@ -1,12 +1,16 @@
 import './login.css'
 export default function Login(){
+   const handleSubmit=()=>{
+      console.log('ffwwefewfwe')//Nếu nhu bấm vào để cái menu 1 ẩn menu 2 hiện ra có cần phải khai báo biến cho 2 cái menu 1,2 ko
+   }//co1 đăt class roi qqueryselector() giống javascrot á// okeee Linh mơn Linh v chắc đc r á
+
    return(
    <div className='main'>
       <div className='login'>
          <div className='container'>
-            <form action="" className='form-login ng-scope ng-pristine ng-valid'>
+            <form onSubmit={handleSubmit} action="" className='form-login ng-scope ng-pristine ng-valid'>
                <ul className="tabs-login">
-                  <li className="tabs-login-item">
+                  <li className="tabs-login-item">//
                      <a href="#menu_1" className="tabs-link" data-ng-click="message = ''">Đăng nhập</a>
                   </li>
                   <li className="tabs-login-item">
@@ -137,6 +141,7 @@ export default function Login(){
       </div>
    </div>
    )
+
 }
 
 

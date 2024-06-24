@@ -1,88 +1,92 @@
 import { ModeToggle } from '@/components/mode-toggle'
-import { Input } from '@/components/ui/input'
-import { Link, NavLink } from 'react-router-dom'
-const menu1 = [
-   {
-      title: 'PODCAST',
-      icon: (
-         <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-4 h-4'
-         >
-            <path
-               strokeLinecap='round'
-               strokeLinejoin='round'
-               d='M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z'
-            />
-         </svg>
-      ),
-      url: '/'
-   },
-   {
-      title: 'QUẢNG CÁO',
-      icon: (
-         <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-4 h-4'
-         >
-            <path
-               strokeLinecap='round'
-               strokeLinejoin='round'
-               d='M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z'
-            />
-         </svg>
-      ),
-      url: '/'
-   },
-   {
-      title: 'ĐẶT BÁO',
-      icon: (
-         <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-4 h-4'
-         >
-            <path
-               strokeLinecap='round'
-               strokeLinejoin='round'
-               d='M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z'
-            />
-         </svg>
-      ),
-      url: '/'
-   },
-   {
-      title: 'ĐĂNG NHẬP',
-      icon: (
-         <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-4 h-4'
-         >
-            <path
-               strokeLinecap='round'
-               strokeLinejoin='round'
-               d='M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z'
-            />
-         </svg>
-      ),
-      url: '/'
-   }
-]
+import { NavLink, useNavigate } from 'react-router-dom'
+import Tippy from '@tippyjs/react'
+import 'tippy.js/animations/perspective-extreme.css'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button.tsx'
+// const menu1 = [
+//    {
+//       title: 'PODCAST',
+//       icon: (
+//          <svg
+//             xmlns='http://www.w3.org/2000/svg'
+//             fill='none'
+//             viewBox='0 0 24 24'
+//             strokeWidth={1.5}
+//             stroke='currentColor'
+//             className='w-4 h-4'
+//          >
+//             <path
+//                strokeLinecap='round'
+//                strokeLinejoin='round'
+//                d='M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z'
+//             />
+//          </svg>
+//       ),
+//       url: '/'
+//    },
+//    {
+//       title: 'QUẢNG CÁO',
+//       icon: (
+//          <svg
+//             xmlns='http://www.w3.org/2000/svg'
+//             fill='none'
+//             viewBox='0 0 24 24'
+//             strokeWidth={1.5}
+//             stroke='currentColor'
+//             className='w-4 h-4'
+//          >
+//             <path
+//                strokeLinecap='round'
+//                strokeLinejoin='round'
+//                d='M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z'
+//             />
+//          </svg>
+//       ),
+//       url: '/'
+//    },
+//    {
+//       title: 'ĐẶT BÁO',
+//       icon: (
+//          <svg
+//             xmlns='http://www.w3.org/2000/svg'
+//             fill='none'
+//             viewBox='0 0 24 24'
+//             strokeWidth={1.5}
+//             stroke='currentColor'
+//             className='w-4 h-4'
+//          >
+//             <path
+//                strokeLinecap='round'
+//                strokeLinejoin='round'
+//                d='M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z'
+//             />
+//          </svg>
+//       ),
+//       url: '/'
+//    },
+//    {
+//       title: 'ĐĂNG NHẬP',
+//       icon: (
+//          <svg
+//             xmlns='http://www.w3.org/2000/svg'
+//             fill='none'
+//             viewBox='0 0 24 24'
+//             strokeWidth={1.5}
+//             stroke='currentColor'
+//             className='w-4 h-4'
+//          >
+//             <path
+//                strokeLinecap='round'
+//                strokeLinejoin='round'
+//                d='M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z'
+//             />
+//          </svg>
+//       ),
+//       url: '/'
+//    }
+// ]
+
 const menu = [
    {
       title: 'Thời sự',
@@ -219,94 +223,95 @@ const menu = [
 ]
 
 export default function Header() {
+   const [openCategory, setOpenCategory] = useState<boolean>(false)
+   const [searchQuery, setSearchQuery] = useState<string>('')
+   const navigate = useNavigate()
+
+   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      navigate(`/search?query=${searchQuery}`)
+   }
+
    return (
-      <header className='pt-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0'>
-         <div className='container flex items-center justify-between pb-2'>
+      <header className='py-2 font-medium border-b border-b-gray-300 bg-primary-foreground fixed z-50 inset-x-0 top-0 mt-[37px]'>
+         <div className='flex container items-center justify-between'>
+            <img
+               src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg'
+               alt='logo'
+               className='w-28 aspect-[3.5]'
+            />
+
             <div className='flex items-center gap-x-5'>
-               <Link to={'/history'}>
-                  <svg
-                     data-v-c3ad5561='true'
-                     data-v-eb07a472='true'
-                     xmlns='http://www.w3.org/2000/svg'
-                     xmlnsXlink='http://www.w3.org/1999/xlink'
-                     aria-hidden='true'
-                     role='img'
-                     className='icon text-blue-500'
-                     width='30px'
-                     height='30px'
-                     viewBox='0 0 24 24'
-                  >
-                     <path
-                        fill='currentColor'
-                        d='M13 3a9 9 0 0 0-9 9H1l3.89 3.89l.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.25 2.52l.77-1.28l-3.52-2.09V8z'
-                     />
-                  </svg>
-               </Link>
-               <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-10 h-10'
-               >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5' />
-               </svg>
-               <div className='flex items-center gap-x-2 border border-gray-300 rounded overflow-hidden'>
-                  <svg
-                     xmlns='http://www.w3.org/2000/svg'
-                     fill='none'
-                     viewBox='0 0 24 24'
-                     strokeWidth={1.5}
-                     stroke='currentColor'
-                     className='w-5 h-5 flex-shrink-0 ml-3'
-                  >
-                     <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
-                     />
-                  </svg>
-                  <Input type='text' placeholder='Tìm kiếm...' className='outline-none border-none p-0' />
-               </div>
-            </div>
-            <div className='flex items-center gap-x-5'>
-               <ModeToggle />
-               <img src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg' alt='' />
-               {menu1.map((item) => (
-                  <Link key={item.title} to={item.url} className='flex items-center text-xs'>
-                     <span className='font-medium'>{item.title}</span>
-                     <div className='w-9 h-9 flex items-center justify-center bg-primaryColor rounded-full'>
-                        {item.icon}
-                     </div>
-                  </Link>
-               ))}
-            </div>
-         </div>
-         <div className='border-t border-t-gray-300'></div>
-         <div className='flex items-center flex-wrap gap-x-2 container py-2'>
-            <Link to={'/'}>
-               <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
-                  fill='currentColor'
-                  className='w-5 h-5 text-primaryColor'
-               >
-                  <path d='M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z' />
-                  <path d='m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z' />
-               </svg>
-            </Link>
-            {menu.map((item) => (
                <NavLink
                   className={({ isActive }) =>
                      isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
                   }
-                  key={item.url}
-                  to={item.url}
+                  to={'/'}
                >
-                  {item.title}
+                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className={`w-5 h-5`}>
+                     <path d='M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z' />
+                     <path d='m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z' />
+                  </svg>
                </NavLink>
-            ))}
+               <Tippy
+                  animation={'perspective-extreme'}
+                  onClickOutside={() => setOpenCategory(false)}
+                  visible={openCategory}
+                  content={
+                     <div className='bg-primary-foreground grid grid-cols-4 gap-2 p-3 rounded shadow-2xl'>
+                        {menu.map((item) => (
+                           <NavLink
+                              className={({ isActive }) =>
+                                 isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
+                              }
+                              onClick={() => setOpenCategory(false)}
+                              key={item.url}
+                              to={item.url}
+                           >
+                              {item.title}
+                           </NavLink>
+                        ))}
+                     </div>
+                  }
+                  interactive={true}
+                  arrow={false}
+                  offset={[0, 0]}
+                  placement={'bottom-start'}
+                  maxWidth={'auto'}
+               >
+                  <button
+                     className='flex items-center gap-x-1 hover:text-primaryColor transition-all'
+                     onClick={() => setOpenCategory((prev) => !prev)}
+                  >
+                     Danh mục{' '}
+                     <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        strokeWidth={2}
+                        stroke='currentColor'
+                        className={`size-5 ${openCategory ? 'rotate-180' : ''} transition-all`}
+                     >
+                        <path strokeLinecap='round' strokeLinejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5' />
+                     </svg>
+                  </button>
+               </Tippy>
+
+               <form onSubmit={handleSearch} className='flex items-center border rounded'>
+                  <input
+                     type='text'
+                     className='p-2 rounded-l outline-none'
+                     placeholder='Tìm kiếm...'
+                     value={searchQuery}
+                     onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <button type='submit' className='bg-blue-500 p-2 rounded-r text-white'>
+                     Tìm kiếm
+                  </button>
+               </form>
+               <ModeToggle />
+               <Button><NavLink to={'/loign'}>Đăng nhập</NavLink></Button>
+            </div>
          </div>
       </header>
    )
