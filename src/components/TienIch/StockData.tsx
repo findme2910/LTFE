@@ -65,17 +65,20 @@ const StockInfo: React.FC = () => {
             </select>
          </div>
          {stockData && (
-            <div className="border p-4 ">
-               <h2 className="text-xl font-bold bg-blue-100 text-white">Thông tin chứng khoán {stockData.index} ngày {stockData.date}</h2>
-               <div className="grid grid-cols-2 gap-4">
-                  <div>Chỉ số: {stockData.index}</div>
-                  <div>Mở cửa: {stockData.open}</div>
-                  <div>Cao nhất: {stockData.high}</div>
-                  <div>Thấp nhất: {stockData.low}</div>
-                  <div>Đóng cửa: {stockData.close}</div>
-                  <div>Khối lượng: {stockData.volume}</div>
+            <div className="border p-4">
+               <h2 className="text-xl font-bold bg-blue-500 text-white p-2 mb-4">
+                  Thông tin chứng khoán {stockData.index} ngày {stockData.date}
+               </h2>
+               <div className="grid grid-cols-2 gap-4 border-t border-gray-200">
+                  <div className="border-r border-gray-200 pr-4">Chỉ số: {stockData.index}</div>
+                  <div className="pl-4">Mở cửa: {stockData.open}</div>
+                  <div className="border-r border-gray-200 pr-4">Cao nhất: {stockData.high}</div>
+                  <div className="pl-4">Thấp nhất: {stockData.low}</div>
+                  <div className="border-r border-gray-200 pr-4">Đóng cửa: {stockData.close}</div>
+                  <div className="pl-4">Khối lượng: {stockData.volume}</div>
                </div>
             </div>
+
          )}
       </div>
    );
