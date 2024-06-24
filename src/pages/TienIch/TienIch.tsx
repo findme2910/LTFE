@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet';
 import React, { useState } from 'react';
 import ExchangeRates from '@/components/TienIch/ExchangeRate.tsx';
 import GoldPrices from '@/components/TienIch/GoldPrices.tsx';
+import LotteryResults from '@/components/TienIch/LotteryResult.tsx'
 
 interface NavigationProps {
    setActiveTab: React.Dispatch<React.SetStateAction<string>>;
@@ -39,6 +40,7 @@ export default function TienIch() {
          <Navigation setActiveTab={setActiveTab} />
          {activeTab === 'exchange-rate' && <ExchangeRates />}
          {activeTab === 'gold-price' && <GoldPrices />}
+         {activeTab === 'lottery-results' && <LotteryResults />}
          {/* Thêm các danh mục khác tương tự */}
       </>
    );

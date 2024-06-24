@@ -8,21 +8,23 @@ interface GoldPrice {
 const GoldPrices: React.FC = () => {
    const [goldPrices, setGoldPrices] = useState<GoldPrice[]>([]);
    const API_KEY = 'eFsXzfAZcssapWMohQYh';
-   const API_URL = `https://cors-anywhere.herokuapp.com/https://www.quandl.com/api/v3/datasets/LBMA/GOLD/data.json?api_key=${API_KEY}`;
+   //dùng api.allorigins ổn định hơn cors-anywhere đỡ bị chặn
+   const API_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://www.quandl.com/api/v3/datasets/LBMA/GOLD/data.json?api_key=${API_KEY}`)}`;
 
    useEffect(() => {
       const fetchGoldPrices = async () => {
          try {
             const response = await fetch(API_URL);
             const data = await response.json();
-            if (data && data.dataset_data && data.dataset_data.data) {
-               const prices: GoldPrice[] = data.dataset_data.data.slice(0, 10).map((item: [string, number]) => ({
+            const json = JSON.parse(data.contents);
+            if (json && json.dataset_data && json.dataset_data.data) {
+               const prices: GoldPrice[] = json.dataset_data.data.slice(0, 10).map((item: [string, number]) => ({
                   date: item[0],
                   price: item[1]
                }));
                setGoldPrices(prices);
             } else {
-               console.error('Error fetching gold prices:', data);
+               console.error('Error fetching gold prices:', json);
             }
          } catch (error) {
             console.error('Error fetching gold prices:', error);
