@@ -1,117 +1,104 @@
-import { ListArticle } from '@/components/ListArticle'
 import { Helmet } from 'react-helmet'
+import React, { useState } from 'react'
+import ExchangeRates from '@/components/TienIch/ExchangeRate.tsx'
+import GoldPrices from '@/components/TienIch/GoldPrices.tsx'
+import LotteryResults from '@/components/TienIch/LotteryResult.tsx'
 
-export const Navigation = () => {
+interface NavigationProps {
+   setActiveTab: React.Dispatch<React.SetStateAction<string>>
+   activeTab: string
+}
+
+const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
    return (
-      <nav className='bg-gray-200 p-4'>
+      <nav className='bg-primary-foreground p-4'>
          <ul className='flex space-x-4'>
             <li>
-               <a href='#weather' className='text-primaryColor'>
-                  Thời tiết
-               </a>
+               <button
+                  className={`${activeTab === 'exchange-rate' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('exchange-rate')}
+               >
+                  Tỷ giá ngoại tệ
+               </button>
             </li>
             <li>
-               <a href='#exchange-rate'>Tỷ giá ngoại tệ</a>
+               <button
+                  className={`${activeTab === 'gold-price' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('gold-price')}
+               >
+                  Giá vàng
+               </button>
             </li>
             <li>
-               <a href='#gold-price'>Giá vàng</a>
+               <button
+                  className={`${activeTab === 'lottery-results' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('lottery-results')}
+               >
+                  Kết quả xổ số
+               </button>
             </li>
             <li>
-               <a href='#lottery-results'>Kết quả xổ số</a>
+               <button
+                  className={`${activeTab === 'stock-market' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('stock-market')}
+               >
+                  Chứng khoán
+               </button>
             </li>
             <li>
-               <a href='#stock-market'>Chứng khoán</a>
+               <button
+                  className={`${activeTab === 'tv-schedule' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('tv-schedule')}
+               >
+                  Lịch truyền hình
+               </button>
             </li>
             <li>
-               <a href='#tv-schedule'>Lịch truyền hình</a>
+               <button
+                  className={`${activeTab === 'movie-schedule' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('movie-schedule')}
+               >
+                  Lịch chiếu phim
+               </button>
             </li>
             <li>
-               <a href='#movie-schedule'>Lịch chiếu phim</a>
+               <button
+                  className={`${activeTab === 'gas-price' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('gas-price')}
+               >
+                  Giá xăng dầu
+               </button>
             </li>
             <li>
-               <a href='#gas-price'>Giá xăng dầu</a>
-            </li>
-            <li>
-               <a href='#aqi'>AQI</a>
+               <button className={`${activeTab === 'aqi' && 'text-primaryColor'}`} onClick={() => setActiveTab('aqi')}>
+                  AQI
+               </button>
             </li>
          </ul>
       </nav>
    )
 }
 
-// export const WeatherWidget = () => {
-//    const [weather, setWeather] = useState(null);
-//    const [forecast, setForecast] = useState([]);
-//    const [city, setCity] = useState('Da Nang');
-//
-//    useEffect(() => {
-//       fetchWeather();
-//    }, [city]);
-//
-//    const fetchWeather = async () => {
-//       try {
-//          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY&units=metric`);
-//          const data = await response.json();
-//          setWeather(data);
-//
-//          const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=YOUR_API_KEY&units=metric`);
-//          const forecastData = await forecastResponse.json();
-//          setForecast(forecastData.list.slice(0, 7)); // Lấy 7 ngày dự báo
-//       } catch (error) {
-//          console.error('Error fetching weather data:', error);
-//       }
-//    };
-//
-//    const handleCityChange = (event) => {
-//       setCity(event.target.value);
-//    };
-//
-//    return (
-//       <div id="weather" className="p-4">
-//          <div className="mb-4">
-//             <select onChange={handleCityChange} value={city} className="p-2 border rounded">
-//                <option value="Da Nang">Đà Nẵng</option>
-//                <option value="Hanoi">Hà Nội</option>
-//                <option value="Ho Chi Minh City">TP. Hồ Chí Minh</option>
-//                {/* Thêm các thành phố khác nếu cần */}
-//             </select>
-//          </div>
-//          {weather && (
-//             <div className="bg-white p-4 rounded shadow">
-//                <h2 className="text-3xl font-bold">{weather.main.temp}°C</h2>
-//                <p>Thứ bảy, 22/06/2024</p>
-//                <p>{weather.weather[0].description}</p>
-//                <p>Nhiệt độ: {weather.main.temp_min}° - {weather.main.temp_max}°</p>
-//                <p>Độ ẩm: {weather.main.humidity}%</p>
-//             </div>
-//          )}
-//          <div className="mt-4">
-//             <h3 className="text-xl font-semibold">Dự báo thời tiết 7 ngày tới</h3>
-//             <div className="grid grid-cols-7 gap-2">
-//                {forecast.map((day, index) => (
-//                   <div key={index} className="bg-white p-2 rounded shadow text-center">
-//                      <p>{new Date(day.dt * 1000).toLocaleDateString()}</p>
-//                      <p>{day.main.temp_min}° - {day.main.temp_max}°</p>
-//                      <p>{day.weather[0].description}</p>
-//                   </div>
-//                ))}
-//             </div>
-//          </div>
-//       </div>
-//    );
-// };
+export default function TienIch() {
+   const [activeTab, setActiveTab] = useState<string>('exchange-rate')
 
-export default function ThoiTrangTre() {
    return (
       <>
          <Helmet>
-            <title>Thời trang trẻ - Bộ sưu tập, xu hướng, phong cách giới trẻ</title>
+            <title>Tiện ích | Báo Thanh Niên</title>
             <meta
-               name='description'
-               content='Báo thời trang trẻ, xu hướng thời trang mới của giới trẻ hiện đại. Phong cách thời trang đa dạng, phong phú, phù hợp phong cách giới trẻ hiện nay.'
+               name='keywords'
+               content='Tin tức thời sự nhanh 24h, tin nóng nhất Việt Nam, pháp luật, xã hội, đời sống, chính trị, kinh doanh, kinh tế, công nghệ thông tin, game, giới trẻ, văn hóa, giáo dục, thể thao. Video clip, hình ảnh tin độc quyền, tin nóng trên mạng xã hội được cập nhật mới và nhanh nhất trong ngày'
             />
          </Helmet>
-         <ListArticle url='thoi-trang-tre' title={'Thời Trang Trẻ'} />
+         <h1 className='text-3xl font-bold pb-2 mb-6 border-b-2 border-b-primaryColor flex items-center justify-between'>
+            Tiện Ích
+         </h1>
+         <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+         {activeTab === 'exchange-rate' && <ExchangeRates />}
+         {activeTab === 'gold-price' && <GoldPrices />}
+         {activeTab === 'lottery-results' && <LotteryResults />}
+         {/* Thêm các danh mục khác tương tự */}
       </>
    )
 }
