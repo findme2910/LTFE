@@ -5,10 +5,14 @@ import ReactPaginate from 'react-paginate'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 import Loading from '@/components/Loading'
+import { useAddHistory } from '@/hooks/useAddHistory.ts'
 import DOMPurify from 'dompurify'
+
 
 const itemsPerPage = 16
 export const ListArticle = ({ url, title }: { url: string; title: string }) => {
+
+   const { handleAddHistory } = useAddHistory()
    const rssData: RSS[] = useRssFeed(url)
    const [currentItems, setCurrentItems] = useState<RSS[]>([])
    const [currentPage, setCurrentPage] = useState<number>(1)
@@ -60,6 +64,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                currentItems.map((item, index) => (
                   <article className='flex flex-col gap-y-3' key={index}>
                      <Link
+                        onClick={() => handleAddHistory(item.title, item)}
                         className='block aspect-video overflow-hidden rounded-sm'
                         to={{
                            pathname: `/detail/${item.link.split('/')[3]}`
@@ -74,6 +79,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                         />
                      </Link>
                      <Link
+                        onClick={() => handleAddHistory(item.title, item)}
                         to={`/detail/${item.link.split('/')[3]}`}
                         className='hover:text-primaryColor transition-all line-clamp-2 h-14'
                         title={item.title}

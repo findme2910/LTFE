@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 import { useState } from 'react'
+import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input'
 
 const menu = [
@@ -230,6 +231,7 @@ export default function Header() {
                   </button>
                </form>
                <ModeToggle />
+               <Button><NavLink to={'/loign'}>Đăng nhập</NavLink></Button>
             </div>
          </div>
       </header>
