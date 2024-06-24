@@ -5,61 +5,32 @@ import LoadingDetail from '@/components/LoadingDetail'
 import he from 'he'
 import DOMPurify from 'dompurify'
 
-const RSS_FEED_URLS = [
-   'thoi-su',
-   'chao-ngay-moi',
-   'the-gioi',
-   'kinh-te',
-   'doi-song',
-   'suc-khoe',
-   'gioi-tre',
-   'tieu-dung-thong-minh',
-   'giao-duc',
-   'du-lich',
-   'van-hoa',
-   'giai-tri',
-   'the-thao',
-   'cong-nghe-game',
-   'xe',
-   'thoi-trang-tre',
-   'ban-doc',
-   'rao-vat',
-   'video',
-   'dien-dan',
-   'podcast',
-   'nhat-ky-tet-viet',
-   'magazine',
-   'cung-con-di-tiep-cuoc-doi',
-   'ban-can-biet',
-   'cai-chinh',
-   'blog-phong-vien',
-   'toi-viet',
-   'viec-lam',
-   'tno',
-   'tin-24h',
-   'thi-truong',
-   'tin-nhanh-360'
-]
+const RSS_FEED_URLS = ['thoi-su', 'chao-ngay-moi', 'the-gioi', 'kinh-te', 'doi-song', 'suc-khoe', 'gioi-tre']
 
 const SearchResults: React.FC = () => {
-   const [filteredResults, setFilteredResults] = useState<RSS[] | null>(null)
+   const [filteredResults, setFilteredResults] = useState<RSS[]>([])
+   const [loading, setLoading] = useState<boolean>(true)
    const location = useLocation()
    const query = new URLSearchParams(location.search).get('query') || ''
    const rssItems: RSS[] = useRssFeedAll(RSS_FEED_URLS)
 
    useEffect(() => {
-      if (query) {
-         const results = rssItems.filter((item) => {
-            const decodedTitle = he.decode(item.title).toLowerCase()
-            return decodedTitle.includes(query.toLowerCase())
-         })
-         setFilteredResults(results)
-      } else {
-         setFilteredResults([])
+      if (rssItems.length > 0) {
+         setLoading(false)
+         if (query) {
+            const results = rssItems.filter((item) => {
+               const decodedTitle = he.decode(item.title).toLowerCase()
+               return decodedTitle.includes(query.toLowerCase())
+            })
+            setFilteredResults(results)
+         } else {
+            setFilteredResults([])
+         }
       }
    }, [query, rssItems])
 
-   if (!filteredResults) return <LoadingDetail />
+   if (loading) return <LoadingDetail />
+
    return (
       <>
          <h1 className='text-2xl font-bold mb-4'>Kết quả tìm kiếm cho "{query}"</h1>
@@ -70,7 +41,7 @@ const SearchResults: React.FC = () => {
                   <div className='flex-grow'>
                      <h2
                         dangerouslySetInnerHTML={{
-                           __html: DOMPurify.sanitize(item.title) //DOMPurify chống tấn công XSS
+                           __html: DOMPurify.sanitize(item.title) // DOMPurify chống tấn công XSS
                         }}
                         className='font-bold text-xl'
                      ></h2>
@@ -82,7 +53,7 @@ const SearchResults: React.FC = () => {
                </div>
             ))
          ) : (
-            <LoadingDetail />
+            <p>Không tìm thấy bài báo nào</p>
          )}
       </>
    )

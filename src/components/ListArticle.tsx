@@ -14,6 +14,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
    const [currentPage, setCurrentPage] = useState<number>(1)
    const [openPaginate, setOpenPaginate] = useState<boolean>(false)
    const [value, setValue] = useState<number>(1)
+
    const navigate = useNavigate()
    const { pathname } = useLocation()
 
@@ -49,7 +50,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
 
    if (!currentItems || currentItems.length === 0) return <Loading />
    return (
-      <div>
+      <>
          <h1 className='text-3xl font-bold pb-2 mb-6 border-b-2 border-b-primaryColor flex items-center justify-between'>
             {title}
             <span className='text-lg translate-y-1'>Trang {currentPage}</span>
@@ -179,6 +180,6 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                </button>
             </Tippy>
          </div>
-      </div>
+      </>
    )
 }
