@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/api/aqi', async (req, res) => {
    try {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({args: ['--no-sandbox'], headless: true });
       const page = await browser.newPage();
       await page.goto('https://thanhnien.vn/tien-ich/aqi.htm', { waitUntil: 'networkidle2' });
 

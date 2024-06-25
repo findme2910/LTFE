@@ -51,7 +51,6 @@ export default function TienIch() {
          {activeTab === 'movie-schedule' && <MovieSchedule />}
          {activeTab === 'fuel-price' && <FuelPrice />}
          {activeTab === 'aqi' && <Aqi />}
-         {/* Thêm các danh mục khác tương tự */}
       </>
    );
 }

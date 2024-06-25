@@ -12,7 +12,7 @@ router.get('/api/tv-schedule', async (req, res) => {
 
    try {
       //Mở trình duyệt không cần giao diện (headless:true)
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ args: ['--no-sandbox'],headless: true });
       const page = await browser.newPage();
       await page.goto('https://thanhnien.vn/tien-ich/truyen-hinh.htm', { waitUntil: 'networkidle2' });
       // Chọn channel từ dropdown

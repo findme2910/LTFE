@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios';
 
 interface Movie {
@@ -95,21 +95,23 @@ const MovieSchedule: React.FC = () => {
    const [schedule, setSchedule] = useState<Theater | null>(null);
    const [selectedCity, setSelectedCity] = useState<string>(cities[0].value);
    const [selectedCinema, setSelectedCinema] = useState<string>(cinemas[selectedCity][0].value);
+   const [loading, setLoading] = useState<boolean>(true);
 
-   const fetchData = async (city: string, cinema: string) => {
+   const fetchData = useCallback(async (city: string, cinema: string) => {
       try {
+         setLoading(true);
          const response = await axios.get(`http://localhost:5000/api/movie-schedule?city=${city}&cinema=${cinema}`);
          setSchedule(response.data);
       } catch (error) {
          console.error('Error fetching movie schedule:', error);
+      } finally {
+         setLoading(false);
       }
-   };
+   }, []);
 
    useEffect(() => {
-      if (selectedCinema) {
-         fetchData(selectedCity, selectedCinema);
-      }
-   }, [selectedCity, selectedCinema]);
+      fetchData(selectedCity, selectedCinema);
+   }, [selectedCity, selectedCinema, fetchData]);
 
    const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const city = event.target.value;
@@ -141,9 +143,11 @@ const MovieSchedule: React.FC = () => {
                ))}
             </select>
          </div>
-         {schedule ? (
+         {loading ? (
+            <p>Loading...</p>
+         ) : schedule ? (
             <div className="mb-8">
-               <p className="mb-2">{schedule.cinemaDate}</p> {/* Hiển thị ngày chiếu */}
+               <p className="mb-2">{schedule.cinemaDate}</p>
                <h2 className="text-xl font-semibold mt-8">{schedule.theaterName}</h2>
                <table className="min-w-full bg-white border border-gray-200 mt-6">
                   <thead>
@@ -165,7 +169,7 @@ const MovieSchedule: React.FC = () => {
                </table>
             </div>
          ) : (
-            <p>Loading...</p>
+            <p>Không có dữ liệu lịch chiếu phim.</p>
          )}
       </div>
    );

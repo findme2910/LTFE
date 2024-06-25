@@ -12,17 +12,17 @@ router.get('/api/movie-schedule', async (req, res) => {
    }
 
    try {
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ args: ['--no-sandbox'],headless: true });
       const page = await browser.newPage();
       await page.goto('https://thanhnien.vn/tien-ich/lich-chieu-phim.htm', { waitUntil: 'networkidle2' });
       await page.select('select#city__cinema', city);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // chờ tải
+      await new Promise(resolve => setTimeout(resolve, 500)); // chờ tải
       //Chọn cinema
       await page.select('select#film__cinema', cinema);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // chờ tải
+      await new Promise(resolve => setTimeout(resolve, 500)); // chờ tải
 
       const movieSchedule = await page.evaluate(() => {
-         //lấy phần tử có lớp box-uti-lp đang hiển thị trên màn hiình
+         //lấy phần tử có lớp box-uti-lp đang hiển thị trên màn hình
          const visibleSection = Array.from(document.querySelectorAll('.box-uti-lp')).find(section => {
             return window.getComputedStyle(section).display !== 'none';
          });
