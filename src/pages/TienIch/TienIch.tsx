@@ -6,6 +6,7 @@ import LotteryResults from '@/components/TienIch/LotteryResult.tsx'
 import StockInfo from '@/components/TienIch/StockData.tsx'
 import TvSchedule from '@/components/TienIch/TVSchedule.tsx'
 import MovieSchedule from '@/components/TienIch/MovieSchedule.tsx'
+import FuelPrice from '@/components/TienIch/FuelPrices.tsx'
 
 interface NavigationProps {
    setActiveTab: React.Dispatch<React.SetStateAction<string>>;
@@ -21,7 +22,7 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab }) => {
             <li><button onClick={() => setActiveTab('stock-market')}>Chứng khoán</button></li>
             <li><button onClick={() => setActiveTab('tv-schedule')} >Lịch truyền hình</button></li>
             <li><button onClick={() => setActiveTab('movie-schedule')} >Lịch chiếu phim</button></li>
-            <li><button onClick={() => setActiveTab('gas-price')} >Giá xăng dầu</button></li>
+            <li><button onClick={() => setActiveTab('fuel-price')} >Giá xăng dầu</button></li>
             <li><button onClick={() => setActiveTab('aqi')} >AQI</button></li>
          </ul>
       </nav>
@@ -47,6 +48,7 @@ export default function TienIch() {
          {activeTab === 'stock-market' && <StockInfo />}
          {activeTab === 'tv-schedule' && <TvSchedule />}
          {activeTab === 'movie-schedule' && <MovieSchedule />}
+         {activeTab === 'fuel-price' && <FuelPrice />}
          {/* Thêm các danh mục khác tương tự */}
       </>
    );
