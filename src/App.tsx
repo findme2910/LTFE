@@ -1,11 +1,14 @@
 import Footer from '@/components/Footer'
-import Header from '@/components/Header'
+ import Header from '@/components/Header'
 import TopHeader from '@/components/TopHeader'
 import Detail from '@/pages/Detail/Detail'
 import Home from '@/pages/Home/Home'
 import NotFound from '@/pages/NotFound/NotFound'
 import ThoiSu from '@/pages/ThoiSu/ThoiSu'
 import { Route, Routes } from 'react-router-dom'
+import Login from '@/pages/Login/Login.tsx'
+import History from '@/pages/History/History.tsx'
+
 import Contact from '@/pages/Contact/Contact'
 import BanCanBiet from '@/pages/BanCanBiet/BanCanBiet.tsx'
 import DoiSong from '@/pages/DoiSong/DoiSong.tsx'
@@ -41,9 +44,6 @@ import ToiViet from '@/pages/ToiViet/ToiViet.tsx'
 import ViecLam from '@/pages/ViecLam/ViecLam.tsx'
 import SearchResults from '@/pages/Timkiem/TimKiem.tsx'
 import TienIch from '@/pages/TienIch/TienIch.tsx'
-
-
-
 function App() {
    return (
       <>
@@ -52,9 +52,11 @@ function App() {
          <main className='container py-5 min-h-screen mt-[100px]'>
             <Routes>
                <Route path={'/'} element={<Home />} />
+               <Route path={'/login'} element={<Login />} />
                <Route path={'/thoi-su'} element={<ThoiSu />} />
                <Route path={'/doi-song'} element={<DoiSong />} />
                <Route path={'/detail/:slug'} element={<Detail />} />
+               <Route path={'/history'} element={<History />} />
                <Route path='/lien-he' element={<Contact />} />
                <Route path='/tien-ich' element={<TienIch />} />
                <Route path='/giao-duc' element={<GiaoDuc />} />
@@ -76,7 +78,7 @@ function App() {
                <Route path='/ban-doc' element={<BanDoc />} />
                <Route path='/kinh-te' element={<KinhTe />} />
                <Route path='/magazine' element={<Magazine />} />
-               <Route path='/the-gioi' element={<TheGioi/>} />
+               <Route path='/the-gioi' element={<TheGioi />} />
                <Route path='/thi-truong' element={<ThiTruong />} />
                <Route path='/tin-24h' element={<Tin24h />} />
                <Route path='/tin-nhanh-360' element={<TinNhanh360 />} />
@@ -89,7 +91,7 @@ function App() {
                <Route path='/tno' element={<TNO />} />
                <Route path='/toi-viet' element={<ToiViet />} />
                <Route path='/viec-lam' element={<ViecLam />} />
-               <Route path="/search" element={<SearchResults />} />
+               <Route path='/search' element={<SearchResults />} />
             </Routes>
          </main>
          <Footer />

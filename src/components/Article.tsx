@@ -3,6 +3,7 @@ import axios from 'axios'
 import cheerio from 'cheerio'
 import LoadingDetail from '@/components/LoadingDetail'
 import { Helmet } from 'react-helmet'
+import DOMPurify from 'dompurify'
 
 export const Article = ({ url }: { url: string }) => {
    const [contents, setContents] = useState<unknown>()
@@ -51,7 +52,11 @@ export const Article = ({ url }: { url: string }) => {
             <title>{titleArticle}</title>
             <meta name='description' content={descArticle} />
          </Helmet>
-         <div dangerouslySetInnerHTML={{ __html: contents }} />
+         <div
+            dangerouslySetInnerHTML={{
+               __html: DOMPurify.sanitize(contents as string) //DOMPurify chống tấn công XSS
+            }}
+         />
       </div>
    )
 }
