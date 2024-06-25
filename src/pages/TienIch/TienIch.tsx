@@ -5,6 +5,7 @@ import GoldPrices from '@/components/TienIch/GoldPrices.tsx';
 import LotteryResults from '@/components/TienIch/LotteryResult.tsx'
 import StockInfo from '@/components/TienIch/StockData.tsx'
 import TvSchedule from '@/components/TienIch/TVSchedule.tsx'
+import MovieSchedule from '@/components/TienIch/MovieSchedule.tsx'
 
 interface NavigationProps {
    setActiveTab: React.Dispatch<React.SetStateAction<string>>;
@@ -28,7 +29,7 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab }) => {
 };
 
 export default function TienIch() {
-   const [activeTab, setActiveTab] = useState<string>('');
+   const [activeTab, setActiveTab] = useState<string>('exchange-rate');
 
    return (
       <>
@@ -45,6 +46,7 @@ export default function TienIch() {
          {activeTab === 'lottery-results' && <LotteryResults />}
          {activeTab === 'stock-market' && <StockInfo />}
          {activeTab === 'tv-schedule' && <TvSchedule />}
+         {activeTab === 'movie-schedule' && <MovieSchedule />}
          {/* Thêm các danh mục khác tương tự */}
       </>
    );
