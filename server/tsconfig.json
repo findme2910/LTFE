@@ -5,7 +5,8 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es6", "dom"]
   },
-  "include": ["server.ts"]
+  "include": ["server.ts", "routes/**/*.ts"]
 }
