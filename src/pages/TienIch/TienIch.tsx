@@ -7,6 +7,7 @@ import StockInfo from '@/components/TienIch/StockData.tsx'
 import TvSchedule from '@/components/TienIch/TVSchedule.tsx'
 import MovieSchedule from '@/components/TienIch/MovieSchedule.tsx'
 import FuelPrice from '@/components/TienIch/FuelPrices.tsx'
+import Aqi from '@/components/TienIch/Aqi.tsx'
 
 interface NavigationProps {
    setActiveTab: React.Dispatch<React.SetStateAction<string>>;
@@ -49,6 +50,7 @@ export default function TienIch() {
          {activeTab === 'tv-schedule' && <TvSchedule />}
          {activeTab === 'movie-schedule' && <MovieSchedule />}
          {activeTab === 'fuel-price' && <FuelPrice />}
+         {activeTab === 'aqi' && <Aqi />}
          {/* Thêm các danh mục khác tương tự */}
       </>
    );
