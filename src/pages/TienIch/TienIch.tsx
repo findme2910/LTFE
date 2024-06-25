@@ -33,7 +33,12 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab }) => {
 }
 
 export default function TienIch() {
+
+
    const [activeTab, setActiveTab] = useState<string>('exchange-rate');
+
+
+
    return (
       <>
          <Helmet>
