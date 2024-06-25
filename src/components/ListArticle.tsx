@@ -5,14 +5,20 @@ import ReactPaginate from 'react-paginate'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
 import Loading from '@/components/Loading'
+import { useAddHistory } from '@/hooks/useAddHistory.ts'
+import DOMPurify from 'dompurify'
+
 
 const itemsPerPage = 16
 export const ListArticle = ({ url, title }: { url: string; title: string }) => {
+
+   const { handleAddHistory } = useAddHistory()
    const rssData: RSS[] = useRssFeed(url)
    const [currentItems, setCurrentItems] = useState<RSS[]>([])
    const [currentPage, setCurrentPage] = useState<number>(1)
    const [openPaginate, setOpenPaginate] = useState<boolean>(false)
    const [value, setValue] = useState<number>(1)
+
    const navigate = useNavigate()
    const { pathname } = useLocation()
 
@@ -48,7 +54,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
 
    if (!currentItems || currentItems.length === 0) return <Loading />
    return (
-      <div>
+      <>
          <h1 className='text-3xl font-bold pb-2 mb-6 border-b-2 border-b-primaryColor flex items-center justify-between'>
             {title}
             <span className='text-lg translate-y-1'>Trang {currentPage}</span>
@@ -58,6 +64,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                currentItems.map((item, index) => (
                   <article className='flex flex-col gap-y-3' key={index}>
                      <Link
+                        onClick={() => handleAddHistory(item.title, item)}
                         className='block aspect-video overflow-hidden rounded-sm'
                         to={{
                            pathname: `/detail/${item.link.split('/')[3]}`
@@ -72,11 +79,17 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                         />
                      </Link>
                      <Link
+                        onClick={() => handleAddHistory(item.title, item)}
                         to={`/detail/${item.link.split('/')[3]}`}
                         className='hover:text-primaryColor transition-all line-clamp-2 h-14'
                         title={item.title}
                      >
-                        <h2 dangerouslySetInnerHTML={{ __html: item.title }} className='font-bold text-xl'></h2>
+                        <h2
+                           dangerouslySetInnerHTML={{
+                              __html: DOMPurify.sanitize(item.title) //DOMPurify chống tấn công XSS
+                           }}
+                           className='font-bold text-xl'
+                        ></h2>
                      </Link>
                      <span className='text-xs'>{item.pubDate}</span>
                      <p title={item.description} className='line-clamp-3'>
@@ -137,7 +150,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                         handlePageClick({ selected: value - 1 })
                         setOpenPaginate(false)
                      }}
-                     className='bg-blue-500 text-white shadow rounded p-2 flex items-center gap-x-2'
+                     className='bg-primaryColor text-white shadow rounded p-2 flex items-center gap-x-2'
                   >
                      <input
                         type='number'
@@ -173,6 +186,6 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                </button>
             </Tippy>
          </div>
-      </div>
+      </>
    )
 }
