@@ -16,14 +16,13 @@ import {
    EmailIcon,
    TelegramShareButton,
    TelegramIcon,
+} from 'react-share';
 
- } from 'react-share';
 export const Article = ({ url }: { url: string }) => {
    const [contents, setContents] = useState<unknown>()
    const [titleArticle, setTitleArticle] = useState<string>('')
    const [descArticle, setDescArticle] = useState<string>('')
-   const {pathname}=useLocation()
-   
+   const { pathname } = useLocation()
 
    useEffect(() => {
       const fetchData = async () => {
@@ -43,11 +42,11 @@ export const Article = ({ url }: { url: string }) => {
 
             // Kết hợp nội dung của các class này lại
             const combinedContent = `
-         <div class="title-article">${title}</div>
-          <div class="detail-sapo">${detailSapoContent}</div>
-          <div class="detail-cmain">${detailCmainContent}</div>
-          <div class="detail__related">${detailRelatedContent}</div>
-        `
+               <div class="title-article">${title}</div>
+               <div class="detail-sapo">${detailSapoContent}</div>
+               <div class="detail-cmain">${detailCmainContent}</div>
+               <div class="detail__related">${detailRelatedContent}</div>
+            `
 
             // Cập nhật state với nội dung đã chọn
             setContents(combinedContent)
@@ -67,24 +66,24 @@ export const Article = ({ url }: { url: string }) => {
             <title>{titleArticle}</title>
             <meta name='description' content={descArticle} />
          </Helmet>
-       <div className='flex items-center gap-x-4'>
-       <FacebookShareButton url={pathname} >
-        <FacebookIcon size={40} round />
-      </FacebookShareButton>
-
-      <TwitterShareButton url={pathname} >
-        <TwitterIcon size={40} round />
-      </TwitterShareButton>
-      <LinkedinShareButton url={pathname} >
-        <LineIcon size={40} round />
-      </LinkedinShareButton>
-      <EmailShareButton url={pathname} >
-        <EmailIcon size={40} round />
-      </EmailShareButton>
-      <TelegramShareButton url={pathname} >
-        <TelegramIcon size={40} round />
-      </TelegramShareButton>
-       </div>
+         <div className='flex items-center gap-x-4'>
+            <FacebookShareButton url={pathname}>
+               <FacebookIcon size={40} round />
+            </FacebookShareButton>
+            <TwitterShareButton url={pathname}>
+               <TwitterIcon size={40} round />
+            </TwitterShareButton>
+            <LinkedinShareButton url={pathname}>
+               <LineIcon size={40} round />
+            </LinkedinShareButton>
+            <EmailShareButton url={pathname}>
+               <EmailIcon size={40} round />
+            </EmailShareButton>
+            <TelegramShareButton url={pathname}>
+               <TelegramIcon size={40} round />
+            </TelegramShareButton>
+         </div>
+    
          <div
             dangerouslySetInnerHTML={{
                __html: DOMPurify.sanitize(contents as string) //DOMPurify chống tấn công XSS

@@ -47,7 +47,6 @@ import TienIch from '@/pages/TienIch/TienIch.tsx'
 function App() {
    return (
       <>
-         <TopHeader />
          <Header />
          <main className='container py-5 min-h-screen mt-[100px]'>
             <Routes>
@@ -102,7 +101,7 @@ function App() {
                   behavior: 'smooth'
                })
             }
-            className='voltage-button !fixed !z-50 !bottom-5 !right-5'
+            className='voltage-button !fixed !z-[49] !bottom-5 !right-5'
          >
             <button>
                <svg

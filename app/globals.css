@@ -124,6 +124,8 @@ html {
    background-color: #0098d1;
    border-radius: 5px;
 }
+
+
 ul[role='navigation'] a {
    font-weight: 700;
 }
