@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import LoadingDetail from '../LoadingDetail';
 
 interface ExchangeRate {
    currency: string;
@@ -32,7 +33,7 @@ const ExchangeRates: React.FC = () => {
 
       fetchExchangeRates();
    }, [API_URL]);
-
+if(exchangeRates.length===0) return <LoadingDetail/>
    return (
       <div id="exchange-rate" className="my-8">
          <h2 className="text-2xl font-bold mb-4">Tỷ giá ngoại tệ cập nhật</h2>

@@ -47,7 +47,7 @@ const Aqi: React.FC = () => {
                Cập nhật ngày <span className='blue'>{aqiData.date}</span>
             </div>
          </div>
-         <div className='grid grid-cols-6 gap-4 mt-4 text-white '>
+         <div className='grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 lg:grid-cols-6 gap-4 mt-4 text-white '>
             <div className='bg-emerald-400 text-center p-2 flex-col flex  justify-center '>
                <p className='font-bold'>Tốt</p>
                <p className='font-bold'>0-50</p>

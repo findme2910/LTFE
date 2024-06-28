@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import LoadingDetail from '../LoadingDetail';
 
 interface GoldPrice {
    date: string;
@@ -33,7 +34,7 @@ const GoldPrices: React.FC = () => {
 
       fetchGoldPrices();
    }, [API_URL]);
-
+if(goldPrices.length===0) return <LoadingDetail/>
    return (
       <div id="gold-price" className="my-8">
          <h2 className="text-2xl font-bold mb-4">Giá vàng cập nhật</h2>
