@@ -29,14 +29,7 @@
     width: 201px;
     text-align: center;
 }
-.login .form-login a {
-    font-family: Merriweather;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
-    color: #292929;
-}
+
 .login .form-login .login-network .login-by-account {
     display: flex;
     align-items: center;
@@ -202,6 +195,25 @@
     text-decoration: underline; /* Gạch chân cho liên kết */
     color: #007bff; /* Màu của liên kết */
     margin-bottom: 16px;
+}
+
+.submitGray{
+    font-family: Merriweather;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: gray;
+}
+.submit {
+    font-family: Merriweather;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #292929;
+    border-bottom: 2px #0098d1;
+
 }
 
 

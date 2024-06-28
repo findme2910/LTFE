@@ -4,11 +4,26 @@ import cheerio from 'cheerio'
 import LoadingDetail from '@/components/LoadingDetail'
 import { Helmet } from 'react-helmet'
 import DOMPurify from 'dompurify'
+import { useLocation } from 'react-router-dom'
+import {
+   FacebookShareButton,
+   FacebookIcon,
+   TwitterShareButton,
+   TwitterIcon,
+   LinkedinShareButton,
+   LineIcon,
+   EmailShareButton,
+   EmailIcon,
+   TelegramShareButton,
+   TelegramIcon,
 
+ } from 'react-share';
 export const Article = ({ url }: { url: string }) => {
    const [contents, setContents] = useState<unknown>()
    const [titleArticle, setTitleArticle] = useState<string>('')
    const [descArticle, setDescArticle] = useState<string>('')
+   const {pathname}=useLocation()
+   
 
    useEffect(() => {
       const fetchData = async () => {
@@ -52,6 +67,24 @@ export const Article = ({ url }: { url: string }) => {
             <title>{titleArticle}</title>
             <meta name='description' content={descArticle} />
          </Helmet>
+       <div className='flex items-center gap-x-4'>
+       <FacebookShareButton url={pathname} >
+        <FacebookIcon size={40} round />
+      </FacebookShareButton>
+
+      <TwitterShareButton url={pathname} >
+        <TwitterIcon size={40} round />
+      </TwitterShareButton>
+      <LinkedinShareButton url={pathname} >
+        <LineIcon size={40} round />
+      </LinkedinShareButton>
+      <EmailShareButton url={pathname} >
+        <EmailIcon size={40} round />
+      </EmailShareButton>
+      <TelegramShareButton url={pathname} >
+        <TelegramIcon size={40} round />
+      </TelegramShareButton>
+       </div>
          <div
             dangerouslySetInnerHTML={{
                __html: DOMPurify.sanitize(contents as string) //DOMPurify chống tấn công XSS
