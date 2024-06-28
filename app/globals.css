@@ -391,7 +391,8 @@ ul[role='navigation'] a {
 }
 
 .detail-cmain p a {
-   color: #0098d1;
+   pointer-events: none;
+   background-color: transparent !important;
 }
 .detail-cmain figcaption {
    text-align: center;

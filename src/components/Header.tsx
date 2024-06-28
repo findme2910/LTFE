@@ -295,17 +295,35 @@ export default function Header() {
                </svg>
             </div>
             <span>|</span>
-            <Link to='/ban-can-biet' className='hover:text-primaryColor'>
-               Bạn cần biết
-            </Link>
+             <NavLink
+                  className={({ isActive }) =>
+                     isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
+                  }
+                  to='/ban-can-biet'
+               >
+                   Bạn cần biết
+               </NavLink>
+      
             <span>|</span>
-            <Link to='/tien-ich' className='hover:text-primaryColor'>
-               Tiện ích
-            </Link>
+           
+             <NavLink
+                  className={({ isActive }) =>
+                     isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
+                  }
+                  to='/tien-ich'
+               >
+                   Tiện ích
+               </NavLink>
             <span>|</span>
-            <Link to='/lien-he' className='hover:text-primaryColor'>
-               Liên hệ
-            </Link>
+             <NavLink
+                  className={({ isActive }) =>
+                     isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
+                  }
+                  to='/lien-he'
+               >
+                   Liên hệ
+               </NavLink>
+            
          </div>
          <div className='flex space-x-3  mr-[100px]'>
             <span>Theo dõi báo trên</span>

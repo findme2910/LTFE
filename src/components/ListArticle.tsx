@@ -7,6 +7,7 @@ import 'tippy.js/animations/perspective-extreme.css'
 import Loading from '@/components/Loading'
 import { useAddHistory } from '@/hooks/useAddHistory.ts'
 import DOMPurify from 'dompurify'
+import convertTimeFormat from '@/utils/utils'
 
 
 const itemsPerPage = 16
@@ -91,7 +92,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                            className='font-bold text-xl'
                         ></h2>
                      </Link>
-                     <span className='text-xs'>{item.pubDate}</span>
+                     <span className='text-sm'>{convertTimeFormat(item.pubDate)}</span>
                      <p title={item.description} className='line-clamp-3'>
                         {item.description}
                      </p>

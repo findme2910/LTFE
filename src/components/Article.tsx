@@ -66,7 +66,7 @@ export const Article = ({ url }: { url: string }) => {
             <title>{titleArticle}</title>
             <meta name='description' content={descArticle} />
          </Helmet>
-         <div className='flex items-center gap-x-4'>
+         <div className='flex items-center gap-x-4 mb-2'>
             <FacebookShareButton url={pathname}>
                <FacebookIcon size={40} round />
             </FacebookShareButton>
