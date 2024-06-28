@@ -9,7 +9,7 @@ export default function History() {
    return (
       <>
          <h1 className='font-bold mb-5 text-3xl'>Lịch sử đọc báo</h1>
-         <div className='grid grid-cols-2 gap-5'>
+         <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
             {history.length > 0 &&
                history.map((item, index) => (
                   <article className='flex flex-col gap-y-3 relative' key={index}>

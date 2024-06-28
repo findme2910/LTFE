@@ -37,15 +37,16 @@ const SearchResults: React.FC = () => {
          {filteredResults.length > 0 ? (
             filteredResults.map((item) => (
                <div key={item.link} className='flex mb-4 items-start'>
-                  {item.image && <img src={item.image} alt={item.title} className='w-32 h-32 object-cover mr-4' />}
+                  {item.image && <img src={item.image} alt={item.title} className='w-32 h-32 rounded object-cover mr-4' />}
                   <div className='flex-grow'>
                      <h2
+                     title={item.title}
                         dangerouslySetInnerHTML={{
                            __html: DOMPurify.sanitize(item.title) // DOMPurify chống tấn công XSS
                         }}
-                        className='font-bold text-xl'
+                        className='font-bold text-xl line-clamp-1'
                      ></h2>
-                     <p>{item.description}</p>
+                     <p title={item.description} className='line-clamp-3'>{item.description}</p>
                      <Link to={`/detail/${item.link.split('/')[3]}`} className='text-primaryColor underline'>
                         Đọc thêm
                      </Link>
