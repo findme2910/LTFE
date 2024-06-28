@@ -1,6 +1,5 @@
 import Footer from '@/components/Footer'
  import Header from '@/components/Header'
-import TopHeader from '@/components/TopHeader'
 import Detail from '@/pages/Detail/Detail'
 import Home from '@/pages/Home/Home'
 import NotFound from '@/pages/NotFound/NotFound'
