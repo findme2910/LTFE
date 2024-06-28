@@ -47,7 +47,7 @@ function App() {
    return (
       <>
          <Header />
-         <main className='container py-5 min-h-screen mt-[100px]'>
+         <main className='container py-5 min-h-screen mt-14 lg:mt-[100px]'>
             <Routes>
                <Route path={'/'} element={<Home />} />
                <Route path={'/login'} element={<Login />} />
