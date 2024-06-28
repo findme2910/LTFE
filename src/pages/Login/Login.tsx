@@ -1,8 +1,12 @@
 import './login.css'
+import { useState } from 'react'
+
 export default function Login(){
    const handleSubmit=()=>{
-      console.log('ffwwefewfwe')//Nếu nhu bấm vào để cái menu 1 ẩn menu 2 hiện ra có cần phải khai báo biến cho 2 cái menu 1,2 ko
-   }//co1 đăt class roi qqueryselector() giống javascrot á// okeee Linh mơn Linh v chắc đc r á
+
+   }
+   const [action,setAction]= useState("SignUp");
+   //co1 đăt class roi qqueryselector() giống javascrot á// okeee Linh mơn Linh v chắc đc r á
 
    return(
    <div className='main'>
@@ -10,11 +14,11 @@ export default function Login(){
          <div className='container'>
             <form onSubmit={handleSubmit} action="" className='form-login ng-scope ng-pristine ng-valid'>
                <ul className="tabs-login">
-                  <li className="tabs-login-item">//
-                     <a href="#menu_1" className="tabs-link" data-ng-click="message = ''">Đăng nhập</a>
+                  <li className="tabs-login-item">
+                     <a href="#" className={action==="SignUp"?"submit gray":"submit"} onClick={()=>{setAction("Login")}} data-ng-click="message = ''">Đăng nhập</a>
                   </li>
                   <li className="tabs-login-item">
-                     <a href="#menu_2" className="tabs-link" data-ng-click="message = ''">Đăng ký</a>
+                     <a href="#" className={action==="Login"?"submit gray":"submit"} onClick={()=>{setAction("SignUp")}} data-ng-click="message = ''">Đăng ký</a>
                   </li>
                </ul>
                <div className="login-network">
@@ -63,7 +67,7 @@ export default function Login(){
                   </div>
                </div>
                <div className="login-cnt">
-                  <div id="menu_1" className="login-form-1">
+                  {action === 'Login' ?  <div id="menu_1" className="login-form-1">
                      <div className="login-email">
                         <label htmlFor="" className="email-name">Email</label>
                         <input type="text" className="input-email ng-pristine ng-valid" data-ng-model="loginData.email"
@@ -93,8 +97,8 @@ export default function Login(){
                      {/*      Apple*/}
                      {/*   </a>*/}
                      {/*</div>*/}
-                  </div>
-                  <div id="menu_2" className="login-form-2">
+                  </div>:<div></div> }
+                  {action === 'SignUp' ?  <div id="menu_2" className="login-form-2">
                      <div className="login-email">
                         <label htmlFor="" className="email-name">Email</label>
                         <input type="text" className="input-email ng-pristine ng-valid" data-ng-model="loginData.email"
@@ -127,13 +131,16 @@ export default function Login(){
                      </div>
                      <p className="regula">
                         Khi bấm đăng ký tài khoản bạn đã đồng ý với
-                        <a href="https://thanhnien.vn/stories/chinh-sach-bao-mat" target="_blank" className="forget-password">quy định</a>
+                        <a href="https://thanhnien.vn/stories/chinh-sach-bao-mat" target="_blank"
+                           className="forget-password">quy định</a>
                         của tòa soạn
                      </p>
                      <div className="btn-login" data-ng-click="login()">
                         <a href="#" className="link-btn">Đăng ký tài khoản</a>
                      </div>
-                  </div>
+                  </div>:<div></div>}
+
+
                </div>
 
             </form>

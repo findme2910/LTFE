@@ -59,7 +59,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
             {title}
             <span className='text-lg translate-y-1'>Trang {currentPage}</span>
          </h1>
-         <div className='grid grid-cols-2 gap-5'>
+         <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
             {currentItems.length > 0 &&
                currentItems.map((item, index) => (
                   <article className='flex flex-col gap-y-3' key={index}>

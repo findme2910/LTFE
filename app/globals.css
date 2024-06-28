@@ -124,6 +124,8 @@ html {
    background-color: #0098d1;
    border-radius: 5px;
 }
+
+
 ul[role='navigation'] a {
    font-weight: 700;
 }
@@ -356,6 +358,18 @@ ul[role='navigation'] a {
 }
 
 /* css cho trang detail */
+@media only screen and (max-width: 640px) {
+.box-category-item{
+   flex-direction: column !important;
+
+}
+.box-category-item a{
+   width: 100% !important;
+}
+.box-category-content{
+   width: 100% !important;
+}
+}
 .detail-sapo {
    font-size: 22px;
    font-weight: 600;
@@ -435,3 +449,5 @@ html.dark .detail__related {
    font-weight: 700;
    margin-bottom: 30px;
 }
+
+/* share social */

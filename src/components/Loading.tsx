@@ -1,6 +1,6 @@
 export default function Loading() {
    return (
-      <div className='grid grid-cols-2 gap-5'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
          {Array(4)
             .fill(0)
             .map((_, index) => (

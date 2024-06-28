@@ -17,7 +17,7 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
    return (
       <nav className='bg-primary-foreground p-4'>
-         <ul className='flex space-x-4'>
+         <ul className='flex gap-4 flex-wrap'>
             <li>
                <button
                   className={`${activeTab === 'exchange-rate' && 'text-primaryColor'}`}

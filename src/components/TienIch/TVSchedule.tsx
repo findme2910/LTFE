@@ -55,7 +55,7 @@ const TvSchedule: React.FC = () => {
    const handleChannelChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setSelectedChannel(event.target.value)
    }
-
+   if(!schedule)return <LoadingDetail/>
    return (
       <div className='container mx-auto my-8'>
          <h1 className='text-2xl font-bold mb-4'>Lịch Truyền Hình</h1>

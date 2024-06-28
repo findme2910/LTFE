@@ -106,7 +106,8 @@ export default function TopHeader() {
    }, [city])
 
    return (
-      <div className='py-2 px-8 flex justify-between items-center bg-secondary fixed top-0 left-0 right-0 z-50'>
+      <div className='py-2 px-8 bg-secondary fixed top-0 left-0 right-0 z-50 lg:block hidden'>
+         <div className='flex justify-between items-center container'>
          <div className='flex space-x-2 text-sm '>
             <span>{currentDate}</span>
             <span>|</span>
@@ -181,6 +182,8 @@ export default function TopHeader() {
                <i className='fab fa-tiktok'></i>
             </a>
          </div>
+         </div>
+       
       </div>
    )
 }

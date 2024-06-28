@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import LoadingDetail from '../LoadingDetail'
 
 interface StockData {
    index: string
@@ -52,7 +53,7 @@ const StockInfo: React.FC = () => {
    const handleIndexChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setSelectedIndex(event.target.value)
    }
-
+   if(!stockData) return <LoadingDetail/>
    return (
       <div id='stock-info' className='my-8'>
          <div className='mb-4'>

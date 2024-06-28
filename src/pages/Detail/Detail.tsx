@@ -5,8 +5,8 @@ export default function Detail() {
    const { slug } = useParams()
 
    return (
-      <div>
+      <>
          <Article url={`https://cors-anywhere.herokuapp.com/https://thanhnien.vn/${slug}`} />
-      </div>
+      </>
    )
 }

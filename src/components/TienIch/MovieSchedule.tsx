@@ -131,7 +131,7 @@ const MovieSchedule: React.FC = () => {
    const getCinemas = (city: string) => {
       return cinemas[city] || []
    }
-
+   if(!schedule) return <LoadingDetail/>
    return (
       <div className='container mx-auto my-8'>
          <h1 className='text-2xl font-bold mb-4'>Lịch Chiếu Phim</h1>
