@@ -358,6 +358,18 @@ ul[role='navigation'] a {
 }
 
 /* css cho trang detail */
+@media only screen and (max-width: 640px) {
+.box-category-item{
+   flex-direction: column !important;
+
+}
+.box-category-item a{
+   width: 100% !important;
+}
+.box-category-content{
+   width: 100% !important;
+}
+}
 .detail-sapo {
    font-size: 22px;
    font-weight: 600;
