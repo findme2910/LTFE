@@ -244,6 +244,7 @@ export default function Header() {
    }, [city])
    const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
+     setOpenMenuMobile(false)
       navigate(`/search?query=${searchQuery}`)
    }
 
@@ -259,7 +260,7 @@ export default function Header() {
       <>
       <div className='py-2 px-8 bg-secondary fixed top-0 left-0 right-0 z-50 lg:block hidden'>
          <div className='flex justify-between items-center container'>
-         <div className='flex space-x-2 text-sm '>
+         <div className='flex space-x-2'>
             <span>{currentDate}</span>
             <span>|</span>
             <span>
@@ -458,13 +459,13 @@ export default function Header() {
       </header>
       {/* menu mobile */}
       <div className={`bg-secondary fixed inset-0 z-[50] ${openMenuMobile?'translate-x-0':'-translate-x-full'} transition-all duration-300`}>
-         <button onClick={()=>setOpenMenuMobile(false)} className='absolute top-3 right-3'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
+         <button onClick={()=>setOpenMenuMobile(false)} className='absolute top-3 right-3'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10">
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
 </svg>
 </button>
-<div className='container mt-10'>
+<div className='container mt-14'>
 <div className='flex justify-between items-center flex-wrap'>
-         <div className='flex gap-x-2 text-sm flex-wrap items-center'>
+         <div className='flex gap-x-2 flex-wrap items-center'>
             <span>{currentDate}</span>
             <span>|</span>
             <span>
@@ -499,21 +500,22 @@ export default function Header() {
                </svg>
             </div>
             <span>|</span>
-            <Link to='/ban-can-biet' className='hover:text-primaryColor'>
+            <Link  onClick={()=>setOpenMenuMobile(false)} to='/ban-can-biet' className='hover:text-primaryColor'>
                Bạn cần biết
             </Link>
             <span>|</span>
-            <Link to='/tien-ich' className='hover:text-primaryColor'>
+            <Link  onClick={()=>setOpenMenuMobile(false)} to='/tien-ich' className='hover:text-primaryColor'>
                Tiện ích
             </Link>
             <span>|</span>
-            <Link to='/lien-he' className='hover:text-primaryColor'>
+            <Link  onClick={()=>setOpenMenuMobile(false)} to='/lien-he' className='hover:text-primaryColor'>
                Liên hệ
             </Link>
          </div>
          <div className='flex space-x-3'>
             <span>Theo dõi báo trên</span>
             <a
+            
                href='https://www.youtube.com/channel/UCIW9cGgoRuGJnky3K3tbzNg'
                target='_blank'
                rel='noopener noreferrer'
@@ -542,6 +544,7 @@ export default function Header() {
            <div className='flex items-center gap-5 flex-wrap justify-between mt-5'>
                <div className='flex items-center gap-x-4'>
                   <NavLink
+                   onClick={()=>setOpenMenuMobile(false)}
                   className={({ isActive }) =>
                      isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
                   }
@@ -560,10 +563,11 @@ export default function Header() {
                      <div className='bg-primary-foreground grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 p-3 rounded shadow-2xl'>
                         {menu.map((item) => (
                            <NavLink
+                           
                               className={({ isActive }) =>
                                  isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
                               }
-                              onClick={() => setOpenCategory(false)}
+                               onClick={()=>setOpenMenuMobile(false)}
                               key={item.url}
                               to={item.url}
                            >
@@ -589,7 +593,7 @@ export default function Header() {
                         viewBox='0 0 24 24'
                         strokeWidth={2}
                         stroke='currentColor'
-                        className={`size-5 ${openCategory ? 'rotate-180' : ''} transition-all`}
+                        className={`size-5 ${openCategoryMobile ? 'rotate-180' : ''} transition-all`}
                      >
                         <path strokeLinecap='round' strokeLinejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5' />
                      </svg>
@@ -611,7 +615,7 @@ export default function Header() {
                   </button>
                </form>
                <ModeToggle />
-               <Link to={'/history'}>
+               <Link to={'/history'}  onClick={()=>setOpenMenuMobile(false)}>
                   <svg
                      data-v-c3ad5561='true'
                      data-v-eb07a472='true'
