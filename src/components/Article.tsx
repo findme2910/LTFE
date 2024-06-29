@@ -139,37 +139,49 @@ export const Article = ({ url }: { url: string }) => {
       }
    `
 
-   useEffect(() => {
-      const fetchData = async () => {
-         try {
-            const response = await axios.get(url)
-            const html = response.data
-            const $ = cheerio.load(html)
+ useEffect(() => {
+   const fetchData = async () => {
+      try {
+         const response = await axios.get(url);
+         const html = response.data;
+         const $ = cheerio.load(html);
 
-            const title = $('title').html() || ''
-            const detailSapoContent = $('.detail-sapo').html() || ''
-            const detailCmainContent = $('.detail-cmain').html() || ''
-            const detailRelatedContent = $('.detail__related').html() || ''
+         const title = $('title').html() || '';
+         const detailSapoContent = $('.detail-sapo').html() || '';
+         const detailCmainContent = $('.detail-cmain').html() || '';
+         const detailRelatedContent = $('.detail__related');
 
-            setTitleArticle(title)
-            setDescArticle(detailSapoContent)
+         // Thay đổi href của tất cả thẻ a trong class detail__related
+         detailRelatedContent.find('a').each((i, elem) => {
+            const oldHref = $(elem).attr('href');
+            if (oldHref) {
+               const newHref = `/detail${oldHref}`;
+               $(elem).attr('href', newHref);
+            }
+         });
 
-            const combinedContent = `
-               <div class="title-article">${title}</div>
-               <div class="detail-sapo">${detailSapoContent}</div>
-               <div class="detail-cmain">${detailCmainContent}</div>
-               <div class="detail__related">${detailRelatedContent}</div>
-            `
+         const updatedDetailRelatedContent = detailRelatedContent.html() || '';
 
-            setContents(combinedContent)
-         } catch (error) {
-            console.error('Error fetching data:', error)
-         }
+         setTitleArticle(title);
+         setDescArticle(detailSapoContent);
+
+         const combinedContent = `
+            <div class="title-article">${title}</div>
+            <div class="detail-sapo">${detailSapoContent}</div>
+            <div class="detail-cmain">${detailCmainContent}</div>
+            <div class="detail__related">${updatedDetailRelatedContent}</div>
+         `;
+
+         setContents(combinedContent);
+      } catch (error) {
+         console.error('Error fetching data:', error);
       }
+   };
 
-      fetchData()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [url])
+   fetchData();
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [url]);
+
 
    useEffect(() => {
       const getVoices = () => {
