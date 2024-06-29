@@ -26,6 +26,119 @@ export const Article = ({ url }: { url: string }) => {
    const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
    const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
 
+   const cssContent = `
+   .container {
+   max-width: 1248px;
+   width: 100% !important;
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: 12px;
+   padding-right: 12px;
+}
+      @media only screen and (max-width: 640px) {
+         .box-category-item {
+            flex-direction: column !important;
+         }
+         .box-category-item a {
+            width: 100% !important;
+         }
+         .box-category-content {
+            width: 100% !important;
+         }
+      }
+      .detail-sapo {
+         font-size: 22px;
+         font-weight: 600;
+         margin-bottom: 20px;
+      }
+      .detail-cmain h2 {
+         font-size: 20px;
+         font-weight: 700;
+         margin-bottom: 10px;
+      }
+      .detail-cmain img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         margin-bottom: 8px;
+      }
+      .detail-cmain figure {
+         width: 100% !important;
+         margin: 0 !important;
+      }
+      .detail-cmain p {
+         margin-bottom: 15px;
+      }
+      .detail-cmain p a {
+       text-decoration: none;
+   color: unset;
+         pointer-events: none;
+         background-color: transparent !important;
+      }
+      .detail-cmain figcaption {
+         text-align: center;
+      }
+      .detail-cmain figcaption p {
+         margin-bottom: 0;
+      }
+      .detail-cmain .PhotoCMS_Author {
+         margin-bottom: 20px;
+      }
+      html.dark .detail__related {
+         background-color: rgb(30 41 59);
+      }
+      .detail__related {
+         border: 1px solid #ccc;
+         background: #eee;
+         padding: 15px;
+         border-radius: 5px;
+      }
+    .detail__related a {
+  text-decoration: none;
+   color: unset;
+         pointer-events: none;
+         background-color: transparent !important;
+    }
+      .detail__related .title-category a {
+         font-weight: 700;
+         margin-bottom: 10px;
+         display: block;
+      }
+      .box-category-item {
+         display: flex;
+         gap: 20px;
+      }
+      .box-category-item a {
+         display: block;
+         width: 40%;
+      }
+      .box-category-item a img {
+         width: 100%;
+         object-fit: cover;
+      }
+      .box-category-item .box-category-content {
+         width: 60%;
+      }
+      .box-category-item .box-category-content h3 a {
+         width: 100%;
+         font-weight: 700;
+         transition: all linear 0.15s;
+      }
+      .box-category-item .box-category-content h3 a:hover {
+         color: #0098d1;
+      }
+      .box-category-item .box-category-content a {
+         width: 100%;
+         display: block;
+         margin-top: 10px;
+      }
+      .title-article {
+         font-size: 30px;
+         font-weight: 700;
+         margin-bottom: 30px;
+      }
+   `
+
    useEffect(() => {
       const fetchData = async () => {
          try {
@@ -99,6 +212,31 @@ export const Article = ({ url }: { url: string }) => {
       }
    }
 
+   const handleDownload = () => {
+      const sanitizedContent = DOMPurify.sanitize(contents)
+      const htmlContent = `
+         <!DOCTYPE html>
+         <html lang="en">
+         <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${titleArticle}</title>
+            <style>${cssContent}</style>
+         </head>
+         <body class="container">
+            ${sanitizedContent}
+         </body>
+         </html>
+      `
+
+      const element = document.createElement('a')
+      const file = new Blob([htmlContent], { type: 'text/html' })
+      element.href = URL.createObjectURL(file)
+      element.download = `${titleArticle}.html`
+      document.body.appendChild(element) // Required for this to work in FireFox
+      element.click()
+   }
+
    if (!contents) return <LoadingDetail />
 
    return (
@@ -124,7 +262,8 @@ export const Article = ({ url }: { url: string }) => {
                <TelegramIcon size={40} round />
             </TelegramShareButton>
          </div>
-         <button onClick={handleReadAloud} className='auto-read my-3 flex items-center justify-center gap-x-1'>
+         <div className='my-3 flex items-center gap-x-10'>
+   <button onClick={handleReadAloud} className='auto-read flex items-center justify-center gap-x-1'>
             {isReading ? (
                <>
                   <svg
@@ -171,6 +310,17 @@ export const Article = ({ url }: { url: string }) => {
             <span id='rightArrow' className='arrow' />
             <span id='leftArrow' className='arrow' />
          </button>
+
+<button onClick={handleDownload} className="Download-button">
+  <svg viewBox="0 0 640 512" width={20} height={16} xmlns="http://www.w3.org/2000/svg">
+    <path fill="white" d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z" />
+  </svg>
+  <span>Tải về</span>
+</button>
+         </div>
+      
+
+
 
          <div
             dangerouslySetInnerHTML={{
