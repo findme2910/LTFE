@@ -716,7 +716,7 @@ line {
 }
 
 .Download-button::before {
-   content: "";
+   content: '';
    width: 4px;
    height: 40%;
    background-color: white;
@@ -728,7 +728,7 @@ line {
 }
 
 .Download-button::after {
-   content: "";
+   content: '';
    width: 4px;
    height: 40%;
    background-color: white;
@@ -758,4 +758,35 @@ line {
    border-top-left-radius: 0px;
    border-bottom-left-radius: 0px;
    transform: translate(-5px, 15px) rotate(45deg);
+}
+
+/* chat bot */
+/* Ghi đè tiêu đề của chatbot */
+df-messenger {
+   --df-messenger-bot-message: #e0e0e0;
+   --df-messenger-user-message: #d0ffd6;
+   --df-messenger-button-titlebar-color: #0044cc;
+   --df-messenger-font-color: #000000;
+   --df-messenger-send-icon: #ff0000;
+   --df-messenger-chat-background-color: #020817;
+}
+
+/* Tùy chỉnh thêm các phần tử bên trong */
+df-messenger .df-titlebar {
+   background-color: #0044cc; /* Thay đổi màu nền tiêu đề */
+   color: #ffffff; /* Thay đổi màu chữ tiêu đề */
+}
+
+df-messenger .df-message {
+   font-family: 'Arial', sans-serif; /* Thay đổi font chữ */
+   font-size: 14px; /* Thay đổi kích thước chữ */
+}
+
+df-messenger .df-chat-wrapper {
+   background-color: #f9f9f9; /* Thay đổi màu nền khung chat */
+}
+
+/* Tùy chỉnh nút gửi tin nhắn */
+df-messenger .df-send-icon {
+   fill: #ff0000; /* Thay đổi màu nút gửi */
 }

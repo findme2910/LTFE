@@ -9,10 +9,8 @@ import { useAddHistory } from '@/hooks/useAddHistory.ts'
 import DOMPurify from 'dompurify'
 import convertTimeFormat from '@/utils/utils'
 
-
 const itemsPerPage = 16
 export const ListArticle = ({ url, title }: { url: string; title: string }) => {
-
    const { handleAddHistory } = useAddHistory()
    const rssData: RSS[] = useRssFeed(url)
    const [currentItems, setCurrentItems] = useState<RSS[]>([])
@@ -60,6 +58,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
             {title}
             <span className='text-lg translate-y-1'>Trang {currentPage}</span>
          </h1>
+
          <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
             {currentItems.length > 0 &&
                currentItems.map((item, index) => (
