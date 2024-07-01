@@ -716,7 +716,7 @@ line {
 }
 
 .Download-button::before {
-   content: "";
+   content: '';
    width: 4px;
    height: 40%;
    background-color: white;
@@ -728,7 +728,7 @@ line {
 }
 
 .Download-button::after {
-   content: "";
+   content: '';
    width: 4px;
    height: 40%;
    background-color: white;
@@ -758,4 +758,23 @@ line {
    border-top-left-radius: 0px;
    border-bottom-left-radius: 0px;
    transform: translate(-5px, 15px) rotate(45deg);
+}
+
+/* chat bot */
+
+html.dark df-messenger {
+   --df-messenger-button-titlebar-color: #0044cc;
+   --df-messenger-bot-message: #e0e0e0;
+   --df-messenger-user-message: #d0ffd6;
+   --df-messenger-font-color: #000000;
+   --df-messenger-send-icon: #0044cc;
+   --df-messenger-minimized-chat-close-icon-color: #ffffff;
+   --df-messenger-chat-background-color: #0f172a;
+   --df-messenger-input-font-color: #fff;
+   --df-messenger-input-box-color: #1e293b;
+}
+/* button đánh dấu */
+.highlight {
+   background-color: gold;
+   color: #000000;
 }

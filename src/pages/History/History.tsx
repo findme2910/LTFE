@@ -1,5 +1,6 @@
 import Loading from '@/components/Loading'
 import { useAddHistory } from '@/hooks/useAddHistory'
+import { Helmet } from 'react-helmet'
 
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
@@ -8,6 +9,9 @@ export default function History() {
    if (!history) return <Loading />
    return (
       <>
+         <Helmet>
+            <title>Lịch sử | Báo Thanh Niên</title>
+         </Helmet>
          <h1 className='font-bold mb-5 text-3xl'>Lịch sử đọc báo</h1>
          <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
             {history.length > 0 &&

@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer'
- import Header from '@/components/Header'
+import Header from '@/components/Header'
 import Detail from '@/pages/Detail/Detail'
 import Home from '@/pages/Home/Home'
 import NotFound from '@/pages/NotFound/NotFound'
@@ -43,9 +43,12 @@ import ToiViet from '@/pages/ToiViet/ToiViet.tsx'
 import ViecLam from '@/pages/ViecLam/ViecLam.tsx'
 import SearchResults from '@/pages/Timkiem/TimKiem.tsx'
 import TienIch from '@/pages/TienIch/TienIch.tsx'
+import ChatBot from '@/components/ChatBot'
 function App() {
    return (
       <>
+         <ChatBot />
+
          <Header />
          <main className='container py-5 min-h-screen mt-14 lg:mt-[100px]'>
             <Routes>
@@ -100,7 +103,7 @@ function App() {
                   behavior: 'smooth'
                })
             }
-            className='voltage-button !fixed !z-[49] !bottom-5 !right-5'
+            className='voltage-button !fixed !z-[49] !bottom-5 !left-5'
          >
             <button>
                <svg
