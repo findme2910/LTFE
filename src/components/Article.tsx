@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import LoadingDetail from '@/components/LoadingDetail'
@@ -16,7 +16,12 @@ import {
    TelegramShareButton,
    TelegramIcon
 } from 'react-share'
-
+import { Button } from '@/components/ui/button'
+// interface highlightType {
+//    text: string
+//    startOffset: number
+//    endOffset: number
+// }
 export const Article = ({ url }: { url: string }) => {
    const [contents, setContents] = useState<string>('')
    const [titleArticle, setTitleArticle] = useState<string>('')
@@ -25,6 +30,7 @@ export const Article = ({ url }: { url: string }) => {
    const [isReading, setIsReading] = useState<boolean>(false)
    const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
    const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
+   // const [highlights, setHighlights] = useState<highlightType[]>([])
 
    const cssContent = `
    .container {
@@ -139,49 +145,48 @@ export const Article = ({ url }: { url: string }) => {
       }
    `
 
- useEffect(() => {
-   const fetchData = async () => {
-      try {
-         const response = await axios.get(url);
-         const html = response.data;
-         const $ = cheerio.load(html);
+   useEffect(() => {
+      const fetchData = async () => {
+         try {
+            const response = await axios.get(url)
+            const html = response.data
+            const $ = cheerio.load(html)
 
-         const title = $('title').html() || '';
-         const detailSapoContent = $('.detail-sapo').html() || '';
-         const detailCmainContent = $('.detail-cmain').html() || '';
-         const detailRelatedContent = $('.detail__related');
+            const title = $('title').html() || ''
+            const detailSapoContent = $('.detail-sapo').html() || ''
+            const detailCmainContent = $('.detail-cmain').html() || ''
+            const detailRelatedContent = $('.detail__related')
 
-         // Thay đổi href của tất cả thẻ a trong class detail__related
-         detailRelatedContent.find('a').each((i, elem) => {
-            const oldHref = $(elem).attr('href');
-            if (oldHref) {
-               const newHref = `/detail${oldHref}`;
-               $(elem).attr('href', newHref);
-            }
-         });
+            // Thay đổi href của tất cả thẻ a trong class detail__related
+            detailRelatedContent.find('a').each((i, elem) => {
+               const oldHref = $(elem).attr('href')
+               if (oldHref) {
+                  const newHref = `/detail${oldHref}`
+                  $(elem).attr('href', newHref)
+               }
+            })
 
-         const updatedDetailRelatedContent = detailRelatedContent.html() || '';
+            const updatedDetailRelatedContent = detailRelatedContent.html() || ''
 
-         setTitleArticle(title);
-         setDescArticle(detailSapoContent);
+            setTitleArticle(title)
+            setDescArticle(detailSapoContent)
 
-         const combinedContent = `
+            const combinedContent = `
             <div class="title-article">${title}</div>
             <div class="detail-sapo">${detailSapoContent}</div>
             <div class="detail-cmain">${detailCmainContent}</div>
             <div class="detail__related">${updatedDetailRelatedContent}</div>
-         `;
+         `
 
-         setContents(combinedContent);
-      } catch (error) {
-         console.error('Error fetching data:', error);
+            setContents(combinedContent)
+         } catch (error) {
+            console.error('Error fetching data:', error)
+         }
       }
-   };
 
-   fetchData();
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [url]);
-
+      fetchData()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [url])
 
    useEffect(() => {
       const getVoices = () => {
@@ -248,7 +253,55 @@ export const Article = ({ url }: { url: string }) => {
       document.body.appendChild(element) // Required for this to work in FireFox
       element.click()
    }
+   const handleHighlight = useCallback(() => {
+      const selection = window.getSelection()
+      if (selection && selection.rangeCount > 0) {
+         const range = selection.getRangeAt(0)
+         const selectedText = range.toString()
 
+         if (selectedText.length > 0) {
+            // const newHighlight = {
+            //    text: selectedText,
+            //    startOffset: range.startOffset,
+            //    endOffset: range.endOffset
+            // }
+            // setHighlights((prevHighlights) => [...prevHighlights, newHighlight])
+
+            // Add a highlight to the range
+            const span = document.createElement('span')
+            span.className = 'highlight'
+            range.surroundContents(span)
+
+            // Clear the selection
+            selection.removeAllRanges()
+         }
+      }
+   }, [])
+   const handleRemoveHighlights = () => {
+      // const elements = document.querySelectorAll('.highlight')
+      // elements.forEach((element) => {
+      //    const parent = element.parentNode
+      //    while (element.firstChild) {
+      //       parent?.insertBefore(element.firstChild, element)
+      //    }
+      //    parent?.removeChild(element)
+      // })
+      // setHighlights([])
+      const selection = window.getSelection()
+      if (selection && selection.rangeCount > 0) {
+         const range = selection.getRangeAt(0)
+         const selectedText = range.toString()
+
+         if (selectedText.length > 0) {
+            const parentNode = range.commonAncestorContainer.parentNode as HTMLElement
+            if (parentNode && parentNode.classList.contains('highlight')) {
+               const textNode = document.createTextNode(parentNode.textContent!)
+               parentNode.parentNode!.replaceChild(textNode, parentNode)
+            }
+            selection.removeAllRanges()
+         }
+      }
+   }
    if (!contents) return <LoadingDetail />
 
    return (
@@ -274,65 +327,108 @@ export const Article = ({ url }: { url: string }) => {
                <TelegramIcon size={40} round />
             </TelegramShareButton>
          </div>
-         <div className='my-3 flex items-center gap-x-10'>
-   <button onClick={handleReadAloud} className='auto-read flex items-center justify-center gap-x-1'>
-            {isReading ? (
-               <>
-                  <svg
-                     xmlns='http://www.w3.org/2000/svg'
-                     fill='none'
-                     viewBox='0 0 24 24'
-                     strokeWidth={1.5}
-                     stroke='currentColor'
-                     className='size-6'
-                  >
-                     <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z'
-                     />
-                  </svg>
-                  Tạm dừng
-               </>
-            ) : (
-               <>
-                  <svg
-                     xmlns='http://www.w3.org/2000/svg'
-                     fill='none'
-                     viewBox='0 0 24 24'
-                     strokeWidth={1.5}
-                     stroke='currentColor'
-                     className='size-6'
-                  >
-                     <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z'
-                     />
-                  </svg>
-                  Đọc tự động
-               </>
-            )}
-            <div id='clip'>
-               <div id='leftTop' className='corner' />
-               <div id='rightBottom' className='corner' />
-               <div id='rightTop' className='corner' />
-               <div id='leftBottom' className='corner' />
-            </div>
-            <span id='rightArrow' className='arrow' />
-            <span id='leftArrow' className='arrow' />
-         </button>
+         <div className='my-3 flex items-center gap-x-10 gap-y-5 flex-wrap'>
+            <button onClick={handleReadAloud} className='auto-read flex items-center justify-center gap-x-1'>
+               {isReading ? (
+                  <>
+                     <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        strokeWidth={1.5}
+                        stroke='currentColor'
+                        className='size-6'
+                     >
+                        <path
+                           strokeLinecap='round'
+                           strokeLinejoin='round'
+                           d='M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z'
+                        />
+                     </svg>
+                     Tạm dừng
+                  </>
+               ) : (
+                  <>
+                     <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        strokeWidth={1.5}
+                        stroke='currentColor'
+                        className='size-6'
+                     >
+                        <path
+                           strokeLinecap='round'
+                           strokeLinejoin='round'
+                           d='M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z'
+                        />
+                     </svg>
+                     Đọc tự động
+                  </>
+               )}
+               <div id='clip'>
+                  <div id='leftTop' className='corner' />
+                  <div id='rightBottom' className='corner' />
+                  <div id='rightTop' className='corner' />
+                  <div id='leftBottom' className='corner' />
+               </div>
+               <span id='rightArrow' className='arrow' />
+               <span id='leftArrow' className='arrow' />
+            </button>
 
-<button onClick={handleDownload} className="Download-button">
-  <svg viewBox="0 0 640 512" width={20} height={16} xmlns="http://www.w3.org/2000/svg">
-    <path fill="white" d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z" />
-  </svg>
-  <span>Tải về</span>
-</button>
+            <button onClick={handleDownload} className='Download-button'>
+               <svg viewBox='0 0 640 512' width={20} height={16} xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                     fill='white'
+                     d='M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z'
+                  />
+               </svg>
+               <span>Tải về</span>
+            </button>
+
+            <Button onClick={handleHighlight} className='text-base text-center w-32 rounded-xl h-12 relative group'>
+               <div className='bg-green-400 rounded-xl h-10 w-[30%] flex items-center justify-center absolute left-1 top-[4px] group-hover:w-[120px] z-10 duration-500'>
+                  <svg
+                     xmlns='http://www.w3.org/2000/svg'
+                     fill='none'
+                     viewBox='0 0 24 24'
+                     strokeWidth={1.5}
+                     stroke='currentColor'
+                     className='size-6'
+                  >
+                     <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z'
+                     />
+                  </svg>
+               </div>
+               <p className='translate-x-5'>Đánh dấu</p>
+            </Button>
+
+            <Button
+               onClick={handleRemoveHighlights}
+               className='text-base text-center w-32 rounded-xl h-12 relative group'
+            >
+               <div className='bg-green-400 rounded-xl h-10 w-[30%] flex items-center justify-center absolute left-1 top-[4px] group-hover:w-[120px] z-10 duration-500'>
+                  <svg
+                     xmlns='http://www.w3.org/2000/svg'
+                     fill='none'
+                     viewBox='0 0 24 24'
+                     strokeWidth={1.5}
+                     stroke='currentColor'
+                     className='size-6'
+                  >
+                     <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='m3 3 1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 0 1 1.743-1.342 48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664 19.5 19.5'
+                     />
+                  </svg>
+               </div>
+               <p className='translate-x-5'>Bỏ dấu</p>
+            </Button>
          </div>
-      
-
-
 
          <div
             dangerouslySetInnerHTML={{
