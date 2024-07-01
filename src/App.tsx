@@ -96,14 +96,14 @@ function App() {
             </Routes>
          </main>
          <Footer />
-         {/* <div
+         <div
             onClick={() =>
                window.scrollTo({
                   top: 0,
                   behavior: 'smooth'
                })
             }
-            className='voltage-button !fixed !z-[49] !bottom-5 !right-5'
+            className='voltage-button !fixed !z-[49] !bottom-5 !left-5'
          >
             <button>
                <svg
@@ -167,7 +167,7 @@ function App() {
                <div className='dot dot-4' />
                <div className='dot dot-5' />
             </div>
-         </div> */}
+         </div>
       </>
    )
 }
