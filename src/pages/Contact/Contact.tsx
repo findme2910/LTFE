@@ -1,6 +1,11 @@
+import { Helmet } from 'react-helmet'
+
 export default function Contact() {
    return (
       <div>
+         <Helmet>
+            <title>Liên hệ | Báo Thanh Niên</title>
+         </Helmet>
          <div className='bg-[#017cc2] text-white '>
             <div className='p-4 ml-10'>
                <div className='pt-4'>

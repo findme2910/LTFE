@@ -4,6 +4,7 @@ import { RSS, useRssFeedAll } from '@/hooks/useRssFeed.ts'
 import he from 'he'
 import DOMPurify from 'dompurify'
 import LoadingSearch from '@/components/LoadingSearch'
+import { Helmet } from 'react-helmet'
 
 const RSS_FEED_URLS = ['thoi-su', 'chao-ngay-moi', 'the-gioi', 'kinh-te', 'doi-song', 'suc-khoe', 'gioi-tre']
 
@@ -33,6 +34,9 @@ const SearchResults: React.FC = () => {
 
    return (
       <>
+         <Helmet>
+            <title>Kết quả tìm kiếm cho "{query}" | Báo Thanh Niên</title>
+         </Helmet>
          <h1 className='text-2xl font-bold mb-4'>Kết quả tìm kiếm cho "{query}"</h1>
          {filteredResults.length > 0 ? (
             filteredResults.map((item) => (
