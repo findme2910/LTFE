@@ -4,7 +4,7 @@ export default function Footer() {
          <div className='container mx-auto px-4 py-8'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
                <div>
-                  <img src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg' alt='logo' />
+                  <img src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg' loading='lazy' alt='logo' />
                   <ul className='mt-4'>
                      <li>Hotline</li>
                      <li className='text-primaryColor'>0906 645 777</li>

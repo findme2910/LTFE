@@ -42,7 +42,12 @@ const SearchResults: React.FC = () => {
             filteredResults.map((item) => (
                <div key={item.link} className='flex mb-4 items-start'>
                   {item.image && (
-                     <img src={item.image} alt={item.title} className='w-32 h-32 rounded object-cover mr-4' />
+                     <img
+                        loading='lazy'
+                        src={item.image}
+                        alt={item.title}
+                        className='w-32 h-32 rounded object-cover mr-4'
+                     />
                   )}
                   <div className='flex-grow'>
                      <h2
