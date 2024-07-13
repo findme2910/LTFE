@@ -41,6 +41,7 @@ export default function Contact() {
                <div className='flex justify-center relative'>
                   <div className='absolute left-0 top-0 ml-4 mt-4 w-1/4'>
                      <img
+                        loading='lazy'
                         src='https://static.thanhnien.com.vn/thanhnien.vn/image/datbao.png'
                         alt='Đặt báo'
                         className='max-w-full'
