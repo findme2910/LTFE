@@ -15,12 +15,16 @@ export const useRssFeed = (url: string) => {
             //Lấy dữ liệu từ Rss feed
             const response = await fetch('https://cors-anywhere.herokuapp.com/https://thanhnien.vn/rss/' + url + '.rss')
             const text = await response.text()
+
             // parse dữ liệu xml
             const parser = new DOMParser()
             const xml = parser.parseFromString(text, 'text/xml')
+
             const items = xml.querySelectorAll('item')
+
             // Chuyển đổi các mục xml thành đối tượng rss
             const rssItems: RSS[] = Array.from(items).map((item) => {
+               // parse dữ liệu description thành html để có thể truy xuất được
                const description = parser.parseFromString(
                   item.querySelector('description')?.textContent || '',
                   'text/html'

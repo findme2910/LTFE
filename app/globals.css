@@ -773,8 +773,3 @@ html.dark df-messenger {
    --df-messenger-input-font-color: #fff;
    --df-messenger-input-box-color: #1e293b;
 }
-/* button đánh dấu */
-.highlight {
-   background-color: gold;
-   color: #000000;
-}
