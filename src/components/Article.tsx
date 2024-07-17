@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import LoadingDetail from '@/components/LoadingDetail'
@@ -16,12 +16,7 @@ import {
    TelegramShareButton,
    TelegramIcon
 } from 'react-share'
-import { Button } from '@/components/ui/button'
-// interface highlightType {
-//    text: string
-//    startOffset: number
-//    endOffset: number
-// }
+
 export const Article = ({ url }: { url: string }) => {
    const [contents, setContents] = useState<string>('')
    const [titleArticle, setTitleArticle] = useState<string>('')
@@ -30,7 +25,6 @@ export const Article = ({ url }: { url: string }) => {
    const [isReading, setIsReading] = useState<boolean>(false)
    const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
    const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
-   // const [highlights, setHighlights] = useState<highlightType[]>([])
 
    const cssContent = `
    .container {
@@ -149,6 +143,7 @@ export const Article = ({ url }: { url: string }) => {
       const fetchData = async () => {
          try {
             const response = await axios.get(url)
+
             const html = response.data
             const $ = cheerio.load(html)
 
@@ -158,7 +153,7 @@ export const Article = ({ url }: { url: string }) => {
             const detailRelatedContent = $('.detail__related')
 
             // Thay đổi href của tất cả thẻ a trong class detail__related
-            detailRelatedContent.find('a').each((i, elem) => {
+            detailRelatedContent.find('a').each((_, elem) => {
                const oldHref = $(elem).attr('href')
                if (oldHref) {
                   const newHref = `/detail${oldHref}`
@@ -199,7 +194,6 @@ export const Article = ({ url }: { url: string }) => {
          window.speechSynthesis.onvoiceschanged = getVoices
       }
 
-      // Populate voices initially
       getVoices()
    }, [])
 
@@ -250,57 +244,8 @@ export const Article = ({ url }: { url: string }) => {
       const file = new Blob([htmlContent], { type: 'text/html' })
       element.href = URL.createObjectURL(file)
       element.download = `${titleArticle}.html`
-      document.body.appendChild(element) // Required for this to work in FireFox
+      document.body.appendChild(element)
       element.click()
-   }
-   const handleHighlight = useCallback(() => {
-      const selection = window.getSelection()
-      if (selection && selection.rangeCount > 0) {
-         const range = selection.getRangeAt(0)
-         const selectedText = range.toString()
-
-         if (selectedText.length > 0) {
-            // const newHighlight = {
-            //    text: selectedText,
-            //    startOffset: range.startOffset,
-            //    endOffset: range.endOffset
-            // }
-            // setHighlights((prevHighlights) => [...prevHighlights, newHighlight])
-
-            // Add a highlight to the range
-            const span = document.createElement('span')
-            span.className = 'highlight'
-            range.surroundContents(span)
-
-            // Clear the selection
-            selection.removeAllRanges()
-         }
-      }
-   }, [])
-   const handleRemoveHighlights = () => {
-      // const elements = document.querySelectorAll('.highlight')
-      // elements.forEach((element) => {
-      //    const parent = element.parentNode
-      //    while (element.firstChild) {
-      //       parent?.insertBefore(element.firstChild, element)
-      //    }
-      //    parent?.removeChild(element)
-      // })
-      // setHighlights([])
-      const selection = window.getSelection()
-      if (selection && selection.rangeCount > 0) {
-         const range = selection.getRangeAt(0)
-         const selectedText = range.toString()
-
-         if (selectedText.length > 0) {
-            const parentNode = range.commonAncestorContainer.parentNode as HTMLElement
-            if (parentNode && parentNode.classList.contains('highlight')) {
-               const textNode = document.createTextNode(parentNode.textContent!)
-               parentNode.parentNode!.replaceChild(textNode, parentNode)
-            }
-            selection.removeAllRanges()
-         }
-      }
    }
    if (!contents) return <LoadingDetail />
 
@@ -385,49 +330,6 @@ export const Article = ({ url }: { url: string }) => {
                </svg>
                <span>Tải về</span>
             </button>
-
-            <Button onClick={handleHighlight} className='text-base text-center w-32 rounded-xl h-12 relative group'>
-               <div className='bg-green-400 rounded-xl h-10 w-[30%] flex items-center justify-center absolute left-1 top-[4px] group-hover:w-[120px] z-10 duration-500'>
-                  <svg
-                     xmlns='http://www.w3.org/2000/svg'
-                     fill='none'
-                     viewBox='0 0 24 24'
-                     strokeWidth={1.5}
-                     stroke='currentColor'
-                     className='size-6'
-                  >
-                     <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z'
-                     />
-                  </svg>
-               </div>
-               <p className='translate-x-5'>Đánh dấu</p>
-            </Button>
-
-            <Button
-               onClick={handleRemoveHighlights}
-               className='text-base text-center w-32 rounded-xl h-12 relative group'
-            >
-               <div className='bg-green-400 rounded-xl h-10 w-[30%] flex items-center justify-center absolute left-1 top-[4px] group-hover:w-[120px] z-10 duration-500'>
-                  <svg
-                     xmlns='http://www.w3.org/2000/svg'
-                     fill='none'
-                     viewBox='0 0 24 24'
-                     strokeWidth={1.5}
-                     stroke='currentColor'
-                     className='size-6'
-                  >
-                     <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='m3 3 1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 0 1 1.743-1.342 48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664 19.5 19.5'
-                     />
-                  </svg>
-               </div>
-               <p className='translate-x-5'>Bỏ dấu</p>
-            </Button>
          </div>
 
          <div

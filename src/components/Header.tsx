@@ -2,13 +2,13 @@ import { ModeToggle } from '@/components/mode-toggle'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/animations/perspective-extreme.css'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import '@fortawesome/fontawesome-free/css/all.min.css' // Import Font Awesome
 import { format } from 'date-fns' // import date
 import { vi } from 'date-fns/locale' // Import ngôn ngữ tiếng Việt
 import axios from 'axios'
 import { Input } from '@/components/ui/input'
-type CityType = 'Ho Chi Minh' | 'Ha Noi' | 'Da Nang' | 'Hue' | 'Can Tho' | 'Tay Ninh' // Thêm các thành phố khác vào đây nếu cần
+import LoadingVoice from '@/components/LoadingVoice'
 const cities = [
    { name: 'Hồ Chí Minh', value: 'Ho Chi Minh' },
    { name: 'Hà Nội', value: 'Ha Noi' },
@@ -222,12 +222,14 @@ export default function Header() {
    const [searchQuery, setSearchQuery] = useState<string>('')
    const currentDate = format(new Date(), 'EEEE, dd/MM/yyyy', { locale: vi }) // Định dạng ngày tháng hiện tại với tiếng Việt
    const [weather, setWeather] = useState({ temp: 29 })
-   const [city, setCity] = useState<CityType>('Ho Chi Minh')
+   const [city, setCity] = useState<string>('Ho Chi Minh')
+   const [isListening, setIsListening] = useState<boolean>(false)
+   const recognitionRef = useRef<SpeechRecognition | null>(null)
    const navigate = useNavigate()
    useEffect(() => {
-      const fetchWeather = async (city: CityType): Promise<void> => {
+      const fetchWeather = async (city: string): Promise<void> => {
          try {
-            const apiKey = '3969490f133ac0be1449ae2f365d58cf' // Sử dụng API key của bạn
+            const apiKey = '3969490f133ac0be1449ae2f365d58cf'
             const response = await axios.get(
                `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
             )
@@ -242,6 +244,33 @@ export default function Header() {
 
       fetchWeather(city)
    }, [city])
+
+   useEffect(() => {
+      if ('webkitSpeechRecognition' in window) {
+         const recognition = new window.webkitSpeechRecognition()
+         recognition.continuous = false
+         recognition.interimResults = false
+         recognition.lang = 'vi-VN'
+
+         recognition.onstart = () => setIsListening(true)
+         recognition.onend = () => setIsListening(false)
+         recognition.onresult = (event: SpeechRecognitionEvent) => {
+            const transcript = event.results[0][0].transcript
+            setSearchQuery(transcript)
+         }
+
+         recognitionRef.current = recognition
+      } else {
+         alert('Web Speech API is not supported in this browser.')
+      }
+   }, [])
+
+   const handleVoiceSearch = () => {
+      if (recognitionRef.current) {
+         recognitionRef.current.start()
+      }
+   }
+
    const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
       setOpenMenuMobile(false)
@@ -267,7 +296,7 @@ export default function Header() {
                      <select
                         className='bg-transparent border-none outline-none'
                         value={city}
-                        onChange={(e) => setCity(e.target.value as CityType)}
+                        onChange={(e) => setCity(e.target.value)}
                      >
                         {cities.map((city) => (
                            <option className='bg-primary-foreground' key={city.value} value={city.value}>
@@ -435,6 +464,26 @@ export default function Header() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                      />
+                     <button type='button' onClick={handleVoiceSearch} className='mr-2 text-primaryColor'>
+                        {isListening ? (
+                           <LoadingVoice />
+                        ) : (
+                           <svg
+                              xmlns='http://www.w3.org/2000/svg'
+                              fill='none'
+                              viewBox='0 0 24 24'
+                              strokeWidth={1.5}
+                              stroke='currentColor'
+                              className='size-6'
+                           >
+                              <path
+                                 strokeLinecap='round'
+                                 strokeLinejoin='round'
+                                 d='M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z'
+                              />
+                           </svg>
+                        )}
+                     </button>
                      <button type='submit' className='bg-primaryColor p-2 whitespace-nowrap rounded-r text-white'>
                         Tìm kiếm
                      </button>
@@ -519,7 +568,7 @@ export default function Header() {
                         <select
                            className='bg-transparent border rounded border-secondary-foreground outline-none'
                            value={city}
-                           onChange={(e) => setCity(e.target.value as CityType)}
+                           onChange={(e) => setCity(e.target.value)}
                         >
                            {cities.map((city) => (
                               <option className='bg-primary-foreground' key={city.value} value={city.value}>
@@ -665,6 +714,26 @@ export default function Header() {
                            value={searchQuery}
                            onChange={(e) => setSearchQuery(e.target.value)}
                         />
+                        <button type='button' onClick={handleVoiceSearch} className='mr-2 text-primaryColor'>
+                           {isListening ? (
+                              <LoadingVoice />
+                           ) : (
+                              <svg
+                                 xmlns='http://www.w3.org/2000/svg'
+                                 fill='none'
+                                 viewBox='0 0 24 24'
+                                 strokeWidth={1.5}
+                                 stroke='currentColor'
+                                 className='size-6'
+                              >
+                                 <path
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                    d='M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z'
+                                 />
+                              </svg>
+                           )}
+                        </button>
                         <button type='submit' className='bg-primaryColor p-2 whitespace-nowrap rounded-r text-white'>
                            Tìm kiếm
                         </button>

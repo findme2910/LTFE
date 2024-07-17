@@ -86,7 +86,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                      >
                         <h2
                            dangerouslySetInnerHTML={{
-                              __html: DOMPurify.sanitize(item.title) //DOMPurify chống tấn công XSS
+                              __html: DOMPurify.sanitize(item.title) //DOMPurify chống tấn công XSS(mã đọc)
                            }}
                            className='font-bold text-xl'
                         ></h2>

@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import LoadingDetail from '@/components/LoadingDetail'
+import ParticlesComponent from '@/components/ParticlesBg'
 const Detail = lazy(() => import('@/pages/Detail/Detail'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 const NotFound = lazy(() => import('@/pages/NotFound/NotFound'))
@@ -44,12 +45,11 @@ const ToiViet = lazy(() => import('@/pages/ToiViet/ToiViet.tsx'))
 const ViecLam = lazy(() => import('@/pages/ViecLam/ViecLam.tsx'))
 const SearchResults = lazy(() => import('@/pages/Timkiem/TimKiem.tsx'))
 const TienIch = lazy(() => import('@/pages/TienIch/TienIch.tsx'))
-const ChatBot = lazy(() => import('@/components/ChatBot'))
 function App() {
    return (
       <>
-         <ChatBot />
          <Header />
+         <ParticlesComponent />
          <main className='container py-5 min-h-screen mt-14 lg:mt-[100px]'>
             <Suspense fallback={<LoadingDetail />}>
                <Routes>
