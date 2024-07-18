@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import LoadingDetail from '@/components/LoadingDetail'
-import ParticlesComponent from '@/components/ParticlesBg'
+import ParticlesBg from '@/components/ParticlesBg'
 const Detail = lazy(() => import('@/pages/Detail/Detail'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 const NotFound = lazy(() => import('@/pages/NotFound/NotFound'))
@@ -49,7 +49,7 @@ function App() {
    return (
       <>
          <Header />
-         <ParticlesComponent />
+         <ParticlesBg />
          <main className='container py-5 min-h-screen mt-14 lg:mt-[100px]'>
             <Suspense fallback={<LoadingDetail />}>
                <Routes>
