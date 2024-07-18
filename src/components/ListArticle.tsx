@@ -7,11 +7,10 @@ import 'tippy.js/animations/perspective-extreme.css'
 import Loading from '@/components/Loading'
 import { useAddHistory } from '@/hooks/useAddHistory.ts'
 import DOMPurify from 'dompurify'
-
+import convertTimeFormat from '@/utils/utils'
 
 const itemsPerPage = 16
 export const ListArticle = ({ url, title }: { url: string; title: string }) => {
-
    const { handleAddHistory } = useAddHistory()
    const rssData: RSS[] = useRssFeed(url)
    const [currentItems, setCurrentItems] = useState<RSS[]>([])
@@ -59,7 +58,8 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
             {title}
             <span className='text-lg translate-y-1'>Trang {currentPage}</span>
          </h1>
-         <div className='grid grid-cols-2 gap-5'>
+
+         <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
             {currentItems.length > 0 &&
                currentItems.map((item, index) => (
                   <article className='flex flex-col gap-y-3' key={index}>
@@ -86,12 +86,12 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
                      >
                         <h2
                            dangerouslySetInnerHTML={{
-                              __html: DOMPurify.sanitize(item.title) //DOMPurify chống tấn công XSS
+                              __html: DOMPurify.sanitize(item.title) //DOMPurify chống tấn công XSS(mã đọc)
                            }}
                            className='font-bold text-xl'
                         ></h2>
                      </Link>
-                     <span className='text-xs'>{item.pubDate}</span>
+                     <span className='text-sm'>{convertTimeFormat(item.pubDate)}</span>
                      <p title={item.description} className='line-clamp-3'>
                         {item.description}
                      </p>

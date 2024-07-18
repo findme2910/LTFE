@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import LoadingDetail from '../LoadingDetail'
 
 interface LotteryResult {
    name: string
@@ -63,7 +64,7 @@ const LotteryResults: React.FC = () => {
    const handleRegionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setRegion(event.target.value)
    }
-
+if(results.length===0) return <LoadingDetail/>
    return (
       <div id='lottery-results' className='my-8'>
          <h2 className='text-2xl font-bold mb-4'>Kết quả xổ số</h2>

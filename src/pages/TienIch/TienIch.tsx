@@ -14,30 +14,78 @@ interface NavigationProps {
    activeTab: string
 }
 
-const Navigation: React.FC<NavigationProps> = ({ setActiveTab }) => {
+const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
    return (
-      <nav className="bg-gray-200 p-4">
-         <ul className="flex space-x-4">
-            <li><button onClick={() => setActiveTab('exchange-rate')} >Tỷ giá ngoại tệ</button></li>
-            <li><button onClick={() => setActiveTab('gold-price')} >Giá vàng</button></li>
-            <li><button onClick={() => setActiveTab('lottery-results')}>Kết quả xổ số</button></li>
-            <li><button onClick={() => setActiveTab('stock-market')}>Chứng khoán</button></li>
-            <li><button onClick={() => setActiveTab('tv-schedule')} >Lịch truyền hình</button></li>
-            <li><button onClick={() => setActiveTab('movie-schedule')} >Lịch chiếu phim</button></li>
-            <li><button onClick={() => setActiveTab('fuel-price')} >Giá xăng dầu</button></li>
-            <li><button onClick={() => setActiveTab('aqi')} >AQI</button></li>
-
+      <nav className='bg-primary-foreground p-4'>
+         <ul className='flex gap-4 flex-wrap'>
+            <li>
+               <button
+                  className={`${activeTab === 'exchange-rate' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('exchange-rate')}
+               >
+                  Tỷ giá ngoại tệ
+               </button>
+            </li>
+            <li>
+               <button
+                  className={`${activeTab === 'gold-price' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('gold-price')}
+               >
+                  Giá vàng
+               </button>
+            </li>
+            <li>
+               <button
+                  className={`${activeTab === 'lottery-results' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('lottery-results')}
+               >
+                  Kết quả xổ số
+               </button>
+            </li>
+            <li>
+               <button
+                  className={`${activeTab === 'stock-market' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('stock-market')}
+               >
+                  Chứng khoán
+               </button>
+            </li>
+            <li>
+               <button
+                  className={`${activeTab === 'tv-schedule' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('tv-schedule')}
+               >
+                  Lịch truyền hình
+               </button>
+            </li>
+            <li>
+               <button
+                  className={`${activeTab === 'movie-schedule' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('movie-schedule')}
+               >
+                  Lịch chiếu phim
+               </button>
+            </li>
+            <li>
+               <button
+                  className={`${activeTab === 'fuel-price' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('fuel-price')}
+               >
+                  Giá xăng dầu
+               </button>
+            </li>
+            <li>
+               <button className={`${activeTab === 'aqi' && 'text-primaryColor'}`} onClick={() => setActiveTab('aqi')}>
+                  AQI
+               </button>
+            </li>
          </ul>
       </nav>
    )
 }
 
 export default function TienIch() {
-
-
-   const [activeTab, setActiveTab] = useState<string>('exchange-rate');
-
-
+   const [activeTab, setActiveTab] = useState<string>('exchange-rate')
 
    return (
       <>
