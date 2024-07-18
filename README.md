@@ -1,4 +1,4 @@
-# Dự án Tái Tạo Trang Web Báo Điện Tử Thanh Niên
+# Dự án Trang Web Báo Điện Tử Thanh Niên
 
 ## 1. Giới thiệu
 
