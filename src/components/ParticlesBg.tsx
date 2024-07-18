@@ -1,7 +1,24 @@
-import Particles from '@tsparticles/react'
-import { useMemo } from 'react'
+import Particles, { initParticlesEngine } from '@tsparticles/react'
+import { useEffect, useMemo, useState } from 'react'
+import { loadSlim } from '@tsparticles/slim'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+const ParticlesBg = (props?: unknown) => {
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   const [init, setInit] = useState(false)
+   useEffect(() => {
+      initParticlesEngine(async (engine) => {
+         await loadSlim(engine)
+      }).then(() => {
+         setInit(true)
+      })
+   }, [])
+   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+   //@ts-ignore
+   const particlesLoaded = (container) => {
+      console.log(container)
+   }
 
-const ParticlesComponent = () => {
    const options = useMemo(
       () => ({
          background: {
@@ -40,7 +57,7 @@ const ParticlesComponent = () => {
                distance: 150,
                enable: true,
                opacity: 0.3,
-               width: 1
+               width: 2
             },
             move: {
                direction: 'none',
@@ -65,7 +82,7 @@ const ParticlesComponent = () => {
                type: 'circle'
             },
             size: {
-               value: { min: 1, max: 3 }
+               value: { min: 2, max: 3 }
             }
          },
          detectRetina: true
@@ -73,8 +90,8 @@ const ParticlesComponent = () => {
       []
    )
    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-   // @ts-ignore
-   return <Particles options={options} />
+   //@ts-ignore
+   return <Particles id={props.id} init={particlesLoaded} options={options} />
 }
 
-export default ParticlesComponent
+export default ParticlesBg
