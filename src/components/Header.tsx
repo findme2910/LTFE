@@ -352,6 +352,14 @@ export default function Header() {
                   >
                      Liên hệ
                   </NavLink>
+                  <NavLink
+                     className={({ isActive }) =>
+                        isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
+                     }
+                     to='/login'
+                  >
+                     Login
+                  </NavLink>
                </div>
                <div className='flex space-x-3  mr-[100px]'>
                   <span>Theo dõi báo trên</span>
@@ -610,6 +618,9 @@ export default function Header() {
                      <span>|</span>
                      <Link onClick={() => setOpenMenuMobile(false)} to='/lien-he' className='hover:text-primaryColor'>
                         Liên hệ
+                     </Link>
+                     <Link onClick={() => setOpenMenuMobile(false)} to='/login' className='hover:text-primaryColor'>
+                        Login
                      </Link>
                   </div>
                   <div className='flex space-x-3'>

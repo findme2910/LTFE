@@ -1,22 +1,57 @@
 import './login.css'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/firebase.ts';
 export default function Login() {
-   const handleSubmit = () => {}
-   const [action, setAction] = useState('SignUp')
-   //co1 đăt class roi qqueryselector() giống javascrot á// okeee Linh mơn Linh v chắc đc r á
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const [confirmPassword, setConfirmPassword] = useState('');
+   const [action, setAction] = useState('SignUp');
+   const [error,setError]= useState('');
+   const handleActionChange = (newAction: string) => {
+      setAction(newAction);
+      setError('');
+   };
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setError('');
+      if (action === 'SignUp') {
+         if (password !== confirmPassword) {
+            setError("Passwords do not match");
+            return;
+         }
+         try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            alert('User registered successfully');
+         } catch (error:unknown) {
+            const firebaseError = error as { message: string };
+            setError(firebaseError.message);
+         }
+      } else {
+         try {
+            await signInWithEmailAndPassword(auth, email, password);
+            alert('User signed in successfully');
+         } catch (error: unknown) {
+            const firebaseError = error as { message: string };
+            setError(firebaseError.message);
+         }
+      }
+   };
+
 
    return (
       <div className='main'>
          <div className='login'>
             <div className='container'>
-               <form onSubmit={handleSubmit} action='' className='form-login ng-scope ng-pristine ng-valid'>
+               <form onSubmit={handleSubmit} className='form-login ng-scope ng-pristine ng-valid'>
                   <ul className='tabs-login'>
                      <li className='tabs-login-item'>
                         <a
                            href='#'
                            className={action === 'SignUp' ? 'submit gray' : 'submit'}
                            onClick={() => {
+                              handleActionChange('Login')
                               setAction('Login')
                            }}
                            data-ng-click="message = ''"
@@ -29,6 +64,7 @@ export default function Login() {
                            href='#'
                            className={action === 'Login' ? 'submit gray' : 'submit'}
                            onClick={() => {
+                              handleActionChange('SignUp')
                               setAction('SignUp')
                            }}
                            data-ng-click="message = ''"
@@ -101,6 +137,7 @@ export default function Login() {
                         <p className='test-or'>Hoặc</p>
                      </div>
                   </div>
+                  {error && <div className="error-message text-red-700 font-bold">{error}</div>}
                   <div className='login-cnt'>
                      {action === 'Login' ? (
                         <div id='menu_1' className='login-form-1'>
@@ -111,7 +148,8 @@ export default function Login() {
                               <input
                                  type='text'
                                  className='input-email ng-pristine ng-valid'
-                                 data-ng-model='loginData.email'
+                                 value={email}
+                                 onChange={(e) => setEmail(e.target.value)}
                                  placeholder='Nhập email'
                               />
                            </div>
@@ -122,7 +160,8 @@ export default function Login() {
                               <input
                                  type='password'
                                  className='input-password ng-pristine ng-valid'
-                                 data-ng-model='loginData.password'
+                                 value={password}
+                                 onChange={(e) => setPassword(e.target.value)}
                                  placeholder='Nhập mật khẩu'
                               />
                               <a href='#' tabIndex={-1} className='view'>
@@ -134,21 +173,11 @@ export default function Login() {
                            <a href='/quen-mat-khau' className='forget-password' target='_blank'>
                               Quên mật khẩu?
                            </a>
-                           <div className='btn-login' data-ng-click='login()'>
-                              <a href='#' className='link-btn'>
+                           <div className='btn-login'>
+                              <button type='submit' className='link-btn'>
                                  Đăng nhập
-                              </a>
+                              </button>
                            </div>
-                           {/*   <div className="login-or">*/}
-                           {/*   <p className="test-or">Hoặc</p>*/}
-                           {/*</div>*/}
-                           {/*<div className="btn-apple">*/}
-                           {/*   <a href="#" className="link-network"*/}
-                           {/*      data-ng-click="authExternalProvider('Apple')">*/}
-                           {/*      <img src="https://my.thanhnien.vn/image/app_ico.svg" alt="" className="icon-network-2" /> Đăng nhập bằng tài khoản*/}
-                           {/*      Apple*/}
-                           {/*   </a>*/}
-                           {/*</div>*/}
                         </div>
                      ) : (
                         <div></div>
@@ -162,19 +191,9 @@ export default function Login() {
                               <input
                                  type='text'
                                  className='input-email ng-pristine ng-valid'
-                                 data-ng-model='loginData.email'
+                                 value={email}
+                                 onChange={(e) => setEmail(e.target.value)}
                                  placeholder='Nhập email'
-                              />
-                           </div>
-                           <div className='login-name'>
-                              <label htmlFor='' className='email-name'>
-                                 Email
-                              </label>
-                              <input
-                                 type='text'
-                                 className='input-email ng-pristine ng-valid'
-                                 data-ng-model='loginData.email'
-                                 placeholder='Nhập tên'
                               />
                            </div>
                            <div className='login-password'>
@@ -184,7 +203,8 @@ export default function Login() {
                               <input
                                  type='password'
                                  className='input-password ng-pristine ng-valid'
-                                 data-ng-model='loginData.password'
+                                 value={password}
+                                 onChange={(e) => setPassword(e.target.value)}
                                  placeholder='Nhập mật khẩu'
                               />
                               <a href='#' tabIndex={-1} className='view'>
@@ -200,8 +220,9 @@ export default function Login() {
                               <input
                                  type='password'
                                  className='input-password ng-pristine ng-valid'
-                                 data-ng-model='registration.confirmPassword'
-                                 placeholder='Nhập mật khẩu'
+                                 value={confirmPassword}
+                                 onChange={(e) => setConfirmPassword(e.target.value)}
+                                 placeholder='Nhập lại mật khẩu'
                               />
                               <a href='#' className='view'>
                                  <svg className='icon-view eye-show'>
@@ -220,10 +241,10 @@ export default function Login() {
                               </a>
                               của tòa soạn
                            </p>
-                           <div className='btn-login' data-ng-click='login()'>
-                              <a href='#' className='link-btn'>
+                           <div className='btn-login'>
+                              <button type='submit' className='link-btn'>
                                  Đăng ký tài khoản
-                              </a>
+                              </button>
                            </div>
                         </div>
                      ) : (
