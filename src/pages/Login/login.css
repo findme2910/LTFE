@@ -203,7 +203,7 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 20px;
-    color: gray;
+    color:gray;
 }
 .submit {
     font-family: Merriweather;
@@ -215,6 +215,13 @@
     border-bottom: 2px #0098d1;
 
 }
+.submit.active {
+    padding:10px 65px;
+   background-color: #0098d1;
+   color: #FFFFFF;
+}
+
+
 
 
 

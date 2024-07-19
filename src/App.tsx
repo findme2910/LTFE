@@ -1,9 +1,10 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import LoadingDetail from '@/components/LoadingDetail'
 import ParticlesBg from '@/components/ParticlesBg'
+import { UserProvider } from '@/context/UserContext';
 const Detail = lazy(() => import('@/pages/Detail/Detail'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 const NotFound = lazy(() => import('@/pages/NotFound/NotFound'))
@@ -46,15 +47,17 @@ const ViecLam = lazy(() => import('@/pages/ViecLam/ViecLam.tsx'))
 const SearchResults = lazy(() => import('@/pages/Timkiem/TimKiem.tsx'))
 const TienIch = lazy(() => import('@/pages/TienIch/TienIch.tsx'))
 function App() {
+   const location = useLocation();
+   const isLoginPage = location.pathname === '/';
    return (
-      <>
-         <Header />
-         <ParticlesBg />
+      <UserProvider>
+         {!isLoginPage && <Header />}
+         {!isLoginPage && <ParticlesBg />}
          <main className='container py-5 min-h-screen mt-14 lg:mt-[100px]'>
             <Suspense fallback={<LoadingDetail />}>
                <Routes>
-                  <Route path={'/'} element={<Home />} />
-                  <Route path={'/login'} element={<Login />} />
+                  <Route path={'/'} element={<Login />} />
+                  <Route path={'/home'} element={<Home />} />
                   <Route path={'/thoi-su'} element={<ThoiSu />} />
                   <Route path={'/doi-song'} element={<DoiSong />} />
                   <Route path={'/detail/:slug'} element={<Detail />} />
@@ -97,8 +100,9 @@ function App() {
                </Routes>
             </Suspense>
          </main>
-         <Footer />
-         <div
+         {!isLoginPage && <Footer />}
+         {!isLoginPage && (
+            <div
             onClick={() =>
                window.scrollTo({
                   top: 0,
@@ -169,8 +173,8 @@ function App() {
                <div className='dot dot-4' />
                <div className='dot dot-5' />
             </div>
-         </div>
-      </>
+         </div>)}
+      </UserProvider>
    )
 }
 
