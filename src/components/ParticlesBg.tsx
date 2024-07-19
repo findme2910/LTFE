@@ -1,9 +1,11 @@
 import Particles, { initParticlesEngine } from '@tsparticles/react'
-import { useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { loadSlim } from '@tsparticles/slim'
+import { AppContext } from '@/context/app.context'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 const ParticlesBg = (props?: unknown) => {
+   const { openEffect } = useContext(AppContext)
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [init, setInit] = useState(false)
    useEffect(() => {
@@ -91,7 +93,7 @@ const ParticlesBg = (props?: unknown) => {
    )
    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
    //@ts-ignore
-   return <Particles id={props.id} init={particlesLoaded} options={options} />
+   return openEffect && <Particles id={props.id} init={particlesLoaded} options={options} />
 }
 
 export default ParticlesBg
