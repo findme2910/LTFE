@@ -5,6 +5,7 @@ import Header from '@/components/Header'
 import LoadingDetail from '@/components/LoadingDetail'
 import ParticlesBg from '@/components/ParticlesBg'
 import { UserProvider } from '@/context/UserContext';
+import Profile from '@/pages/Profile/Profile.tsx'
 const Detail = lazy(() => import('@/pages/Detail/Detail'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 const NotFound = lazy(() => import('@/pages/NotFound/NotFound'))
@@ -97,6 +98,7 @@ function App() {
                   <Route path='/toi-viet' element={<ToiViet />} />
                   <Route path='/viec-lam' element={<ViecLam />} />
                   <Route path='/search' element={<SearchResults />} />
+                  <Route path='/profile' element={<Profile />} />
                </Routes>
             </Suspense>
          </main>

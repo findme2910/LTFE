@@ -12,7 +12,8 @@ import {
    AuthError
 } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '@/firebase.ts';
+import { setDoc, doc, getDoc } from 'firebase/firestore';
+import { auth,db } from '@/firebase.ts';
 // Đăng nhập bằng facebook hiện tại không được do chưa call được api của nó đang bị lỗi xét duyệt
 export default function Login() {
    const [email, setEmail] = useState('');
@@ -38,6 +39,14 @@ export default function Login() {
          try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await sendEmailVerification(userCredential.user);
+            await setDoc(doc(db, 'users', userCredential.user.uid), {
+               displayName: '',
+               phoneNumber: '',
+               gender: '',
+               photoURL:'',
+               birthDate: '',
+               address: '',
+            });
             alert('User registered successfully. Verification email sent!!');
          } catch (error: unknown) {
             const firebaseError = error as AuthError;
@@ -51,9 +60,16 @@ export default function Login() {
                // Optionally, you can sign out the user
                // auth.signOut();
             } else {
+               const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
                setUser({
                   id: userCredential.user.uid,
                   email: userCredential.user.email!,
+                  photoURL: userDoc.exists() ? userDoc.data().photoURL : userCredential.user.photoURL,
+                  displayName: userDoc.exists() ? userDoc.data().displayName : '',
+                  phoneNumber: userDoc.exists() ? userDoc.data().phoneNumber : '',
+                  gender: userDoc.exists() ? userDoc.data().gender : '',
+                  birthDate: userDoc.exists() ? userDoc.data().birthDate : '',
+                  address: userDoc.exists() ? userDoc.data().address : '',
                });
                navigate('/home');
             }
@@ -67,10 +83,28 @@ export default function Login() {
    const signInWithGoogle = async () => {
       const provider = new GoogleAuthProvider();
       try {
-         const userCredential=  await signInWithPopup(auth, provider);
+         const userCredential = await signInWithPopup(auth, provider);
+         const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+         if (!userDoc.exists()) {
+            //tạo ra document với tên là thuộc tính uid của người dùng
+            await setDoc(doc(db, 'users', userCredential.user.uid), {
+               gender: '',
+               birthDate: '',
+               address: '',
+               displayName: userCredential.user.displayName,
+               phoneNumber: userCredential.user.phoneNumber,
+               photoURL: userCredential.user.photoURL,
+            });
+         }
          setUser({
             id: userCredential.user.uid,
             email: userCredential.user.email!,
+            photoURL: userDoc.exists() ? userDoc.data().photoURL : userCredential.user.photoURL,
+            displayName: userDoc.exists() ? userDoc.data().displayName : '',
+            phoneNumber: userDoc.exists() ? userDoc.data().phoneNumber : '',
+            gender: userDoc.exists() ? userDoc.data().gender : '',
+            birthDate: userDoc.exists() ? userDoc.data().birthDate : '',
+            address: userDoc.exists() ? userDoc.data().address : '',
          });
          navigate('/home');
       } catch (error: unknown) {
@@ -82,10 +116,27 @@ export default function Login() {
    const signInWithFacebook = async () => {
       const provider = new FacebookAuthProvider();
       try {
-         const userCredential=  await signInWithPopup(auth, provider);
+         const userCredential = await signInWithPopup(auth, provider);
+         const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+         if (!userDoc.exists()) {
+            await setDoc(doc(db, 'users', userCredential.user.uid), {
+               gender: '',
+               birthDate: '',
+               address: '',
+               displayName: userCredential.user.displayName,
+               phoneNumber: userCredential.user.phoneNumber,
+               photoURL: userCredential.user.photoURL,
+            });
+         }
          setUser({
             id: userCredential.user.uid,
             email: userCredential.user.email!,
+            photoURL: userDoc.exists() ? userDoc.data().photoURL : userCredential.user.photoURL,
+            displayName: userDoc.exists() ? userDoc.data().displayName : '',
+            phoneNumber: userDoc.exists() ? userDoc.data().phoneNumber : '',
+            gender: userDoc.exists() ? userDoc.data().gender : '',
+            birthDate: userDoc.exists() ? userDoc.data().birthDate : '',
+            address: userDoc.exists() ? userDoc.data().address : '',
          });
          navigate('/home');
       } catch (error: unknown) {
