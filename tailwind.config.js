@@ -15,6 +15,7 @@ module.exports = {
       extend: {
          margin:{
             '7':'324px',
+            '9':'240px',
             '13':'300px',
             '15':'312px',
             '17':'354px'},

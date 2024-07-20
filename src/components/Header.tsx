@@ -11,6 +11,9 @@ import { Input } from '@/components/ui/input'
 import LoadingVoice from '@/components/LoadingVoice'
 import { Button } from '@/components/ui/button'
 import { AppContext } from '@/context/app.context'
+import { auth } from '@/firebase.ts'
+import { useUser } from '@/context/UserContext.tsx'
+import { FaUserCircle } from 'react-icons/fa';
 const cities = [
    { name: 'Hồ Chí Minh', value: 'Ho Chi Minh' },
    { name: 'Hà Nội', value: 'Ha Noi' },
@@ -218,6 +221,7 @@ const menu = [
 ]
 
 export default function Header() {
+
    const [openCategory, setOpenCategory] = useState<boolean>(false)
    const [openCategoryMobile, setOpenCategoryMobile] = useState<boolean>(false)
    const [openMenuMobile, setOpenMenuMobile] = useState<boolean>(false)
@@ -229,6 +233,17 @@ export default function Header() {
    const [scrollingUp, setScrollingUp] = useState<boolean>(false)
    const [prevScrollPos, setPrevScrollPos] = useState<number>(0)
    const { setOpenEffect } = useContext(AppContext)
+   const { logout } = useUser();
+   const { user } = useUser();
+   const handleLogout = async () => {
+      try {
+         await auth.signOut();
+         logout();
+         navigate('/');
+      } catch (error) {
+         console.error('Error logging out: ', error);
+      }
+   };
    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
    // @ts-ignore
    const recognitionRef = useRef<SpeechRecognition | null>(null)
@@ -416,7 +431,7 @@ export default function Header() {
             </div>
             <div className='py-2 font-medium border-b border-b-gray-300 bg-primary-foreground'>
                <div className='flex container items-center justify-between'>
-                  <Link to={'/'}>
+                  <Link to={'/home'}>
                      <img
                         loading='lazy'
                         src='https://static.thanhnien.com.vn/thanhnien.vn/image/logo.svg'
@@ -430,7 +445,7 @@ export default function Header() {
                         className={({ isActive }) =>
                            isActive ? 'text-primaryColor font-medium' : 'hover:text-primaryColor transition-all'
                         }
-                        to={'/'}
+                        to={'/home'}
                      >
                         <svg
                            xmlns='http://www.w3.org/2000/svg'
@@ -556,6 +571,29 @@ export default function Header() {
                            />
                         </svg>
                      </Button>
+                     {/*quản lý người dùng*/}
+                     <div className='flex items-center gap-x-5'>
+                        {/* Các thành phần khác */}
+                        <Tippy
+                           content={
+                              <div className='bg-primary-foreground p-2 rounded shadow-lg'>
+                                 <Link to='/profile' className='block px-4 py-2 hover:bg-gray-200'>Trang cá nhân</Link>
+                                 <button onClick={handleLogout} className='block w-full text-left px-4 py-2 hover:bg-gray-200'>Đăng xuất</button>
+                              </div>
+                           }
+                           interactive={true}
+                           placement='bottom-end'
+                           arrow={false}
+                        >
+                           <button className='flex items-center gap-x-1 hover:text-primaryColor transition-all'>
+                              {user?.photoURL ? (
+                                 <img src={user.photoURL} alt="Avatar" className='w-8 h-8 rounded-full object-cover' />
+                              ) : (
+                                 <FaUserCircle className='size-6' />
+                              )}
+                           </button>
+                        </Tippy>
+                     </div>
                   </div>
                </div>
             </div>
