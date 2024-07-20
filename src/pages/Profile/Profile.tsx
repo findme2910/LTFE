@@ -4,11 +4,11 @@ import { doc, onSnapshot, query, updateDoc, collectionGroup, where, DocumentData
 import { db } from '@/firebase.ts'
 import axios from 'axios'
 import { FaUser, FaLock, FaBookmark, FaEye, FaSignOutAlt, FaEyeSlash, FaComment } from 'react-icons/fa' // Import react-icons
-import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth'
+import { updatePassword, reauthenticateWithCredential, EmailAuthProvider,GoogleAuthProvider, linkWithPopup } from 'firebase/auth'
 import { auth } from '@/firebase.ts'
 import { FirebaseError } from 'firebase/app'
 import { useNavigate } from 'react-router-dom'
-
+import { FaGoogle } from 'react-icons/fa';
 // Định nghĩa kiểu dữ liệu cho comment
 interface Comment {
    id: string
@@ -45,6 +45,17 @@ const Profile: React.FC = () => {
    const [showCurrentPassword, setShowCurrentPassword] = useState(false)
    const [showNewPassword, setShowNewPassword] = useState(false)
    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+   const handleLinkWithGoogle = async () => {
+      const provider = new GoogleAuthProvider();
+      if (auth.currentUser) {
+         try {
+            await linkWithPopup(auth.currentUser, provider);
+            alert('Liên kết tài khoản Google thành công!');
+         } catch (error) {
+            alert(error)
+         }
+      }
+   };
    //quản lý bài báo lưu
    const [savedArticles, setSavedArticles] = useState<DocumentData[]>([]);
    useEffect(() => {
@@ -346,9 +357,9 @@ const Profile: React.FC = () => {
                      />
                   </div>
                </div>
-               <div className='mt-6'>
+               <div className='mt-6 text-right'>
                   <button
-                     className='bg-primaryColor px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition'
+                     className='bg-primaryColor px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition text-white'
                      onClick={handleSave}
                      disabled={uploading}
                   >
@@ -356,6 +367,14 @@ const Profile: React.FC = () => {
                   </button>
                   {success && <div className='text-green-500 mt-4'>Lưu thành công!</div>}
                </div>
+               {/*liên kết google*/}
+               <button
+                  onClick={handleLinkWithGoogle}
+                  className="flex items-center gap-x-2 p-2 rounded-md transition-all border border-gray-300 hover:border-gray-400 hover:bg-gray-100 mt-4"
+               >
+                  <FaGoogle className="w-5 h-5 text-red-600" />
+                  <span className="text-sm font-semibold">Tài khoản Google</span>
+               </button>
             </div>
          )}
          {currentTab === 'change-password' && (
