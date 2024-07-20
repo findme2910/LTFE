@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { FaEyeSlash } from 'react-icons/fa';
 import { useUser } from '@/context/UserContext';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, onSnapshot, query, updateDoc, collectionGroup, where } from 'firebase/firestore'
 import { db } from '@/firebase.ts';
 import axios from 'axios';
-import { FaUser, FaLock, FaBookmark, FaEye, FaSignOutAlt } from 'react-icons/fa'; // Import react-icons
+import { FaUser, FaLock, FaBookmark, FaEye, FaSignOutAlt, FaEyeSlash,FaComment } from 'react-icons/fa'; // Import react-icons
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { auth } from '@/firebase.ts';
 import { FirebaseError } from 'firebase/app';
 import { useNavigate } from 'react-router-dom'
+
+// Định nghĩa kiểu dữ liệu cho comment
+interface Comment {
+   id: string;
+   userName: string;
+   content: string;
+   timestamp: { seconds: number; nanoseconds: number }; // Chỉnh lại kiểu dữ liệu cho timestamp
+   articleTitle: string;
+   articleId: string;
+}
 const Profile: React.FC = () => {
    const { user, setUser } = useUser();
    const { logout } = useUser();
-   const navigate = useNavigate()
+   const navigate = useNavigate();
    const [displayName, setDisplayName] = useState(user?.displayName || '');
    const [gender, setGender] = useState(user?.gender || '');
    const [birthDate, setBirthDate] = useState(user?.birthDate || '');
@@ -35,6 +44,29 @@ const Profile: React.FC = () => {
    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
    const [showNewPassword, setShowNewPassword] = useState(false);
    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+   // quản lý bình luận
+   const [userComments, setUserComments] = useState<Comment[]>([]);
+   const fetchUserComments = async () => {
+      if (user) {
+         const q = query(collectionGroup(db, 'comments'), where('userId', '==', user.id));
+         const unsubscribe = onSnapshot(q, (snapshot) => {
+            const commentsData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Comment));
+            setUserComments(commentsData);
+         });
+         return () => unsubscribe();
+      }
+   };
+   // Gọi hàm fetchUserComments khi click vào tab "Hoạt động bình luận"
+   useEffect(() => {
+      if (currentTab === 'comment-activity') {
+         fetchUserComments();
+      }
+   }, [currentTab]);
+   // Hàm xử lý chuyển hướng
+   const handleArticleClick = (articleId: string) => {
+      navigate(`/detail/${articleId}`);
+   };
+   // LOGOUT
    const handleLogout = async () => {
       try {
          await auth.signOut();
@@ -193,7 +225,13 @@ const Profile: React.FC = () => {
                   <FaEye className="w-5 h-5" />
                   <span>Tin đã xem</span>
                </button>
-
+               <button
+                  onClick={() => setCurrentTab('comment-activity')}
+                  className={`flex items-center gap-x-2 p-2 rounded transition-all min-w-52 ${currentTab === 'comment-activity' ? 'bg-blue-600' : 'hover:bg-blue-400'}`}
+               >
+                  <FaComment className="w-5 h-5" />
+                  <span>Hoạt động bình luận</span>
+               </button>
                <button onClick={handleLogout} className="flex items-center gap-x-2 p-2 rounded transition-all min-w-52 hover:bg-blue-400">
                   <FaSignOutAlt className="w-5 h-5" />
                   <span>Đăng xuất</span>
@@ -361,6 +399,27 @@ const Profile: React.FC = () => {
                </form>
             </div>
          )}
+         {currentTab === 'comment-activity' && (
+            <div className="bg-white p-6 rounded-lg shadow-lg w-3/4 ml-5">
+               <h2 className="text-lg font-bold">Hoạt động bình luận</h2>
+               <div className="mt-4">
+                  {userComments.length > 0 ? (
+                     userComments.map((cmt) => (
+                        <div key={cmt.id} className="mt-2 p-2 border rounded cursor-pointer" onClick={() => handleArticleClick(cmt.articleId)}>
+                           <div className="font-bold text-blue-600 text-2xl">{cmt.articleTitle}</div>
+                           <div className="text-sm text-gray-600">{new Date(cmt.timestamp.seconds * 1000).toLocaleString()}</div>
+                           <div className="font-bold">{cmt.userName}</div>
+                           <div>{cmt.content}</div>
+                        </div>
+                     ))
+                  ) : (
+                     <div>Bạn chưa có bình luận nào.</div>
+                  )}
+               </div>
+            </div>
+         )}
+
+         );
 
       </div>
    );

@@ -16,8 +16,11 @@ import {
    TelegramShareButton,
    TelegramIcon
 } from 'react-share'
-
+import { useUser } from '@/context/UserContext';
+import { db } from '@/firebase.ts';
+import { collection, addDoc, query, onSnapshot,DocumentData, Timestamp  } from 'firebase/firestore';
 export const Article = ({ url }: { url: string }) => {
+   const {user} = useUser(); // lấy thông tin người dùng từ context
    const [contents, setContents] = useState<string>('')
    const [titleArticle, setTitleArticle] = useState<string>('')
    const [descArticle, setDescArticle] = useState<string>('')
@@ -25,6 +28,15 @@ export const Article = ({ url }: { url: string }) => {
    const [isReading, setIsReading] = useState<boolean>(false)
    const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
    const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
+
+   const [comment, setComment] = useState('');
+   const [comments, setComments] = useState<DocumentData[]>([]);
+
+   const articleId = url.split('/').pop() || ''; // url nằm ở cuối
+   const formatDate = (timestamp: Timestamp) => {
+      const date = timestamp.toDate();
+      return date.toLocaleString();
+   };
 
    const cssContent = `
    .container {
@@ -196,7 +208,35 @@ export const Article = ({ url }: { url: string }) => {
 
       getVoices()
    }, [])
+   // COMMENTsssssssss
+   useEffect(() => {
+      if (!articleId) return; // Nếu articleId không tồn tại, dừng lại
+      const q = query(collection(db, 'articles', articleId, 'comments'));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+         const commentsData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+         setComments(commentsData);
+      });
 
+      return () => unsubscribe();
+   }, [articleId]);
+   const handleCommentSubmit = async () => {
+      if (comment.trim() !== '') {
+         try {
+            await addDoc(collection(db, 'articles', articleId, 'comments'), {
+               userId: user?.id,
+               userName: user?.displayName || 'Anonymous',
+               userPhoto: user?.photoURL || '', // Thêm avatar người dùng
+               content: comment,
+               timestamp: new Date(),
+               articleTitle: titleArticle,  // Lưu tiêu đề bài báo
+               articleId: articleId //lưu id bài báo
+            });
+            setComment('');
+         } catch (error) {
+            console.error('Error adding comment:', error);
+         }
+      }
+   };
    const handleReadAloud = () => {
       const speechSynthesis = window.speechSynthesis
       if (isReading) {
@@ -247,6 +287,7 @@ export const Article = ({ url }: { url: string }) => {
       document.body.appendChild(element)
       element.click()
    }
+
    if (!contents) return <LoadingDetail />
 
    return (
@@ -337,6 +378,40 @@ export const Article = ({ url }: { url: string }) => {
                __html: DOMPurify.sanitize(contents)
             }}
          />
+         {/* code comment*/}
+         <div className="mt-6">
+            <h2 className="text-lg font-bold">Bình luận ({comments.length})</h2>
+            <div className="mt-4">
+               <textarea
+                  className="w-full p-2 border rounded"
+                  placeholder="Nhập bình luận"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+               ></textarea>
+               <button
+                  className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+                  onClick={handleCommentSubmit}
+               >
+                  Gửi bình luận
+               </button>
+            </div>
+            <div className="mt-4">
+               {comments.map((cmt) => (
+                  <div key={cmt.id} className="mt-2 p-2 border rounded">
+                     <div className="flex items-center">
+                        {cmt.userPhoto && (
+                           <img src={cmt.userPhoto} alt="avatar" className="w-8 h-8 rounded-full mr-2" />
+                        )}
+                        <div>
+                        <div className="text-xs text-gray-600">{formatDate(cmt.timestamp)}</div>
+                        <div className="font-bold">{cmt.userName}</div>
+                        </div>
+                     </div>
+                     <div>{cmt.content}</div>
+                  </div>
+               ))}
+            </div>
+         </div>
       </div>
    )
 }
