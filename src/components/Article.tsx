@@ -20,6 +20,7 @@ import {
 import { useUser } from '@/context/UserContext'
 import { db } from '@/firebase.ts'
 import { collection, addDoc, query, onSnapshot, DocumentData, Timestamp } from 'firebase/firestore'
+import { FaBookmark } from 'react-icons/fa'
 export const Article = ({ url }: { url: string }) => {
    const { user } = useUser() // lấy thông tin người dùng từ context
    const [contents, setContents] = useState<string>('')
@@ -32,6 +33,7 @@ export const Article = ({ url }: { url: string }) => {
    const [comment, setComment] = useState('');
    const [comments, setComments] = useState<DocumentData[]>([]);
    const navigate = useNavigate();
+   const [imageUrl, setImageUrl] = useState<string>('')
    const articleId = url.split('/').pop() || ''; // url nằm ở cuối
 
    const formatDate = (timestamp: Timestamp) => {
@@ -165,6 +167,9 @@ export const Article = ({ url }: { url: string }) => {
             const detailCmainContent = $('.detail-cmain').html() || ''
             const detailRelatedContent = $('.detail__related')
 
+            // Lấy URL của hình ảnh từ bài báo
+            const imageUrl = $('.detail-cmain img').first().attr('src') || ''
+
             // Thay đổi href của tất cả thẻ a trong class detail__related
             detailRelatedContent.find('a').each((_, elem) => {
                const oldHref = $(elem).attr('href')
@@ -178,7 +183,7 @@ export const Article = ({ url }: { url: string }) => {
 
             setTitleArticle(title)
             setDescArticle(detailSapoContent)
-
+            setImageUrl(imageUrl)
             const combinedContent = `
             <div class="title-article">${title}</div>
             <div class="detail-sapo">${detailSapoContent}</div>
@@ -235,6 +240,7 @@ export const Article = ({ url }: { url: string }) => {
                userId: user?.id,
                userName: user?.displayName || 'Anonymous',
                userPhoto: user?.photoURL || '', // Thêm avatar người dùng
+               image:imageUrl,
                content: comment,
                timestamp: new Date(),
                articleTitle: titleArticle, // Lưu tiêu đề bài báo
@@ -246,6 +252,30 @@ export const Article = ({ url }: { url: string }) => {
          }
       }
    }
+   // chức năng lưu bài báo
+   const handleSaveArticle = async () => {
+      if (!user) {
+
+         const confirmLogin = window.confirm("Bạn cần phải đăng nhập trước khi lưu bài báo. Bạn có muốn đăng nhập ngay bây giờ không?");
+         if (confirmLogin) {
+            navigate('/'); // Chuyển hướng người dùng đến trang đăng nhập
+         }
+         return;
+      }
+
+      try {
+         await addDoc(collection(db, 'users', user.id, 'savedArticles'), {
+            articleId: articleId,
+            title: titleArticle,
+            image: imageUrl,
+            timestamp: new Date(),
+         });
+         alert('Bài báo đã được lưu thành công!');
+      } catch (error) {
+         console.error('Error saving article:', error);
+         alert('Đã xảy ra lỗi khi lưu bài báo.');
+      }
+   };
    const handleReadAloud = () => {
       const speechSynthesis = window.speechSynthesis
       if (isReading) {
@@ -321,7 +351,11 @@ export const Article = ({ url }: { url: string }) => {
             <TelegramShareButton url={pathname}>
                <TelegramIcon size={40} round />
             </TelegramShareButton>
+            <button onClick={handleSaveArticle} className='btn-save text-3xl' >
+               <FaBookmark/>
+            </button>
          </div>
+
          <div className='my-3 flex items-center gap-x-10 gap-y-5 flex-wrap'>
             <button onClick={handleReadAloud} className='auto-read flex items-center justify-center gap-x-1'>
                {isReading ? (

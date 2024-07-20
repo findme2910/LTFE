@@ -1,22 +1,22 @@
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-
-// Hàm để gửi email đặt lại mật khẩu
-const sendResetPasswordEmail = async (email: string) => {
-   const auth = getAuth();
-   try {
-      await sendPasswordResetEmail(auth, email);
-      alert("Email đặt lại mật khẩu đã được gửi!");
-   } catch (error) {
-      console.error("Error sending password reset email:", error);
-      alert("Đã xảy ra lỗi khi gửi email đặt lại mật khẩu.");
-   }
-};
-
-// Ví dụ sử dụng hàm này trong một component
+import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react';
 
 const ForgotPassword: React.FC = () => {
+   const navigate = useNavigate();
    const [email, setEmail] = useState('');
+   const sendResetPasswordEmail = async (email: string) => {
+      const auth = getAuth();
+      try {
+         await sendPasswordResetEmail(auth, email);
+         alert("Email đặt lại mật khẩu đã được gửi!");
+         navigate('/');
+      } catch (error) {
+         console.error("Error sending password reset email:", error);
+         alert("Đã xảy ra lỗi khi gửi email đặt lại mật khẩu.");
+      }
+   };
+
 
    const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
