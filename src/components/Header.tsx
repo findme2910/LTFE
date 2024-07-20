@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { AppContext } from '@/context/app.context'
 import { auth } from '@/firebase.ts'
 import { useUser } from '@/context/UserContext.tsx'
+import { FaUserCircle } from 'react-icons/fa';
 const cities = [
    { name: 'Hồ Chí Minh', value: 'Ho Chi Minh' },
    { name: 'Hà Nội', value: 'Ha Noi' },
@@ -233,6 +234,7 @@ export default function Header() {
    const [prevScrollPos, setPrevScrollPos] = useState<number>(0)
    const { setOpenEffect } = useContext(AppContext)
    const { logout } = useUser();
+   const { user } = useUser();
    const handleLogout = async () => {
       try {
          await auth.signOut();
@@ -584,17 +586,11 @@ export default function Header() {
                            arrow={false}
                         >
                            <button className='flex items-center gap-x-1 hover:text-primaryColor transition-all'>
-                              <svg
-                                 xmlns='http://www.w3.org/2000/svg'
-                                 fill='none'
-                                 viewBox='0 0 24 24'
-                                 strokeWidth={1.5}
-                                 stroke='currentColor'
-                                 className='size-6'
-                              >
-                                 <path strokeLinecap='round' strokeLinejoin='round' d='M12 14l9-5-9-5-9 5 9 5z' />
-                                 <path strokeLinecap='round' strokeLinejoin='round' d='M12 14l6.16-3.422M6.84 10.578L12 14v7.5M12 21.5V14' />
-                              </svg>
+                              {user?.photoURL ? (
+                                 <img src={user.photoURL} alt="Avatar" className='w-8 h-8 rounded-full object-cover' />
+                              ) : (
+                                 <FaUserCircle className='size-6' />
+                              )}
                            </button>
                         </Tippy>
                      </div>

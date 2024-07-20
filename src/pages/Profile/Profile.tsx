@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUser } from '@/context/UserContext';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/firebase.ts';
+import axios from 'axios';
 
 const Profile: React.FC = () => {
    const { user, setUser } = useUser();
@@ -10,30 +11,77 @@ const Profile: React.FC = () => {
    const [birthDate, setBirthDate] = useState(user?.birthDate || '');
    const [address, setAddress] = useState(user?.address || '');
    const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || '');
-
-
+   const [photoURL, setPhotoURL] = useState(user?.photoURL || '');
+   const [uploading, setUploading] = useState(false);
+   const [file, setFile] = useState<File | null>(null);
+   const [previewURL, setPreviewURL] = useState<string | null>(null);
+   const [success, setSuccess] = useState(false);
+   useEffect(() => {
+      // Cleanup the preview URL when component unmounts
+      return () => {
+         if (previewURL) {
+            URL.revokeObjectURL(previewURL);
+         }
+      };
+   }, [previewURL]);
    if (!user) {
       return <div>Bạn đang đăng nhập tài khoản bằng anonymous</div>;
    }
 
+
+
    const handleSave = async () => {
       if (user) {
          const userDocRef = doc(db, 'users', user.id);
-         await updateDoc(userDocRef, {
+         const updatedUser = {
             displayName,
             gender,
             birthDate,
             address,
             phoneNumber,
-         });
-         setUser({
-            ...user,
-            displayName,
-            gender,
-            birthDate,
-            address,
-            phoneNumber
-         });
+            photoURL
+         };
+         if (file) {
+            setUploading(true);
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'profile_pictures');
+            try {
+               const response = await axios.post(
+                  'https://api.cloudinary.com/v1_1/dvxnipyk4/image/upload',
+                  formData
+               );
+               const downloadURL = response.data.secure_url;
+               updatedUser.photoURL = downloadURL;
+               setPhotoURL(downloadURL);
+               await updateDoc(userDocRef, updatedUser);
+               setUser({
+                  ...user,
+                  ...updatedUser
+               });
+               setSuccess(true);
+            } catch (error) {
+               console.error('Upload failed:', error);
+            } finally {
+               setUploading(false);
+            }
+         } else {
+            await updateDoc(userDocRef, updatedUser);
+            setUser({
+               ...user,
+               ...updatedUser
+            });
+            setSuccess(true);
+         }
+      }
+   };
+
+   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files[0]) {
+         const selectedFile = e.target.files[0];
+         setFile(selectedFile);
+         const previewURL = URL.createObjectURL(selectedFile);
+         setPreviewURL(previewURL);
       }
    };
 
@@ -41,8 +89,22 @@ const Profile: React.FC = () => {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-5">
          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
             <div className="flex items-center mb-6">
-               <div className="flex-shrink-0 w-24 h-24 rounded-full bg-blue-500 text-white flex items-center justify-center text-4xl">
-                  {displayName ? displayName.charAt(0) : 'U'}
+               <div className="relative flex-shrink-0 w-24 h-24 rounded-full bg-blue-500 text-white flex items-center justify-center text-4xl">
+                  {previewURL ? (
+                     <img src={previewURL} alt="Avatar" className="w-full h-full rounded-full object-cover" />
+                  ) : (
+                     photoURL ? (
+                        <img src={photoURL} alt="Avatar" className="w-full h-full rounded-full object-cover" />
+                     ) : (
+                        displayName.charAt(0)
+                     )
+                  )}
+                  <input
+                     type="file"
+                     className="absolute inset-0 opacity-0 cursor-pointer"
+                     onChange={handleFileChange}
+                     accept="image/*"
+                  />
                </div>
                <div className="ml-4">
                   <h1 className="text-2xl font-bold">{displayName || 'User'}</h1>
@@ -137,9 +199,11 @@ const Profile: React.FC = () => {
                <button
                   className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition"
                   onClick={handleSave}
+                  disabled={uploading}
                >
-                  Lưu thay đổi
+                  {uploading ? 'Đang tải lên...' : 'Lưu thay đổi'}
                </button>
+               {success && <div className="text-green-500 mt-4">Lưu thành công!</div>}
             </div>
          </div>
       </div>
