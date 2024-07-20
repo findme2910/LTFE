@@ -14,8 +14,12 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 import { setDoc, doc, getDoc } from 'firebase/firestore'
 import { auth, db } from '@/firebase.ts'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 // Đăng nhập bằng facebook hiện tại không được do chưa call được api của nó đang bị lỗi xét duyệt
 export default function Login() {
+   const [showLoginPassword, setShowLoginPassword] = useState(false)
+   const [showRegisterPassword, setShowRegisterPassword] = useState(false)
+   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
    const [confirmPassword, setConfirmPassword] = useState('')
@@ -262,19 +266,21 @@ export default function Login() {
                                           placeholder='Nhập email'
                                        />
                                     </div>
-                                    <div className='login-password'>
+                                    <div className='login-password relative'>
                                        <input
-                                          type='password'
+                                          type={showLoginPassword ? 'text' : 'password'}
                                           className='input-password ng-pristine ng-valid input-is'
                                           value={password}
                                           onChange={(e) => setPassword(e.target.value)}
                                           placeholder='Nhập mật khẩu'
                                        />
-                                       {/* <a href='#' tabIndex={-1} className='view'>
-                                             <svg className='icon-view eye-show'>
-                                                <use xlinkHref='#eye-show'></use>
-                                             </svg>
-                                          </a> */}
+                                       <button
+                                          type='button'
+                                          className='absolute inset-y-0 right-0 pr-3 flex items-center mt-2'
+                                          onClick={() => setShowLoginPassword(!showLoginPassword)}
+                                       >
+                                          {showLoginPassword ? <FaEyeSlash /> : <FaEye />}
+                                       </button>
                                     </div>
                                     <Link to='/quen-mat-khau' className='forget-password !text-white' target='_blank'>
                                        Quên mật khẩu?
@@ -306,28 +312,37 @@ export default function Login() {
                                           placeholder='Nhập email'
                                        />
                                     </div>
-                                    <div className='login-password'>
+                                    <div className='login-password relative'>
                                        <input
-                                          type='password'
+                                          type={showRegisterPassword ? 'text' : 'password'}
                                           className='input-password ng-pristine ng-valid input-is'
                                           value={password}
                                           onChange={(e) => setPassword(e.target.value)}
                                           placeholder='Nhập mật khẩu'
                                        />
-                                       {/* <a href='#' tabIndex={-1} className='view'>
-                                             <svg className='icon-view eye-show'>
-                                                <use xlinkHref='#eye-show'></use>
-                                             </svg>
-                                          </a> */}
+                                       <button
+                                          type='button'
+                                          className='absolute inset-y-0 right-0 pr-3 flex items-center mt-2'
+                                          onClick={() => setShowRegisterPassword(!showRegisterPassword)}
+                                       >
+                                          {showRegisterPassword ? <FaEyeSlash /> : <FaEye />}
+                                       </button>
                                     </div>
-                                    <div className='login-password'>
+                                    <div className='login-password relative'>
                                        <input
-                                          type='password'
+                                          type={showConfirmPassword ? 'text' : 'password'}
                                           className='input-password ng-pristine ng-valid input-is'
                                           value={confirmPassword}
                                           onChange={(e) => setConfirmPassword(e.target.value)}
                                           placeholder='Nhập lại mật khẩu'
                                        />
+                                       <button
+                                          type='button'
+                                          className='absolute inset-y-0 right-0 pr-3 flex items-center mt-2'
+                                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                       >
+                                          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                       </button>
                                     </div>
                                     <p className='regula !text-white '>
                                        Khi bấm đăng ký tài khoản bạn đã đồng ý với
