@@ -111,7 +111,7 @@ function App() {
                      behavior: 'smooth'
                   })
                }
-               className='voltage-button !fixed !z-[49] !bottom-5 !left-5'
+               className='voltage-button !fixed !z-[49] !bottom-5 !right-5'
             >
                <button>
                   <svg
