@@ -169,8 +169,8 @@ const Profile: React.FC = () => {
    }
 
    return (
-      <div className='min-h-screen bg-secondary flex p-5'>
-         <div className='bg-primaryColor p-6 rounded-lg shadow-lg w-1/4'>
+      <div className='min-h-screen bg-secondary flex flex-col lg:flex-row gap-5 p-5'>
+         <div className='bg-primaryColor p-6 rounded-lg shadow-lg w-full lg:w-1/4'>
             <div className='flex items-center mb-6'>
                <div className='relative flex-shrink-0 w-24 h-24 rounded-full bg-primaryColor flex items-center justify-center text-4xl'>
                   {previewURL ? (
@@ -248,7 +248,7 @@ const Profile: React.FC = () => {
          </div>
          {/*thông tin tài khoản*/}
          {currentTab === 'profile' && (
-            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-3/4 ml-5'>
+            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-full lg:w-3/4 '>
                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                   <div>
                      <label className='block '>Tên hiển thị</label>
@@ -348,7 +348,7 @@ const Profile: React.FC = () => {
             </div>
          )}
          {currentTab === 'change-password' && (
-            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-3/4 ml-5'>
+            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-full lg:w-3/4 '>
                <form onSubmit={handleChangePassword}>
                   <div className='mb-4 relative'>
                      <label className='block'>Mật khẩu hiện tại</label>
@@ -410,7 +410,7 @@ const Profile: React.FC = () => {
             </div>
          )}
          {currentTab === 'comment-activity' && (
-            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-3/4 ml-5'>
+            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-full lg:w-3/4 '>
                <h2 className='text-lg font-bold'>Hoạt động bình luận</h2>
                <div className='mt-4'>
                   {userComments.length > 0 ? (

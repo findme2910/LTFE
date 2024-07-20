@@ -3,13 +3,6 @@
    font-weight: 400;
 }
 
-.container {
-   width: 1150px !important;
-   margin-right: auto;
-   margin-left: auto;
-   padding-left: 15px;
-   padding-right: 15px;
-}
 .login .form-login {
    width: 450px;
    margin: auto;
