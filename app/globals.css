@@ -760,18 +760,12 @@ line {
    transform: translate(-5px, 15px) rotate(45deg);
 }
 
-/* chat bot */
-
-html.dark df-messenger {
-   --df-messenger-button-titlebar-color: #0044cc;
-   --df-messenger-bot-message: #e0e0e0;
-   --df-messenger-user-message: #d0ffd6;
-   --df-messenger-font-color: #000000;
-   --df-messenger-send-icon: #0044cc;
-   --df-messenger-minimized-chat-close-icon-color: #ffffff;
-   --df-messenger-chat-background-color: #0f172a;
-   --df-messenger-input-font-color: #fff;
-   --df-messenger-input-box-color: #1e293b;
+input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-calendar-picker-indicator {
+   background-color: #007bff;
+   border-radius: 100rem;
+   padding: 5px;
+   cursor: pointer;
 }
 /* loading voice */
 

@@ -169,10 +169,10 @@ const Profile: React.FC = () => {
    }
 
    return (
-      <div className='min-h-screen bg-gray-100 flex p-5'>
-         <div className='bg-blue-500 text-white p-6 rounded-lg shadow-lg w-1/4'>
+      <div className='min-h-screen bg-secondary flex p-5'>
+         <div className='bg-primaryColor p-6 rounded-lg shadow-lg w-1/4'>
             <div className='flex items-center mb-6'>
-               <div className='relative flex-shrink-0 w-24 h-24 rounded-full bg-blue-500 text-white flex items-center justify-center text-4xl'>
+               <div className='relative flex-shrink-0 w-24 h-24 rounded-full bg-primaryColor flex items-center justify-center text-4xl'>
                   {previewURL ? (
                      <img src={previewURL} alt='Avatar' className='w-full h-full rounded-full object-cover' />
                   ) : photoURL ? (
@@ -191,7 +191,7 @@ const Profile: React.FC = () => {
                   <h1 className='text-2xl font-bold'>{displayName || 'User'}</h1>
                </div>
             </div>
-            <nav className='space-y-2 bg-blue-500 p-4 rounded-md text-white'>
+            <nav className='space-y-2 bg-primaryColor p-4 rounded-md'>
                <button
                   onClick={() => setCurrentTab('profile')}
                   className={`flex items-center gap-x-2 p-2 rounded transition-all min-w-52 ${
@@ -248,24 +248,24 @@ const Profile: React.FC = () => {
          </div>
          {/*thông tin tài khoản*/}
          {currentTab === 'profile' && (
-            <div className='bg-white p-6 rounded-lg shadow-lg w-3/4 ml-5'>
+            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-3/4 ml-5'>
                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                   <div>
-                     <label className='block text-gray-700'>Tên hiển thị</label>
+                     <label className='block '>Tên hiển thị</label>
                      <input
                         type='text'
-                        className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
+                        className='mt-1 block w-full p-2 border border-gray-300 bg-transparent rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
                         value={displayName}
                         onChange={(e) => setDisplayName(e.target.value)}
                      />
                   </div>
                   <div>
-                     <label className='block text-gray-700'>Giới tính</label>
+                     <label className='block'>Giới tính</label>
                      <div className='mt-1 flex items-center space-x-4'>
                         <label className='inline-flex items-center'>
                            <input
                               type='radio'
-                              className='form-radio'
+                              className='form-radio w-5 h-5 '
                               name='gender'
                               value='male'
                               checked={gender === 'male'}
@@ -276,7 +276,7 @@ const Profile: React.FC = () => {
                         <label className='inline-flex items-center'>
                            <input
                               type='radio'
-                              className='form-radio'
+                              className='form-radio w-5 h-5'
                               name='gender'
                               value='female'
                               checked={gender === 'female'}
@@ -287,7 +287,7 @@ const Profile: React.FC = () => {
                         <label className='inline-flex items-center'>
                            <input
                               type='radio'
-                              className='form-radio'
+                              className='form-radio w-5 h-5'
                               name='gender'
                               value='other'
                               checked={gender === 'other'}
@@ -298,37 +298,38 @@ const Profile: React.FC = () => {
                      </div>
                   </div>
                   <div>
-                     <label className='block text-gray-700'>Ngày sinh</label>
+                     <label className='block'>Ngày sinh</label>
                      <input
                         type='date'
-                        className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
+                        className='mt-1 block w-full bg-transparent p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
                         value={birthDate}
                         onChange={(e) => setBirthDate(e.target.value)}
                      />
                   </div>
                   <div>
-                     <label className='block text-gray-700'>Email</label>
+                     <label className='block'>Email</label>
                      <input
                         type='email'
-                        className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
+                        disabled
+                        className='mt-1 block w-full bg-transparent p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
                         defaultValue={user.email}
                         readOnly
                      />
                   </div>
                   <div>
-                     <label className='block text-gray-700'>Điện thoại</label>
+                     <label className='block'>Điện thoại</label>
                      <input
                         type='text'
-                        className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
+                        className='mt-1 block w-full bg-transparent p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
                      />
                   </div>
                   <div>
-                     <label className='block text-gray-700'>Địa chỉ</label>
+                     <label className='block'>Địa chỉ</label>
                      <input
                         type='text'
-                        className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
+                        className='mt-1 block w-full bg-transparent p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                      />
@@ -336,7 +337,7 @@ const Profile: React.FC = () => {
                </div>
                <div className='mt-6'>
                   <button
-                     className='bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition'
+                     className='bg-primaryColor px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition'
                      onClick={handleSave}
                      disabled={uploading}
                   >
@@ -347,13 +348,13 @@ const Profile: React.FC = () => {
             </div>
          )}
          {currentTab === 'change-password' && (
-            <div className='bg-white p-6 rounded-lg shadow-lg w-3/4 ml-5'>
+            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-3/4 ml-5'>
                <form onSubmit={handleChangePassword}>
                   <div className='mb-4 relative'>
-                     <label className='block text-gray-700'>Mật khẩu hiện tại</label>
+                     <label className='block'>Mật khẩu hiện tại</label>
                      <input
                         type={showCurrentPassword ? 'text' : 'password'}
-                        className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
+                        className='mt-1 block bg-transparent w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                      />
@@ -366,10 +367,10 @@ const Profile: React.FC = () => {
                      </button>
                   </div>
                   <div className='mb-4 relative'>
-                     <label className='block text-gray-700'>Mật khẩu mới</label>
+                     <label className='block'>Mật khẩu mới</label>
                      <input
                         type={showNewPassword ? 'text' : 'password'}
-                        className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
+                        className='mt-1 block bg-transparent w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                      />
@@ -382,10 +383,10 @@ const Profile: React.FC = () => {
                      </button>
                   </div>
                   <div className='mb-4 relative'>
-                     <label className='block text-gray-700'>Xác nhận mật khẩu mới</label>
+                     <label className='block'>Xác nhận mật khẩu mới</label>
                      <input
                         type={showConfirmPassword ? 'text' : 'password'}
-                        className='mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
+                        className='mt-1 block w-full bg-transparent p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300'
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                      />
@@ -401,7 +402,7 @@ const Profile: React.FC = () => {
                   {passwordSuccess && <div className='text-green-500 mb-4'>{passwordSuccess}</div>}
                   <button
                      type='submit'
-                     className='bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition'
+                     className='bg-primaryColor px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition'
                   >
                      Đổi mật khẩu
                   </button>
@@ -409,7 +410,7 @@ const Profile: React.FC = () => {
             </div>
          )}
          {currentTab === 'comment-activity' && (
-            <div className='bg-white p-6 rounded-lg shadow-lg w-3/4 ml-5'>
+            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-3/4 ml-5'>
                <h2 className='text-lg font-bold'>Hoạt động bình luận</h2>
                <div className='mt-4'>
                   {userComments.length > 0 ? (
