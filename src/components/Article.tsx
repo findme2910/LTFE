@@ -4,6 +4,7 @@ import cheerio from 'cheerio'
 import LoadingDetail from '@/components/LoadingDetail'
 import { Helmet } from 'react-helmet'
 import DOMPurify from 'dompurify'
+import { useNavigate } from 'react-router-dom';
 import {
    FacebookShareButton,
    FacebookIcon,
@@ -19,6 +20,7 @@ import {
 import { useUser } from '@/context/UserContext';
 import { db } from '@/firebase.ts';
 import { collection, addDoc, query, onSnapshot,DocumentData, Timestamp  } from 'firebase/firestore';
+
 export const Article = ({ url }: { url: string }) => {
    const {user} = useUser(); // lấy thông tin người dùng từ context
    const [contents, setContents] = useState<string>('')
@@ -28,10 +30,9 @@ export const Article = ({ url }: { url: string }) => {
    const [isReading, setIsReading] = useState<boolean>(false)
    const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null)
    const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null)
-
    const [comment, setComment] = useState('');
    const [comments, setComments] = useState<DocumentData[]>([]);
-
+   const navigate = useNavigate();
    const articleId = url.split('/').pop() || ''; // url nằm ở cuối
    const formatDate = (timestamp: Timestamp) => {
       const date = timestamp.toDate();
@@ -220,6 +221,14 @@ export const Article = ({ url }: { url: string }) => {
       return () => unsubscribe();
    }, [articleId]);
    const handleCommentSubmit = async () => {
+      if (!user) {
+         const confirmLogin = window.confirm("Bạn cần phải đăng nhập trước khi bình luận. Bạn có muốn đăng nhập ngay bây giờ không?");
+         if (confirmLogin) {
+            navigate('/'); // Chuyển hướng người dùng đến trang đăng nhập
+         }
+         return;
+      }
+
       if (comment.trim() !== '') {
          try {
             await addDoc(collection(db, 'articles', articleId, 'comments'), {
