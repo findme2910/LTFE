@@ -1,228 +1,556 @@
 * {
-    box-sizing: border-box;
-    font-weight: 400;
+   box-sizing: border-box;
+   font-weight: 400;
 }
-.login {
-    margin-top: 8px;
-    margin-bottom: 127px;
-}
-.container {
-    width: 1150px !important;
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-}
+
 .login .form-login {
-    width: 402px;
-    margin: auto;
+   width: 450px;
+   margin: auto;
 }
 .login .form-login .tabs-login {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 0 10px 0;
-    border-bottom: 2px solid #ebebeb;
-    position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 16px 0 10px 0;
+   border-bottom: 2px solid #ebebeb;
+   position: relative;
 }
 .login .form-login .tabs-login .tabs-login-item {
-    width: 201px;
-    text-align: center;
+   width: 201px;
+   text-align: center;
 }
 
 .login .form-login .login-network .login-by-account {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 24px;
-    position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 24px;
+   position: relative;
 }
 .login .form-login .login-network .login-by-account .login-by-subtext {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
-    color: #454545;
+   font-family: Inter;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 13px;
+   line-height: 18px;
+   color: #454545;
 }
 .login .form-login .login-network .login-social-network {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+   margin-top: 16px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
 .login .form-login .login-network .login-social-network .link-network {
-    background: #f6f6f6;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    width: 123.33px;
-    height: 40px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
-    color: #292929;
+   background: #f6f6f6;
+   border-radius: 4px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 8px;
+   width: 123.33px;
+   height: 40px;
+   font-family: Roboto;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 13px;
+   line-height: 18px;
+   color: #292929;
 }
 .login-or {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 24px;
-    position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 24px;
+   position: relative;
 }
 .login-cnt .login-form-1 .email-name {
-    width: 100%;
-    display: block;
+   width: 100%;
+   display: block;
 }
 .login-cnt .login-form-1 input {
-    margin-top: 8px;
-    border: 1px solid #ebebeb;
-    border-radius: 4px;
-    width: 100%;
-    padding: 10px 8px;
+   margin-top: 8px;
+   border: 1px solid #ebebeb;
+   border-radius: 4px;
+   width: 100%;
+   padding: 10px 8px;
 }
 .login .form-login .login-cnt .login-form-1 .forget-password {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
-    text-align: right;
-    color: #8b8b8b;
-    padding-top: 16px;
-    display: block;
+   font-family: Inter;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 13px;
+   line-height: 18px;
+   text-align: right;
+   color: #8b8b8b;
+   padding-top: 16px;
+   display: block;
 }
 .login .form-login .login-cnt .login-form-1 .login-password .view {
-    position: absolute;
-    bottom: 7px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+   position: absolute;
+   bottom: 7px;
+   right: 10px;
+   display: flex;
+   align-items: center;
+   cursor: pointer;
 }
 .login .form-login .login-cnt .login-form-1 .btn-login {
-    margin-top: 16px;
-    background: #0098d1;
-    border-radius: 4px;
-    padding: 9px;
-    text-align: center;
+   margin-top: 16px;
+   background: #0098d1;
+   border-radius: 4px;
+   padding: 9px;
+   text-align: center;
 }
 .login .form-login .login-cnt .login-form-1 .btn-login .link-btn {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    color: #fff;
+   font-family: Inter;
+   font-style: normal;
+   font-weight: 600;
+   font-size: 14px;
+   line-height: 20px;
+   color: #fff;
 }
 .login .form-login .login-cnt .btn-apple {
-    border: 1px solid #000;
-    border-radius: 4px;
-    padding: 9px;
-    margin-top: 8px;
-    text-align: center;
+   border: 1px solid #000;
+   border-radius: 4px;
+   padding: 9px;
+   margin-top: 8px;
+   text-align: center;
 }
 .login .form-login .login-cnt .btn-apple .link-network {
-    display: flex;
-    width: auto;
-    max-width: 260px;
-    margin: auto;
+   display: flex;
+   width: auto;
+   max-width: 260px;
+   margin: auto;
 }
 .login .form-login .login-cnt .btn-apple .link-network img {
-     width: 16px;
-     margin-right: 10px;
+   width: 16px;
+   margin-right: 10px;
 }
 
 .login-cnt .login-form-2 .email-name {
-    width: 100%;
-    display: block;
+   width: 100%;
+   display: block;
 }
 .login-cnt .login-form-2 input {
-    margin-top: 8px;
-    border: 1px solid #ebebeb;
-    border-radius: 4px;
-    width: 100%;
-    padding: 10px 8px;
+   margin-top: 8px;
+   border: 1px solid #ebebeb;
+   border-radius: 4px;
+   width: 100%;
+   padding: 10px 8px;
 }
 .login .form-login .login-cnt .login-form-2 .forget-password {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
-    text-align: right;
-    color: #8b8b8b;
-    padding-top: 16px;
-    display: block;
+   font-family: Inter;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 13px;
+   line-height: 18px;
+   text-align: right;
+   color: #8b8b8b;
+   padding-top: 16px;
+   display: block;
 }
 .login .form-login .login-cnt .login-form-2 .login-password .view {
-    position: absolute;
-    bottom: 7px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+   position: absolute;
+   bottom: 7px;
+   right: 10px;
+   display: flex;
+   align-items: center;
+   cursor: pointer;
 }
 .login .form-login .login-cnt .login-form-2 .btn-login {
-    margin-top: 16px;
-    background: #0098d1;
-    border-radius: 4px;
-    padding: 9px;
-    text-align: center;
+   margin-top: 16px;
+   background: #0098d1;
+   border-radius: 4px;
+   padding: 9px;
+   text-align: center;
 }
 .login .form-login .login-cnt .login-form-2 .btn-login .link-btn {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    color: #fff;
+   font-family: Inter;
+   font-style: normal;
+   font-weight: 600;
+   font-size: 14px;
+   line-height: 20px;
+   color: #fff;
 }
 .regula {
-    display: flex; /* Sử dụng flexbox để căn chỉnh */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    font-family: Inter; /* Sử dụng font chữ Inter */
-    font-size: 13px; /* Cỡ chữ */
-    color: #8b8b8b; /* Màu chữ xám nhạt */
+   display: flex; /* Sử dụng flexbox để căn chỉnh */
+   align-items: center; /* Căn giữa theo chiều dọc */
+   font-family: Inter; /* Sử dụng font chữ Inter */
+   font-size: 13px; /* Cỡ chữ */
+   color: #8b8b8b; /* Màu chữ xám nhạt */
 }
 
 .regula .forget-password {
-    margin-left: 5px; /* Khoảng cách giữa văn bản và liên kết */
-    text-decoration: underline; /* Gạch chân cho liên kết */
-    color: #007bff; /* Màu của liên kết */
-    margin-bottom: 16px;
+   margin-left: 5px; /* Khoảng cách giữa văn bản và liên kết */
+   text-decoration: underline; /* Gạch chân cho liên kết */
+   color: #007bff; /* Màu của liên kết */
+   margin-bottom: 16px;
 }
 
-.submitGray{
-    font-family: Merriweather;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
-    color:gray;
+.submitGray {
+   font-family: Merriweather;
+   font-style: normal;
+   font-weight: 700;
+   font-size: 14px;
+   line-height: 20px;
+   color: gray;
 }
 .submit {
-    font-family: Merriweather;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
-    color: #292929;
-    border-bottom: 2px #0098d1;
-
+   font-family: Merriweather;
+   font-style: normal;
+   font-weight: 700;
+   font-size: 14px;
+   line-height: 20px;
+   color: #292929;
+   border-bottom: 2px #0098d1;
 }
 .submit.active {
-    padding:10px 65px;
+   padding: 10px 65px;
    background-color: #0098d1;
-   color: #FFFFFF;
+   color: #ffffff;
 }
 
+.input-container {
+   filter: drop-shadow(46px 36px 24px #4090b5) drop-shadow(-55px -40px 25px #9e30a9);
+   animation: blinkShadowsFilter 8s ease-in infinite;
+   width: 450px;
+   color: #fff;
+}
+@media (max-width: 500px) {
+   .input-container {
+      width: 320px;
+   }
+}
 
+.input-content {
+   display: grid;
+   align-content: center;
+   justify-items: center;
+   align-items: center;
+   text-align: center;
+   padding: 0 25px;
+}
 
+.input-content::before {
+   content: '';
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   filter: blur(40px);
+   -webkit-clip-path: polygon(26% 0, 66% 0, 92% 0, 100% 8%, 100% 89%, 91% 100%, 7% 100%, 0 92%, 0 0);
+   clip-path: polygon(26% 0, 66% 0, 92% 0, 100% 8%, 100% 89%, 91% 100%, 7% 100%, 0 92%, 0 0);
+   background: rgba(122, 251, 255, 0.5568627451);
+   transition: all 1s ease-in-out;
+}
 
+.input-content::after {
+   content: '';
+   position: absolute;
+   width: 98%;
+   height: 98%;
+   box-shadow: inset 0px 0px 20px 20px #212121;
+   background: repeating-linear-gradient(
+         to bottom,
+         transparent 0%,
+         rgba(64, 144, 181, 0.6) 1px,
+         rgb(0, 0, 0) 3px,
+         hsl(295, 60%, 12%) 5px,
+         #153544 4px,
+         transparent 0.5%
+      ),
+      repeating-linear-gradient(to left, hsl(295, 60%, 12%) 100%, hsla(295, 60%, 12%, 0.99) 100%);
+   -webkit-clip-path: polygon(26% 0, 31% 5%, 61% 5%, 66% 0, 92% 0, 100% 8%, 100% 89%, 91% 100%, 7% 100%, 0 92%, 0 0);
+   clip-path: polygon(26% 0, 31% 5%, 61% 5%, 66% 0, 92% 0, 100% 8%, 100% 89%, 91% 100%, 7% 100%, 0 92%, 0 0);
+   animation: backglitch 50ms linear infinite;
+}
 
+.input-dist {
+   z-index: 80;
+   display: grid;
+   align-items: center;
+   text-align: center;
+   width: 100%;
+   padding-block: 1.2em;
+   grid-template-columns: 1fr;
+}
 
+.input-type {
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+   gap: 0.5em;
+   font-size: 1.1rem;
+   background-color: transparent;
+   width: 100%;
+   border: none;
+}
+
+.input-is {
+   font-size: 0.9rem;
+   background-color: transparent;
+   width: 100%;
+   box-sizing: border-box;
+   padding-inline: 0.5em;
+   padding-block: 0.7em;
+   border: none;
+   transition: all 1s ease-in-out;
+   border-bottom: 1px solid hsl(221, 26%, 43%);
+}
+
+.input-is:hover {
+   transition: all 1s ease-in-out;
+   background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(102, 224, 255, 0.2) 27%,
+      rgba(102, 224, 255, 0.2) 63%,
+      transparent 100%
+   );
+}
+
+.input-content:focus-within::before {
+   transition: all 1s ease-in-out;
+   background: hsla(0, 0%, 100%, 0.814);
+}
+
+.input-is:focus {
+   outline: none;
+   border-bottom: 1px solid hsl(192, 100%, 100%);
+   color: hsl(192, 100%, 88%);
+   background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(102, 224, 255, 0.2) 27%,
+      rgba(102, 224, 255, 0.2) 63%,
+      transparent 100%
+   );
+}
+
+.input-is::-moz-placeholder {
+   color: hsla(192, 100%, 88%, 0.806);
+}
+
+.input-is::placeholder {
+   color: hsla(192, 100%, 88%, 0.806);
+}
+
+@keyframes backglitch {
+   0% {
+      box-shadow: inset 0px 20px 20px 30px #212121;
+   }
+
+   50% {
+      box-shadow: inset 0px -20px 20px 30px hsl(297, 42%, 10%);
+   }
+
+   to {
+      box-shadow: inset 0px 20px 20px 30px #212121;
+   }
+}
+
+@keyframes rotate {
+   0% {
+      transform: rotate(0deg) translate(-50%, 20%);
+   }
+
+   50% {
+      transform: rotate(180deg) translate(40%, 10%);
+   }
+
+   to {
+      transform: rotate(360deg) translate(-50%, 20%);
+   }
+}
+
+@keyframes blinkShadowsFilter {
+   0% {
+      filter: drop-shadow(46px 36px 28px rgba(64, 144, 181, 0.3411764706)) drop-shadow(-55px -40px 28px #9e30a9);
+   }
+
+   25% {
+      filter: drop-shadow(46px -36px 24px rgba(64, 144, 181, 0.8980392157)) drop-shadow(-55px 40px 24px #9e30a9);
+   }
+
+   50% {
+      filter: drop-shadow(46px 36px 30px rgba(64, 144, 181, 0.8980392157))
+         drop-shadow(-55px 40px 30px rgba(159, 48, 169, 0.2941176471));
+   }
+
+   75% {
+      filter: drop-shadow(20px -18px 25px rgba(64, 144, 181, 0.8980392157))
+         drop-shadow(-20px 20px 25px rgba(159, 48, 169, 0.2941176471));
+   }
+
+   to {
+      filter: drop-shadow(46px 36px 28px rgba(64, 144, 181, 0.3411764706)) drop-shadow(-55px -40px 28px #9e30a9);
+   }
+}
+.btn {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 13rem;
+   overflow: hidden;
+   height: 3rem;
+   background-size: 300% 300%;
+   backdrop-filter: blur(1rem);
+   border-radius: 5rem;
+   transition: 0.5s;
+   animation: gradient_301 5s ease infinite;
+   border: double 4px transparent;
+   background-image: linear-gradient(#212121, #212121),
+      linear-gradient(137.48deg, #ffdb3b 10%, #fe53bb 45%, #8f51ea 67%, #0044ff 87%);
+   background-origin: border-box;
+   background-clip: content-box, border-box;
+}
+
+#container-stars {
+   position: absolute;
+   z-index: -1;
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+   transition: 0.5s;
+   backdrop-filter: blur(1rem);
+   border-radius: 5rem;
+}
+
+strong {
+   z-index: 2;
+   font-family: 'Avalors Personal Use';
+   font-size: 12px;
+   letter-spacing: 5px;
+   color: #ffffff;
+   text-shadow: 0 0 4px white;
+}
+
+#glow {
+   position: absolute;
+   display: flex;
+   width: 12rem;
+}
+
+.circle {
+   width: 100%;
+   height: 30px;
+   filter: blur(2rem);
+   animation: pulse_3011 4s infinite;
+   z-index: -1;
+}
+
+.circle:nth-of-type(1) {
+   background: rgba(254, 83, 186, 0.636);
+}
+
+.circle:nth-of-type(2) {
+   background: rgba(142, 81, 234, 0.704);
+}
+
+.btn:hover #container-stars {
+   z-index: 1;
+   background-color: #212121;
+}
+
+.btn:hover {
+   transform: scale(1.1);
+}
+
+.btn:active {
+   border: double 4px #fe53bb;
+   background-origin: border-box;
+   background-clip: content-box, border-box;
+   animation: none;
+}
+
+.btn:active .circle {
+   background: #fe53bb;
+}
+
+#stars {
+   position: relative;
+   background: transparent;
+   width: 200rem;
+   height: 200rem;
+}
+
+#stars::after {
+   content: '';
+   position: absolute;
+   top: -10rem;
+   left: -100rem;
+   width: 100%;
+   height: 100%;
+   animation: animStarRotate 90s linear infinite;
+}
+
+#stars::after {
+   background-image: radial-gradient(#ffffff 1px, transparent 1%);
+   background-size: 50px 50px;
+}
+
+#stars::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: -50%;
+   width: 170%;
+   height: 500%;
+   animation: animStar 60s linear infinite;
+}
+
+#stars::before {
+   background-image: radial-gradient(#ffffff 1px, transparent 1%);
+   background-size: 50px 50px;
+   opacity: 0.5;
+}
+
+@keyframes animStar {
+   from {
+      transform: translateY(0);
+   }
+
+   to {
+      transform: translateY(-135rem);
+   }
+}
+
+@keyframes animStarRotate {
+   from {
+      transform: rotate(360deg);
+   }
+
+   to {
+      transform: rotate(0);
+   }
+}
+
+@keyframes gradient_301 {
+   0% {
+      background-position: 0% 50%;
+   }
+
+   50% {
+      background-position: 100% 50%;
+   }
+
+   100% {
+      background-position: 0% 50%;
+   }
+}
+
+@keyframes pulse_3011 {
+   0% {
+      transform: scale(0.75);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+   }
+
+   70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+   }
+
+   100% {
+      transform: scale(0.75);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+   }
+}

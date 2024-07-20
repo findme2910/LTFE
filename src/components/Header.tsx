@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button'
 import { AppContext } from '@/context/app.context'
 import { auth } from '@/firebase.ts'
 import { useUser } from '@/context/UserContext.tsx'
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa'
 const cities = [
    { name: 'Hồ Chí Minh', value: 'Ho Chi Minh' },
    { name: 'Hà Nội', value: 'Ha Noi' },
@@ -221,7 +221,6 @@ const menu = [
 ]
 
 export default function Header() {
-
    const [openCategory, setOpenCategory] = useState<boolean>(false)
    const [openCategoryMobile, setOpenCategoryMobile] = useState<boolean>(false)
    const [openMenuMobile, setOpenMenuMobile] = useState<boolean>(false)
@@ -233,17 +232,17 @@ export default function Header() {
    const [scrollingUp, setScrollingUp] = useState<boolean>(false)
    const [prevScrollPos, setPrevScrollPos] = useState<number>(0)
    const { setOpenEffect } = useContext(AppContext)
-   const { logout } = useUser();
-   const { user } = useUser();
+   const { logout } = useUser()
+   const { user } = useUser()
    const handleLogout = async () => {
       try {
-         await auth.signOut();
-         logout();
-         navigate('/');
+         await auth.signOut()
+         logout()
+         navigate('/')
       } catch (error) {
-         console.error('Error logging out: ', error);
+         console.error('Error logging out: ', error)
       }
-   };
+   }
    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
    // @ts-ignore
    const recognitionRef = useRef<SpeechRecognition | null>(null)
@@ -576,9 +575,47 @@ export default function Header() {
                         {/* Các thành phần khác */}
                         <Tippy
                            content={
-                              <div className='bg-primary-foreground p-2 rounded shadow-lg'>
-                                 <Link to='/profile' className='block px-4 py-2 hover:bg-gray-200'>Trang cá nhân</Link>
-                                 <button onClick={handleLogout} className='block w-full text-left px-4 py-2 hover:bg-gray-200'>Đăng xuất</button>
+                              <div className='bg-primary-foreground rounded shadow-lg'>
+                                 <Link
+                                    to='/profile'
+                                    className='flex items-center gap-1 px-4 py-2 hover:text-primaryColor transition-all'
+                                 >
+                                    <svg
+                                       xmlns='http://www.w3.org/2000/svg'
+                                       fill='none'
+                                       viewBox='0 0 24 24'
+                                       strokeWidth={1.5}
+                                       stroke='currentColor'
+                                       className='size-5'
+                                    >
+                                       <path
+                                          strokeLinecap='round'
+                                          strokeLinejoin='round'
+                                          d='M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z'
+                                       />
+                                    </svg>
+                                    Trang cá nhân
+                                 </Link>
+                                 <button
+                                    onClick={handleLogout}
+                                    className='flex items-center gap-1.5 w-full text-left px-4 py-2 hover:text-primaryColor transition-all'
+                                 >
+                                    <svg
+                                       xmlns='http://www.w3.org/2000/svg'
+                                       fill='none'
+                                       viewBox='0 0 24 24'
+                                       strokeWidth={1.5}
+                                       stroke='currentColor'
+                                       className='size-5'
+                                    >
+                                       <path
+                                          strokeLinecap='round'
+                                          strokeLinejoin='round'
+                                          d='M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9'
+                                       />
+                                    </svg>
+                                    Đăng xuất
+                                 </button>
                               </div>
                            }
                            interactive={true}
@@ -587,7 +624,7 @@ export default function Header() {
                         >
                            <button className='flex items-center gap-x-1 hover:text-primaryColor transition-all'>
                               {user?.photoURL ? (
-                                 <img src={user.photoURL} alt="Avatar" className='w-8 h-8 rounded-full object-cover' />
+                                 <img src={user.photoURL} alt='Avatar' className='w-8 h-8 rounded-full object-cover' />
                               ) : (
                                  <FaUserCircle className='size-6' />
                               )}

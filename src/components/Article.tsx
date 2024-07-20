@@ -17,12 +17,11 @@ import {
    TelegramShareButton,
    TelegramIcon
 } from 'react-share'
-import { useUser } from '@/context/UserContext';
-import { db } from '@/firebase.ts';
-import { collection, addDoc, query, onSnapshot,DocumentData, Timestamp  } from 'firebase/firestore';
-
+import { useUser } from '@/context/UserContext'
+import { db } from '@/firebase.ts'
+import { collection, addDoc, query, onSnapshot, DocumentData, Timestamp } from 'firebase/firestore'
 export const Article = ({ url }: { url: string }) => {
-   const {user} = useUser(); // lấy thông tin người dùng từ context
+   const { user } = useUser() // lấy thông tin người dùng từ context
    const [contents, setContents] = useState<string>('')
    const [titleArticle, setTitleArticle] = useState<string>('')
    const [descArticle, setDescArticle] = useState<string>('')
@@ -34,10 +33,11 @@ export const Article = ({ url }: { url: string }) => {
    const [comments, setComments] = useState<DocumentData[]>([]);
    const navigate = useNavigate();
    const articleId = url.split('/').pop() || ''; // url nằm ở cuối
+
    const formatDate = (timestamp: Timestamp) => {
-      const date = timestamp.toDate();
-      return date.toLocaleString();
-   };
+      const date = timestamp.toDate()
+      return date.toLocaleString()
+   }
 
    const cssContent = `
    .container {
@@ -211,15 +211,15 @@ export const Article = ({ url }: { url: string }) => {
    }, [])
    // COMMENTsssssssss
    useEffect(() => {
-      if (!articleId) return; // Nếu articleId không tồn tại, dừng lại
-      const q = query(collection(db, 'articles', articleId, 'comments'));
+      if (!articleId) return // Nếu articleId không tồn tại, dừng lại
+      const q = query(collection(db, 'articles', articleId, 'comments'))
       const unsubscribe = onSnapshot(q, (snapshot) => {
-         const commentsData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-         setComments(commentsData);
-      });
+         const commentsData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+         setComments(commentsData)
+      })
 
-      return () => unsubscribe();
-   }, [articleId]);
+      return () => unsubscribe()
+   }, [articleId])
    const handleCommentSubmit = async () => {
       if (!user) {
          const confirmLogin = window.confirm("Bạn cần phải đăng nhập trước khi bình luận. Bạn có muốn đăng nhập ngay bây giờ không?");
@@ -237,15 +237,15 @@ export const Article = ({ url }: { url: string }) => {
                userPhoto: user?.photoURL || '', // Thêm avatar người dùng
                content: comment,
                timestamp: new Date(),
-               articleTitle: titleArticle,  // Lưu tiêu đề bài báo
+               articleTitle: titleArticle, // Lưu tiêu đề bài báo
                articleId: articleId //lưu id bài báo
-            });
-            setComment('');
+            })
+            setComment('')
          } catch (error) {
-            console.error('Error adding comment:', error);
+            console.error('Error adding comment:', error)
          }
       }
-   };
+   }
    const handleReadAloud = () => {
       const speechSynthesis = window.speechSynthesis
       if (isReading) {
@@ -388,32 +388,40 @@ export const Article = ({ url }: { url: string }) => {
             }}
          />
          {/* code comment*/}
-         <div className="mt-6">
-            <h2 className="text-lg font-bold">Bình luận ({comments.length})</h2>
-            <div className="mt-4">
+         <div className='mt-6'>
+            <h2 className='text-lg font-bold'>Bình luận ({comments.length})</h2>
+            <div className='mt-4'>
                <textarea
-                  className="w-full p-2 border rounded"
-                  placeholder="Nhập bình luận"
+                  className='w-full p-2 border rounded bg-transparent'
+                  placeholder='Nhập bình luận'
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                ></textarea>
-               <button
-                  className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-                  onClick={handleCommentSubmit}
-               >
-                  Gửi bình luận
+               <button onClick={handleCommentSubmit} className='btn-send'>
+                  <div className='svg-wrapper-1'>
+                     <div className='svg-wrapper'>
+                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'>
+                           <path fill='none' d='M0 0h24v24H0z'></path>
+                           <path
+                              fill='currentColor'
+                              d='M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z'
+                           ></path>
+                        </svg>
+                     </div>
+                  </div>
+                  <span> Gửi bình luận</span>
                </button>
             </div>
-            <div className="mt-4">
+            <div className='mt-4'>
                {comments.map((cmt) => (
-                  <div key={cmt.id} className="mt-2 p-2 border rounded">
-                     <div className="flex items-center">
+                  <div key={cmt.id} className='mt-2 p-2 border rounded'>
+                     <div className='flex items-center'>
                         {cmt.userPhoto && (
-                           <img src={cmt.userPhoto} alt="avatar" className="w-8 h-8 rounded-full mr-2" />
+                           <img src={cmt.userPhoto} alt='avatar' className='w-8 h-8 rounded-full mr-2 object-cover' />
                         )}
                         <div>
-                        <div className="text-xs text-gray-600">{formatDate(cmt.timestamp)}</div>
-                        <div className="font-bold">{cmt.userName}</div>
+                           <div className='text-xs'>{formatDate(cmt.timestamp)}</div>
+                           <div className='font-bold'>{cmt.userName}</div>
                         </div>
                      </div>
                      <div>{cmt.content}</div>
