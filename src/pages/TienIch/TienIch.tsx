@@ -20,7 +20,9 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
          <ul className='flex gap-4 flex-wrap'>
             <li>
                <button
-                  className={`${activeTab === 'exchange-rate' && 'text-primaryColor'}`}
+                  className={`hover:text-primaryColor transition-all ${
+                     activeTab === 'exchange-rate' && 'text-primaryColor'
+                  }`}
                   onClick={() => setActiveTab('exchange-rate')}
                >
                   Tỷ giá ngoại tệ
@@ -28,7 +30,9 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
             </li>
             <li>
                <button
-                  className={`${activeTab === 'gold-price' && 'text-primaryColor'}`}
+                  className={`hover:text-primaryColor transition-all ${
+                     activeTab === 'gold-price' && 'text-primaryColor'
+                  }`}
                   onClick={() => setActiveTab('gold-price')}
                >
                   Giá vàng
@@ -36,7 +40,9 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
             </li>
             <li>
                <button
-                  className={`${activeTab === 'lottery-results' && 'text-primaryColor'}`}
+                  className={`hover:text-primaryColor transition-all ${
+                     activeTab === 'lottery-results' && 'text-primaryColor'
+                  }`}
                   onClick={() => setActiveTab('lottery-results')}
                >
                   Kết quả xổ số
@@ -44,7 +50,9 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
             </li>
             <li>
                <button
-                  className={`${activeTab === 'stock-market' && 'text-primaryColor'}`}
+                  className={`hover:text-primaryColor transition-all ${
+                     activeTab === 'stock-market' && 'text-primaryColor'
+                  }`}
                   onClick={() => setActiveTab('stock-market')}
                >
                   Chứng khoán
@@ -52,7 +60,9 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
             </li>
             <li>
                <button
-                  className={`${activeTab === 'tv-schedule' && 'text-primaryColor'}`}
+                  className={`hover:text-primaryColor transition-all ${
+                     activeTab === 'tv-schedule' && 'text-primaryColor'
+                  }`}
                   onClick={() => setActiveTab('tv-schedule')}
                >
                   Lịch truyền hình
@@ -60,7 +70,9 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
             </li>
             <li>
                <button
-                  className={`${activeTab === 'movie-schedule' && 'text-primaryColor'}`}
+                  className={`hover:text-primaryColor transition-all ${
+                     activeTab === 'movie-schedule' && 'text-primaryColor'
+                  }`}
                   onClick={() => setActiveTab('movie-schedule')}
                >
                   Lịch chiếu phim
@@ -68,14 +80,19 @@ const Navigation: React.FC<NavigationProps> = ({ setActiveTab, activeTab }) => {
             </li>
             <li>
                <button
-                  className={`${activeTab === 'fuel-price' && 'text-primaryColor'}`}
+                  className={`hover:text-primaryColor transition-all ${
+                     activeTab === 'fuel-price' && 'text-primaryColor'
+                  }`}
                   onClick={() => setActiveTab('fuel-price')}
                >
                   Giá xăng dầu
                </button>
             </li>
             <li>
-               <button className={`${activeTab === 'aqi' && 'text-primaryColor'}`} onClick={() => setActiveTab('aqi')}>
+               <button
+                  className={`hover:text-primaryColor transition-all ${activeTab === 'aqi' && 'text-primaryColor'}`}
+                  onClick={() => setActiveTab('aqi')}
+               >
                   AQI
                </button>
             </li>
