@@ -73,9 +73,17 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
          </h1>
          <div className='flex items-center mb-4'>
             <label className='mr-2 font-semibold text-lg'>Sắp xếp theo</label>
-            <select value={sortOption} onChange={(e) => setSortOption(e.target.value)} className='border rounded px-2 py-1 bg-transparent'>
-               <option className="bg-primary-foreground" value='mới nhất'>Mới nhất</option>
-               <option className="bg-primary-foreground" value='cũ nhất'>Cũ nhất</option>
+            <select
+               value={sortOption}
+               onChange={(e) => setSortOption(e.target.value)}
+               className='border rounded px-2 py-1 bg-transparent'
+            >
+               <option className='bg-primary-foreground' value='mới nhất'>
+                  Mới nhất
+               </option>
+               <option className='bg-primary-foreground' value='cũ nhất'>
+                  Cũ nhất
+               </option>
             </select>
          </div>
          <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>

@@ -238,7 +238,7 @@ export const Article = ({ url }: { url: string }) => {
 
       if (comment.trim() !== '') {
          try {
-             await addDoc(collection(db, 'articles', articleId, 'comments'), {
+            await addDoc(collection(db, 'articles', articleId, 'comments'), {
                userId: user?.id,
                userName: user?.displayName || 'Anonymous',
                userPhoto: user?.photoURL || '', // Thêm avatar người dùng
@@ -354,7 +354,7 @@ export const Article = ({ url }: { url: string }) => {
             <TelegramShareButton url={pathname}>
                <TelegramIcon size={40} round />
             </TelegramShareButton>
-            <button onClick={handleSaveArticle} className='btn-save text-3xl'>
+            <button onClick={handleSaveArticle} className='btn-save text-3xl text-yellow-500'>
                <FaBookmark />
             </button>
          </div>

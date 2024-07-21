@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useUser } from '@/context/UserContext'
+import Swal from 'sweetalert2'
 import {
    doc,
    onSnapshot,
@@ -95,7 +96,6 @@ const Profile: React.FC = () => {
       if (user) {
          try {
             await deleteDoc(doc(db, 'users', user.id, 'savedArticles', articleId))
-            alert('Đã xóa bài báo khỏi danh sách lưu!')
          } catch (error) {
             alert(error)
          }
@@ -115,11 +115,10 @@ const Profile: React.FC = () => {
       }
    }
    //xóa bình luận
-   const handleDeleteComment = async (commentId: string,articleId:string) => {
+   const handleDeleteComment = async (commentId: string, articleId: string) => {
       if (user) {
          try {
-            await deleteDoc(doc(db, `articles/${articleId}/comments/${commentId}`));
-            alert('Đã xóa bình luận!')
+            await deleteDoc(doc(db, `articles/${articleId}/comments/${commentId}`))
          } catch (error) {
             alert(error)
          }
@@ -493,30 +492,40 @@ const Profile: React.FC = () => {
                                  <img
                                     src={cmt.image}
                                     alt='article'
-                                    className='w-24 h-24 rounded-full mr-2 object-cover'
+                                    className='w-24 h-24 flex-shrink-0 rounded-full mr-2 object-cover'
                                  />
                               )}
-                              <div className='flex'>
-                                 <div>
+                              <div>
                                  <div className='font-bold text-blue-600 text-2xl'>{cmt.articleTitle}</div>
                                  <div className='text-sm'>
                                     {new Date(cmt.timestamp.seconds * 1000).toLocaleString()}
                                  </div>
                                  <div className='font-bold'>{cmt.userName}</div>
                                  <div>{cmt.content}</div>
-                                 </div>
-                                 <button
-                                    onClick={(e) => {
-                                       e.stopPropagation() // Ngăn chặn sự kiện chuyển hướng khi click nút "Xóa"
-                                       handleDeleteComment(cmt.id,cmt.articleId)
-                                    }}
-                                    className='text-red-500 text-xl mt-6 hover:text-red-700'
-                                 >
-                                    <FaTrash />
-                                 </button>
                               </div>
+                              <button
+                                 onClick={(e) => {
+                                    e.stopPropagation() // Ngăn chặn sự kiện chuyển hướng khi click nút "Xóa"
+                                    Swal.fire({
+                                       title: 'Bạn muốn xoá bình luận này?',
+                                       text: 'Bạn sẽ không thể hoàn tác hành động này!',
+                                       icon: 'warning',
+                                       showCancelButton: true,
+                                       confirmButtonColor: '#3085d6',
+                                       cancelButtonColor: '#d33',
+                                       confirmButtonText: 'Xoá'
+                                    }).then(async (result) => {
+                                       if (result.isConfirmed) {
+                                          handleDeleteComment(cmt.id, cmt.articleId)
+                                          Swal.fire({ text: 'Xoá thành công!', icon: 'success' })
+                                       }
+                                    })
+                                 }}
+                                 className='text-red-500 ml-auto text-xl mt-6 hover:text-red-700'
+                              >
+                                 <FaTrash />
+                              </button>
                            </div>
-
                         </div>
                      ))
                   ) : (
@@ -555,7 +564,20 @@ const Profile: React.FC = () => {
                               <button
                                  onClick={(e) => {
                                     e.stopPropagation() // Ngăn chặn sự kiện chuyển hướng khi click nút "Xóa"
-                                    handleDeleteSavedArticle(article.id)
+                                    Swal.fire({
+                                       title: 'Bạn muốn xoá bài báo này?',
+                                       text: 'Bạn sẽ không thể hoàn tác hành động này!',
+                                       icon: 'warning',
+                                       showCancelButton: true,
+                                       confirmButtonColor: '#3085d6',
+                                       cancelButtonColor: '#d33',
+                                       confirmButtonText: 'Xoá'
+                                    }).then(async (result) => {
+                                       if (result.isConfirmed) {
+                                          handleDeleteSavedArticle(article.id)
+                                          Swal.fire({ text: 'Xoá thành công!', icon: 'success' })
+                                       }
+                                    })
                                  }}
                                  className='text-red-500 text-xl mr-6 hover:text-red-700'
                               >
