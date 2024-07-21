@@ -114,6 +114,17 @@ const Profile: React.FC = () => {
          return () => unsubscribe()
       }
    }
+   //xóa bình luận
+   const handleDeleteComment = async (commentId: string,articleId:string) => {
+      if (user) {
+         try {
+            await deleteDoc(doc(db, `articles/${articleId}/comments/${commentId}`));
+            alert('Đã xóa bình luận!')
+         } catch (error) {
+            alert(error)
+         }
+      }
+   }
    // Gọi hàm fetchUserComments khi click vào tab "Hoạt động bình luận"
    useEffect(() => {
       if (currentTab === 'comment-activity') {
@@ -485,15 +496,27 @@ const Profile: React.FC = () => {
                                     className='w-24 h-24 rounded-full mr-2 object-cover'
                                  />
                               )}
-                              <div>
+                              <div className='flex'>
+                                 <div>
                                  <div className='font-bold text-blue-600 text-2xl'>{cmt.articleTitle}</div>
                                  <div className='text-sm'>
                                     {new Date(cmt.timestamp.seconds * 1000).toLocaleString()}
                                  </div>
                                  <div className='font-bold'>{cmt.userName}</div>
                                  <div>{cmt.content}</div>
+                                 </div>
+                                 <button
+                                    onClick={(e) => {
+                                       e.stopPropagation() // Ngăn chặn sự kiện chuyển hướng khi click nút "Xóa"
+                                       handleDeleteComment(cmt.id,cmt.articleId)
+                                    }}
+                                    className='text-red-500 text-xl mt-6 hover:text-red-700'
+                                 >
+                                    <FaTrash />
+                                 </button>
                               </div>
                            </div>
+
                         </div>
                      ))
                   ) : (
