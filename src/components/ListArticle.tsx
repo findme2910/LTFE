@@ -17,7 +17,7 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
    const [currentPage, setCurrentPage] = useState<number>(1)
    const [openPaginate, setOpenPaginate] = useState<boolean>(false)
    const [value, setValue] = useState<number>(1)
-
+   const [sortOption, setSortOption] = useState<string>('mới nhất')
    const navigate = useNavigate()
    const { pathname } = useLocation()
 
@@ -35,6 +35,19 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
       })
       navigate(`${pathname}?page=${selected + 1}`)
    }
+   //sort by time
+   useEffect(() => {
+      const offset = currentPage * itemsPerPage
+      let sortedItems = [...rssData]
+
+      if (sortOption === 'cũ nhất') {
+         sortedItems = sortedItems.sort((a, b) => new Date(a.pubDate).getTime() - new Date(b.pubDate).getTime())
+      } else if (sortOption === 'mới nhất') {
+         sortedItems = sortedItems.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+      }
+
+      setCurrentItems(sortedItems.slice(offset, offset + itemsPerPage))
+   }, [currentPage, rssData, sortOption])
 
    useEffect(() => {
       if (currentPage === 1) {
@@ -58,7 +71,13 @@ export const ListArticle = ({ url, title }: { url: string; title: string }) => {
             {title}
             <span className='text-lg translate-y-1'>Trang {currentPage}</span>
          </h1>
-
+         <div className='flex items-center mb-4'>
+            <label className='mr-2 font-semibold text-lg'>Sắp xếp theo</label>
+            <select value={sortOption} onChange={(e) => setSortOption(e.target.value)} className='border rounded px-2 py-1 bg-transparent'>
+               <option className="bg-primary-foreground" value='mới nhất'>Mới nhất</option>
+               <option className="bg-primary-foreground" value='cũ nhất'>Cũ nhất</option>
+            </select>
+         </div>
          <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
             {currentItems.length > 0 &&
                currentItems.map((item, index) => (
