@@ -12,23 +12,31 @@ const SearchResults: React.FC = () => {
    const [filteredResults, setFilteredResults] = useState<RSS[]>([])
    const [loading, setLoading] = useState<boolean>(true)
    const location = useLocation()
+   const [sortOption, setSortOption] = useState<string>('mới nhất')
    const query = new URLSearchParams(location.search).get('query') || ''
    const rssItems: RSS[] = useRssFeedAll(RSS_FEED_URLS)
 
    useEffect(() => {
       if (rssItems.length > 0) {
          setLoading(false)
+         let results = rssItems
+
          if (query) {
-            const results = rssItems.filter((item) => {
+            results = rssItems.filter((item) => {
                const decodedTitle = he.decode(item.title).toLowerCase()
                return decodedTitle.includes(query.toLowerCase())
             })
-            setFilteredResults(results)
-         } else {
-            setFilteredResults([])
          }
+
+         if (sortOption === 'cũ nhất') {
+            results = results.sort((a, b) => new Date(a.pubDate).getTime() - new Date(b.pubDate).getTime())
+         } else if (sortOption === 'mới nhất') {
+            results = results.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+         }
+
+         setFilteredResults(results)
       }
-   }, [query, rssItems])
+   }, [query, rssItems, sortOption])
 
    if (loading) return <LoadingSearch />
 
@@ -38,6 +46,19 @@ const SearchResults: React.FC = () => {
             <title>Kết quả tìm kiếm cho "{query}" | Báo Thanh Niên</title>
          </Helmet>
          <h1 className='text-2xl font-bold mb-4'>Kết quả tìm kiếm cho "{query}"</h1>
+         <p className='mb-4 text-xl font-semibold'>Tìm thấy {filteredResults.length} bài báo</p>
+         <div className='flex mb-4 items-center'>
+            <label className='mr-2 font-semibold text-lg'>Sắp xếp theo</label>
+            <select
+               value={sortOption}
+               onChange={(e) => setSortOption(e.target.value)}
+               className='border border-gray-300 rounded px-2 py-1 focus:outline-none focus:border-blue-500 bg-transparent '
+            >
+               <option className="bg-primary-foreground" value='mới nhất'>Mới nhất</option>
+               <option  className="bg-primary-foreground" value='cũ nhất'>Cũ nhất</option>
+            </select>
+         </div>
+
          {filteredResults.length > 0 ? (
             filteredResults.map((item) => (
                <div key={item.link} className='flex mb-4 items-start'>
