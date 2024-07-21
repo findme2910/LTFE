@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useUser } from '@/context/UserContext'
-import { doc, onSnapshot, query, updateDoc, collectionGroup, where } from 'firebase/firestore'
+import { doc, onSnapshot, query, updateDoc, collectionGroup, where, DocumentData, collection } from 'firebase/firestore'
 import { db } from '@/firebase.ts'
 import axios from 'axios'
 import { FaUser, FaLock, FaBookmark, FaEye, FaSignOutAlt, FaEyeSlash, FaComment } from 'react-icons/fa' // Import react-icons
-import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth'
+import { updatePassword, reauthenticateWithCredential, EmailAuthProvider,GoogleAuthProvider, linkWithPopup } from 'firebase/auth'
 import { auth } from '@/firebase.ts'
 import { FirebaseError } from 'firebase/app'
 import { useNavigate } from 'react-router-dom'
-
+import { FaGoogle } from 'react-icons/fa';
 // Định nghĩa kiểu dữ liệu cho comment
 interface Comment {
    id: string
@@ -16,6 +16,7 @@ interface Comment {
    content: string
    timestamp: { seconds: number; nanoseconds: number } // Chỉnh lại kiểu dữ liệu cho timestamp
    articleTitle: string
+   image: string
    articleId: string
 }
 const Profile: React.FC = () => {
@@ -44,6 +45,35 @@ const Profile: React.FC = () => {
    const [showCurrentPassword, setShowCurrentPassword] = useState(false)
    const [showNewPassword, setShowNewPassword] = useState(false)
    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+   const handleLinkWithGoogle = async () => {
+      const provider = new GoogleAuthProvider();
+      if (auth.currentUser) {
+         try {
+            await linkWithPopup(auth.currentUser, provider);
+            alert('Liên kết tài khoản Google thành công!');
+         } catch (error) {
+            alert(error)
+         }
+      }
+   };
+   //quản lý bài báo lưu
+   const [savedArticles, setSavedArticles] = useState<DocumentData[]>([]);
+   useEffect(() => {
+      if (currentTab === 'saved') {
+         fetchSavedArticles();
+      }
+   }, [currentTab]);
+   // quản lý lưu bài báo
+   const fetchSavedArticles = async () => {
+      if (user) {
+         const q = collection(db, 'users', user.id, 'savedArticles');
+         const unsubscribe = onSnapshot(q, (snapshot) => {
+            const articlesData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+            setSavedArticles(articlesData);
+         });
+         return () => unsubscribe();
+      }
+   };
    // quản lý bình luận
    const [userComments, setUserComments] = useState<Comment[]>([])
    const fetchUserComments = async () => {
@@ -168,6 +198,7 @@ const Profile: React.FC = () => {
       }
    }
 
+
    return (
       <div className='min-h-screen bg-secondary flex flex-col lg:flex-row gap-5 p-5'>
          <div className='bg-primaryColor p-6 rounded-lg shadow-lg w-full lg:w-1/4'>
@@ -218,15 +249,6 @@ const Profile: React.FC = () => {
                >
                   <FaBookmark className='w-5 h-5' />
                   <span>Tin đã lưu</span>
-               </button>
-               <button
-                  onClick={() => setCurrentTab('viewed')}
-                  className={`flex items-center gap-x-2 p-2 rounded transition-all min-w-52 ${
-                     currentTab === 'viewed' ? 'bg-blue-600' : 'hover:bg-blue-400'
-                  }`}
-               >
-                  <FaEye className='w-5 h-5' />
-                  <span>Tin đã xem</span>
                </button>
                <button
                   onClick={() => setCurrentTab('comment-activity')}
@@ -335,9 +357,9 @@ const Profile: React.FC = () => {
                      />
                   </div>
                </div>
-               <div className='mt-6'>
+               <div className='mt-6 text-right'>
                   <button
-                     className='bg-primaryColor px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition'
+                     className='bg-primaryColor px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition text-white'
                      onClick={handleSave}
                      disabled={uploading}
                   >
@@ -345,6 +367,14 @@ const Profile: React.FC = () => {
                   </button>
                   {success && <div className='text-green-500 mt-4'>Lưu thành công!</div>}
                </div>
+               {/*liên kết google*/}
+               <button
+                  onClick={handleLinkWithGoogle}
+                  className="flex items-center gap-x-2 p-2 rounded-md transition-all border border-gray-300 hover:border-gray-400 hover:bg-gray-100 mt-4"
+               >
+                  <FaGoogle className="w-5 h-5 text-red-600" />
+                  <span className="text-sm font-semibold">Tài khoản Google</span>
+               </button>
             </div>
          )}
          {currentTab === 'change-password' && (
@@ -420,16 +450,51 @@ const Profile: React.FC = () => {
                            className='mt-2 p-2 border rounded cursor-pointer'
                            onClick={() => handleArticleClick(cmt.articleId)}
                         >
-                           <div className='font-bold text-blue-600 text-2xl'>{cmt.articleTitle}</div>
-                           <div className='text-sm text-gray-600'>
-                              {new Date(cmt.timestamp.seconds * 1000).toLocaleString()}
+                           <div className="flex items-center">
+                              {cmt.image && (
+                                 <img src={cmt.image} alt="article" className="w-24 h-24 rounded-full mr-2 object-cover" />
+                              )}
+                              <div>
+                                 <div className='font-bold text-blue-600 text-2xl'>{cmt.articleTitle}</div>
+                                 <div className='text-sm text-gray-600'>
+                                    {new Date(cmt.timestamp.seconds * 1000).toLocaleString()}
+                                 </div>
+                                 <div className='font-bold'>{cmt.userName}</div>
+                                 <div>{cmt.content}</div>
+                              </div>
                            </div>
-                           <div className='font-bold'>{cmt.userName}</div>
-                           <div>{cmt.content}</div>
                         </div>
                      ))
                   ) : (
                      <div>Bạn chưa có bình luận nào.</div>
+                  )}
+               </div>
+            </div>
+         )}
+         {currentTab === 'saved' && (
+            <div className="bg-white p-6 rounded-lg shadow-lg w-3/4 ml-5">
+               <h2 className="text-lg font-bold">Tin đã lưu</h2>
+               <div className="mt-4">
+                  {savedArticles.length > 0 ? (
+                     savedArticles.map((article) => (
+                        <div
+                           key={article.id}
+                           className="mt-2 p-2 border rounded cursor-pointer"
+                           onClick={() => handleArticleClick(article.articleId)} // Thêm sự kiện onClick để chuyển hướng
+                        >
+                           <div className="flex items-center">
+                              {article.image && (
+                                 <img src={article.image} alt="article" className="w-24 h-24 rounded-full mr-2 object-cover" />
+                              )}
+                              <div>
+                                 <div className="text-sm">{new Date(article.timestamp.seconds * 1000).toLocaleString()}</div>
+                                 <div className="font-bold text-xl">{article.title}</div>
+                              </div>
+                           </div>
+                        </div>
+                     ))
+                  ) : (
+                     <div>Bạn chưa lưu bài báo nào.</div>
                   )}
                </div>
             </div>

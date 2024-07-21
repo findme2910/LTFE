@@ -6,6 +6,7 @@ import LoadingDetail from '@/components/LoadingDetail'
 import ParticlesBg from '@/components/ParticlesBg'
 import { UserProvider } from '@/context/UserContext'
 import Profile from '@/pages/Profile/Profile.tsx'
+import ForgotPassword from '@/pages/QuenMatKhau/QuenMatKhau.tsx'
 const Detail = lazy(() => import('@/pages/Detail/Detail'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 const NotFound = lazy(() => import('@/pages/NotFound/NotFound'))
@@ -49,11 +50,12 @@ const SearchResults = lazy(() => import('@/pages/Timkiem/TimKiem.tsx'))
 const TienIch = lazy(() => import('@/pages/TienIch/TienIch.tsx'))
 function App() {
    const location = useLocation()
-   const isLoginPage = location.pathname === '/'
+   const isLoginPage = location.pathname === '/' ;
+   const forgotPassword =location.pathname === '/quen-mat-khau';
    return (
       <UserProvider>
-         {!isLoginPage && <Header />}
-         {!isLoginPage && <ParticlesBg />}
+         {!isLoginPage && !forgotPassword && <Header />}
+         {!isLoginPage && !forgotPassword && <ParticlesBg />}
          <main className={`${!isLoginPage && `container py-5 min-h-screen mt-14 lg:mt-[100px]`} `}>
             <Suspense fallback={<LoadingDetail />}>
                <Routes>
@@ -99,11 +101,12 @@ function App() {
                   <Route path='/viec-lam' element={<ViecLam />} />
                   <Route path='/search' element={<SearchResults />} />
                   <Route path='/profile' element={<Profile />} />
+                  <Route path='/quen-mat-khau' element={<ForgotPassword />} />
                </Routes>
             </Suspense>
          </main>
-         {!isLoginPage && <Footer />}
-         {!isLoginPage && (
+         {!isLoginPage && !forgotPassword && <Footer />}
+         {!isLoginPage &&  !forgotPassword &&(
             <div
                onClick={() =>
                   window.scrollTo({
