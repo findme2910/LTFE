@@ -50,8 +50,8 @@ const SearchResults = lazy(() => import('@/pages/Timkiem/TimKiem.tsx'))
 const TienIch = lazy(() => import('@/pages/TienIch/TienIch.tsx'))
 function App() {
    const location = useLocation()
-   const isLoginPage = location.pathname === '/' ;
-   const forgotPassword =location.pathname === '/quen-mat-khau';
+   const isLoginPage = location.pathname === '/'
+   const forgotPassword = location.pathname === '/quen-mat-khau'
    return (
       <UserProvider>
          {!isLoginPage && !forgotPassword && <Header />}
@@ -106,7 +106,7 @@ function App() {
             </Suspense>
          </main>
          {!isLoginPage && !forgotPassword && <Footer />}
-         {!isLoginPage &&  !forgotPassword &&(
+         {!isLoginPage && !forgotPassword && (
             <div
                onClick={() =>
                   window.scrollTo({
