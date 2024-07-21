@@ -1,5 +1,5 @@
 import './login.css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUser } from '@/context/UserContext'
 import {
    createUserWithEmailAndPassword,
@@ -26,7 +26,7 @@ export default function Login() {
    const [action, setAction] = useState('Login')
    const [error, setError] = useState('')
    const navigate = useNavigate()
-   const { setUser } = useUser()
+   const { setUser, user } = useUser()
    const handleActionChange = (newAction: string) => {
       setAction(newAction)
       setError('')
@@ -158,6 +158,12 @@ export default function Login() {
          setError(firebaseError.message)
       }
    }
+
+   useEffect(() => {
+      if (user) {
+         navigate('/home')
+      }
+   }, [user])
 
    return (
       <div className='login'>

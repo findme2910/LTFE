@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useUser } from '@/context/UserContext'
-import { doc, onSnapshot, query, updateDoc, collectionGroup, where, DocumentData, collection, deleteDoc } from 'firebase/firestore'
+import {
+   doc,
+   onSnapshot,
+   query,
+   updateDoc,
+   collectionGroup,
+   where,
+   DocumentData,
+   collection,
+   deleteDoc
+} from 'firebase/firestore'
 import { db } from '@/firebase.ts'
 import axios from 'axios'
 import { FaUser, FaLock, FaBookmark, FaEye, FaSignOutAlt, FaEyeSlash, FaComment, FaTrash } from 'react-icons/fa' // Import react-icons
@@ -84,13 +94,13 @@ const Profile: React.FC = () => {
    const handleDeleteSavedArticle = async (articleId: string) => {
       if (user) {
          try {
-            await deleteDoc(doc(db, 'users', user.id, 'savedArticles', articleId));
-            alert('Đã xóa bài báo khỏi danh sách lưu!');
+            await deleteDoc(doc(db, 'users', user.id, 'savedArticles', articleId))
+            alert('Đã xóa bài báo khỏi danh sách lưu!')
          } catch (error) {
-            alert(error);
+            alert(error)
          }
       }
-   };
+   }
 
    // quản lý bình luận
    const [userComments, setUserComments] = useState<Comment[]>([])
@@ -102,6 +112,17 @@ const Profile: React.FC = () => {
             setUserComments(commentsData)
          })
          return () => unsubscribe()
+      }
+   }
+   //xóa bình luận
+   const handleDeleteComment = async (commentId: string,articleId:string) => {
+      if (user) {
+         try {
+            await deleteDoc(doc(db, `articles/${articleId}/comments/${commentId}`));
+            alert('Đã xóa bình luận!')
+         } catch (error) {
+            alert(error)
+         }
       }
    }
    // Gọi hàm fetchUserComments khi click vào tab "Hoạt động bình luận"
@@ -475,15 +496,27 @@ const Profile: React.FC = () => {
                                     className='w-24 h-24 rounded-full mr-2 object-cover'
                                  />
                               )}
-                              <div>
+                              <div className='flex'>
+                                 <div>
                                  <div className='font-bold text-blue-600 text-2xl'>{cmt.articleTitle}</div>
                                  <div className='text-sm'>
                                     {new Date(cmt.timestamp.seconds * 1000).toLocaleString()}
                                  </div>
                                  <div className='font-bold'>{cmt.userName}</div>
                                  <div>{cmt.content}</div>
+                                 </div>
+                                 <button
+                                    onClick={(e) => {
+                                       e.stopPropagation() // Ngăn chặn sự kiện chuyển hướng khi click nút "Xóa"
+                                       handleDeleteComment(cmt.id,cmt.articleId)
+                                    }}
+                                    className='text-red-500 text-xl mt-6 hover:text-red-700'
+                                 >
+                                    <FaTrash />
+                                 </button>
                               </div>
                            </div>
+
                         </div>
                      ))
                   ) : (
@@ -493,7 +526,7 @@ const Profile: React.FC = () => {
             </div>
          )}
          {currentTab === 'saved' && (
-            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-3/4 ml-5'>
+            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-full lg:w-3/4'>
                <h2 className='text-lg font-bold'>Tin đã lưu</h2>
                <div className='mt-4'>
                   {savedArticles.length > 0 ? (
@@ -521,8 +554,8 @@ const Profile: React.FC = () => {
                               </div>
                               <button
                                  onClick={(e) => {
-                                    e.stopPropagation(); // Ngăn chặn sự kiện chuyển hướng khi click nút "Xóa"
-                                    handleDeleteSavedArticle(article.id);
+                                    e.stopPropagation() // Ngăn chặn sự kiện chuyển hướng khi click nút "Xóa"
+                                    handleDeleteSavedArticle(article.id)
                                  }}
                                  className='text-red-500 text-xl mr-6 hover:text-red-700'
                               >
@@ -537,7 +570,6 @@ const Profile: React.FC = () => {
                </div>
             </div>
          )}
-
       </div>
    )
 }
