@@ -4,11 +4,17 @@ import { doc, onSnapshot, query, updateDoc, collectionGroup, where, DocumentData
 import { db } from '@/firebase.ts'
 import axios from 'axios'
 import { FaUser, FaLock, FaBookmark, FaEye, FaSignOutAlt, FaEyeSlash, FaComment } from 'react-icons/fa' // Import react-icons
-import { updatePassword, reauthenticateWithCredential, EmailAuthProvider,GoogleAuthProvider, linkWithPopup } from 'firebase/auth'
+import {
+   updatePassword,
+   reauthenticateWithCredential,
+   EmailAuthProvider,
+   GoogleAuthProvider,
+   linkWithPopup
+} from 'firebase/auth'
 import { auth } from '@/firebase.ts'
 import { FirebaseError } from 'firebase/app'
 import { useNavigate } from 'react-router-dom'
-import { FaGoogle } from 'react-icons/fa';
+import { FaGoogle } from 'react-icons/fa'
 // Định nghĩa kiểu dữ liệu cho comment
 interface Comment {
    id: string
@@ -46,34 +52,34 @@ const Profile: React.FC = () => {
    const [showNewPassword, setShowNewPassword] = useState(false)
    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
    const handleLinkWithGoogle = async () => {
-      const provider = new GoogleAuthProvider();
+      const provider = new GoogleAuthProvider()
       if (auth.currentUser) {
          try {
-            await linkWithPopup(auth.currentUser, provider);
-            alert('Liên kết tài khoản Google thành công!');
+            await linkWithPopup(auth.currentUser, provider)
+            alert('Liên kết tài khoản Google thành công!')
          } catch (error) {
             alert(error)
          }
       }
-   };
+   }
    //quản lý bài báo lưu
-   const [savedArticles, setSavedArticles] = useState<DocumentData[]>([]);
+   const [savedArticles, setSavedArticles] = useState<DocumentData[]>([])
    useEffect(() => {
       if (currentTab === 'saved') {
-         fetchSavedArticles();
+         fetchSavedArticles()
       }
-   }, [currentTab]);
+   }, [currentTab])
    // quản lý lưu bài báo
    const fetchSavedArticles = async () => {
       if (user) {
-         const q = collection(db, 'users', user.id, 'savedArticles');
+         const q = collection(db, 'users', user.id, 'savedArticles')
          const unsubscribe = onSnapshot(q, (snapshot) => {
-            const articlesData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-            setSavedArticles(articlesData);
-         });
-         return () => unsubscribe();
+            const articlesData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+            setSavedArticles(articlesData)
+         })
+         return () => unsubscribe()
       }
-   };
+   }
    // quản lý bình luận
    const [userComments, setUserComments] = useState<Comment[]>([])
    const fetchUserComments = async () => {
@@ -197,7 +203,6 @@ const Profile: React.FC = () => {
          }
       }
    }
-
 
    return (
       <div className='min-h-screen bg-secondary flex flex-col lg:flex-row gap-5 p-5'>
@@ -370,10 +375,10 @@ const Profile: React.FC = () => {
                {/*liên kết google*/}
                <button
                   onClick={handleLinkWithGoogle}
-                  className="flex items-center gap-x-2 p-2 rounded-md transition-all border border-gray-300 hover:border-gray-400 hover:bg-gray-100 mt-4"
+                  className='flex items-center gap-x-2 p-2 rounded-md transition-all border border-gray-300 hover:border-gray-400  mt-4'
                >
-                  <FaGoogle className="w-5 h-5 text-red-600" />
-                  <span className="text-sm font-semibold">Tài khoản Google</span>
+                  <FaGoogle className='w-5 h-5 text-red-600' />
+                  <span className='text-sm font-semibold'>Tài khoản Google</span>
                </button>
             </div>
          )}
@@ -450,13 +455,17 @@ const Profile: React.FC = () => {
                            className='mt-2 p-2 border rounded cursor-pointer'
                            onClick={() => handleArticleClick(cmt.articleId)}
                         >
-                           <div className="flex items-center">
+                           <div className='flex items-center'>
                               {cmt.image && (
-                                 <img src={cmt.image} alt="article" className="w-24 h-24 rounded-full mr-2 object-cover" />
+                                 <img
+                                    src={cmt.image}
+                                    alt='article'
+                                    className='w-24 h-24 rounded-full mr-2 object-cover'
+                                 />
                               )}
                               <div>
                                  <div className='font-bold text-blue-600 text-2xl'>{cmt.articleTitle}</div>
-                                 <div className='text-sm text-gray-600'>
+                                 <div className='text-sm'>
                                     {new Date(cmt.timestamp.seconds * 1000).toLocaleString()}
                                  </div>
                                  <div className='font-bold'>{cmt.userName}</div>
@@ -472,23 +481,29 @@ const Profile: React.FC = () => {
             </div>
          )}
          {currentTab === 'saved' && (
-            <div className="bg-white p-6 rounded-lg shadow-lg w-3/4 ml-5">
-               <h2 className="text-lg font-bold">Tin đã lưu</h2>
-               <div className="mt-4">
+            <div className='bg-primary-foreground p-6 rounded-lg shadow-lg w-3/4 ml-5'>
+               <h2 className='text-lg font-bold'>Tin đã lưu</h2>
+               <div className='mt-4'>
                   {savedArticles.length > 0 ? (
                      savedArticles.map((article) => (
                         <div
                            key={article.id}
-                           className="mt-2 p-2 border rounded cursor-pointer"
+                           className='mt-2 p-2 border rounded cursor-pointer'
                            onClick={() => handleArticleClick(article.articleId)} // Thêm sự kiện onClick để chuyển hướng
                         >
-                           <div className="flex items-center">
+                           <div className='flex items-center'>
                               {article.image && (
-                                 <img src={article.image} alt="article" className="w-24 h-24 rounded-full mr-2 object-cover" />
+                                 <img
+                                    src={article.image}
+                                    alt='article'
+                                    className='w-24 h-24 rounded-full mr-2 object-cover'
+                                 />
                               )}
                               <div>
-                                 <div className="text-sm">{new Date(article.timestamp.seconds * 1000).toLocaleString()}</div>
-                                 <div className="font-bold text-xl">{article.title}</div>
+                                 <div className='text-sm'>
+                                    {new Date(article.timestamp.seconds * 1000).toLocaleString()}
+                                 </div>
+                                 <div className='font-bold text-xl'>{article.title}</div>
                               </div>
                            </div>
                         </div>
