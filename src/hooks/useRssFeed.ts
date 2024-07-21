@@ -6,6 +6,8 @@ export interface RSS {
    image: string
    pubDate: string
 }
+// URL của proxy trên máy cục bộ
+const proxyUrl = 'http://localhost:8080/';
 export const useRssFeed = (url: string) => {
    const [rssItems, setRssItems] = useState<RSS[]>([])
 
@@ -13,7 +15,8 @@ export const useRssFeed = (url: string) => {
       const fetchRSS = async () => {
          try {
             //Lấy dữ liệu từ Rss feed
-            const response = await fetch('https://cors-anywhere.herokuapp.com/https://thanhnien.vn/rss/' + url + '.rss')
+            const response = await fetch(proxyUrl +'https://thanhnien.vn/rss/' +encodeURIComponent(url) + '.rss');
+
             const text = await response.text()
 
             // parse dữ liệu xml
@@ -56,7 +59,7 @@ export const useRssFeedAll = (urls: string[]) => {
    useEffect(() => {
       const fetchRSS = async (url: string) => {
          try {
-            const response = await fetch('https://cors-anywhere.herokuapp.com/https://thanhnien.vn/rss/' + url + '.rss')
+            const response = await fetch(proxyUrl+'https://thanhnien.vn/rss/' + encodeURIComponent(url) + '.rss')
             const text = await response.text()
             const parser = new DOMParser()
             const xml = parser.parseFromString(text, 'text/xml')

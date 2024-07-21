@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useUser } from '@/context/UserContext'
-import { doc, onSnapshot, query, updateDoc, collectionGroup, where, DocumentData, collection } from 'firebase/firestore'
+import { doc, onSnapshot, query, updateDoc, collectionGroup, where, DocumentData, collection, deleteDoc } from 'firebase/firestore'
 import { db } from '@/firebase.ts'
 import axios from 'axios'
-import { FaUser, FaLock, FaBookmark, FaEye, FaSignOutAlt, FaEyeSlash, FaComment } from 'react-icons/fa' // Import react-icons
+import { FaUser, FaLock, FaBookmark, FaEye, FaSignOutAlt, FaEyeSlash, FaComment, FaTrash } from 'react-icons/fa' // Import react-icons
 import {
    updatePassword,
    reauthenticateWithCredential,
@@ -80,6 +80,18 @@ const Profile: React.FC = () => {
          return () => unsubscribe()
       }
    }
+   //xóa bài báo đã lưu
+   const handleDeleteSavedArticle = async (articleId: string) => {
+      if (user) {
+         try {
+            await deleteDoc(doc(db, 'users', user.id, 'savedArticles', articleId));
+            alert('Đã xóa bài báo khỏi danh sách lưu!');
+         } catch (error) {
+            alert(error);
+         }
+      }
+   };
+
    // quản lý bình luận
    const [userComments, setUserComments] = useState<Comment[]>([])
    const fetchUserComments = async () => {
@@ -491,20 +503,31 @@ const Profile: React.FC = () => {
                            className='mt-2 p-2 border rounded cursor-pointer'
                            onClick={() => handleArticleClick(article.articleId)} // Thêm sự kiện onClick để chuyển hướng
                         >
-                           <div className='flex items-center'>
-                              {article.image && (
-                                 <img
-                                    src={article.image}
-                                    alt='article'
-                                    className='w-24 h-24 rounded-full mr-2 object-cover'
-                                 />
-                              )}
-                              <div>
-                                 <div className='text-sm'>
-                                    {new Date(article.timestamp.seconds * 1000).toLocaleString()}
+                           <div className='flex items-center justify-between'>
+                              <div className='flex items-center'>
+                                 {article.image && (
+                                    <img
+                                       src={article.image}
+                                       alt='article'
+                                       className='w-24 h-24 rounded-full mr-2 object-cover'
+                                    />
+                                 )}
+                                 <div>
+                                    <div className='text-sm'>
+                                       {new Date(article.timestamp.seconds * 1000).toLocaleString()}
+                                    </div>
+                                    <div className='font-bold text-xl'>{article.title}</div>
                                  </div>
-                                 <div className='font-bold text-xl'>{article.title}</div>
                               </div>
+                              <button
+                                 onClick={(e) => {
+                                    e.stopPropagation(); // Ngăn chặn sự kiện chuyển hướng khi click nút "Xóa"
+                                    handleDeleteSavedArticle(article.id);
+                                 }}
+                                 className='text-red-500 text-xl mr-6 hover:text-red-700'
+                              >
+                                 <FaTrash />
+                              </button>
                            </div>
                         </div>
                      ))
@@ -514,6 +537,7 @@ const Profile: React.FC = () => {
                </div>
             </div>
          )}
+
       </div>
    )
 }
